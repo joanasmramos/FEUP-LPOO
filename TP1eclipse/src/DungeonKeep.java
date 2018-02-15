@@ -23,7 +23,6 @@ public class DungeonKeep {
 			}
 		}
 	}
-		
 	
 	public static int move(char grid[][], Scanner scanner, int hero[]) {
 		System.out.println("Enter a command: \n W - up \n S - down \n A - left \n D - right");
@@ -38,22 +37,23 @@ public class DungeonKeep {
 				grid[hero[0]][hero[1]] = ' ';
 				hero[0]--;
 			}
-			else if(grid[hero[0]-1][hero[1]] == 'I')
-				System.out.println("The door is closed");
-			else if(grid[hero[0]-1][hero[1]] == 'X')
-				System.out.println("That's a wall");
-			break;
 			
-		case 'W':
-			if(grid[hero[0]-1][hero[1]] == ' ') {
-				grid[hero[0]-1][hero[1]]= 'H';
-				grid[hero[0]][hero[1]] = ' ';
-				hero[0]--;
+			else if(grid[hero[0]-1][hero[1]] == 'K') {
+				System.out.println("You opened all doors");
+				openDoors(grid);
 			}
+			
+			else if(grid[hero[0]-1][hero[1]] == 'S') {
+				System.out.println("Congratulations, you escaped!");
+				return 1;
+			}
+			
 			else if(grid[hero[0]-1][hero[1]] == 'I')
 				System.out.println("The door is closed");
+			
 			else if(grid[hero[0]-1][hero[1]] == 'X')
 				System.out.println("That's a wall");
+			
 			break;
 		
 		case 's':
@@ -62,22 +62,23 @@ public class DungeonKeep {
 				grid[hero[0]][hero[1]] = ' ';
 				hero[0]++;
 			}
-			else if(grid[hero[0]+1][hero[1]] == 'I')
-				System.out.println("The door is closed");
-			else if(grid[hero[0]+1][hero[1]] == 'X')
-				System.out.println("That's a wall");
-			break;
 			
-		case 'S':
-			if(grid[hero[0]+1][hero[1]] == ' ') {
-				grid[hero[0]+1][hero[1]]= 'H';
-				grid[hero[0]][hero[1]] = ' ';
-				hero[0]++;
+			else if(grid[hero[0]+1][hero[1]] == 'K') {
+				System.out.println("You opened all doors");
+				openDoors(grid);
 			}
+			
+			else if(grid[hero[0]+1][hero[1]] == 'S') {
+				System.out.println("Congratulations, you escaped!");
+				return 1;
+			}
+			
 			else if(grid[hero[0]+1][hero[1]] == 'I')
 				System.out.println("The door is closed");
+			
 			else if(grid[hero[0]+1][hero[1]] == 'X')
 				System.out.println("That's a wall");
+			
 			break;
 		
 		case 'a':
@@ -86,22 +87,23 @@ public class DungeonKeep {
 				grid[hero[0]][hero[1]] = ' ';
 				hero[1]--;
 			}
-			else if(grid[hero[0]][hero[1]-1] == 'I')
-				System.out.println("The door is closed");
-			else if(grid[hero[0]][hero[1]-1] == 'X')
-				System.out.println("That's a wall");
-			break;
 			
-		case 'A':
-			if(grid[hero[0]][hero[1]-1]==' ') {
-				grid[hero[0]][hero[1]-1] = 'H';
-				grid[hero[0]][hero[1]] = ' ';
-				hero[1]--;
+			else if(grid[hero[0]][hero[1]-1] == 'K') {
+				System.out.println("You opened all doors");
+				openDoors(grid);
 			}
+			
+			else if(grid[hero[0]][hero[1]-1] == 'S') {
+				System.out.println("Congratulations, you escaped!");
+				return 1;
+			}
+			
 			else if(grid[hero[0]][hero[1]-1] == 'I')
 				System.out.println("The door is closed");
+			
 			else if(grid[hero[0]][hero[1]-1] == 'X')
 				System.out.println("That's a wall");
+			
 			break;
 			
 		case 'd':
@@ -110,13 +112,25 @@ public class DungeonKeep {
 				grid[hero[0]][hero[1]] = ' ';
 				hero[1]++;
 			}
+			
+			else if(grid[hero[0]][hero[1]+1] == 'K') {
+				System.out.println("You opened all doors");
+				openDoors(grid);
+			}
+			
+			else if(grid[hero[0]][hero[1]+1] == 'S') {
+				System.out.println("Congratulations, you escaped!");
+				return 1;
+			}
+			
 			else if(grid[hero[0]][hero[1]+1] == 'I')
 				System.out.println("The door is closed");
+			
 			else if(grid[hero[0]][hero[1]+1]== 'X')
 				System.out.println("That's a wall");
+			
 			break;
 	
-			
 			default: 
 				break;
 	}
@@ -127,6 +141,7 @@ public class DungeonKeep {
 	}
 	
 	public static void main(String[] args) {
+		
 		Scanner scanner = new Scanner(System.in);
 		char grid[][] = {
 				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -145,9 +160,9 @@ public class DungeonKeep {
 		printGrid(grid);
 		
 		while(true) {
-		move(grid, scanner, hero);
+		if(move(grid, scanner, hero) == 1)
+			break;
 		}
-		
-
+	
 	} 
 }
