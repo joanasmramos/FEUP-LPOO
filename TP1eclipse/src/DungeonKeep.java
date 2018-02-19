@@ -30,13 +30,13 @@ public class DungeonKeep {
         }
     }
 
-    public static int checkForGuard(int hero[], int guard[]) {
-        if(hero[0] == guard[0])
-            if(hero[1]+1 == guard[1] || hero[1]-1 == guard[1])
+    public static int checkIfCaught(int hero[], int villain[]) {
+        if(hero[0] == villain[0])
+            if(hero[1]+1 == villain[1] || hero[1]-1 == villain[1])
                 return 1;
 
-        if(hero[1] == guard[1])
-            if(hero[0]+1 == guard[0] || hero[0]-1 == guard[0])
+        if(hero[1] == villain[1])
+            if(hero[0]+1 == villain[0] || hero[0]-1 == villain[0])
                 return 1;
 
         return 0;
@@ -148,7 +148,7 @@ public class DungeonKeep {
         mov=Character.toLowerCase(mov);
 
         if(moveChar(mov, grid, hero) == 1) {
-            mov=Character.toLowerCase(guardTraject[guardInd[0]]);
+            System.out.println(hero[0] + " " + hero[1]);
 
             moveChar(mov, grid, guard);
 
@@ -177,10 +177,8 @@ public class DungeonKeep {
         return 0;
     }
 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        char grid[][] = {
+    public static int level1(int hero[], Scanner scanner){
+        char l1_grid[][] = {
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
                 {'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
                 {'X', 'X', 'X',' ', 'X', 'X', 'X', ' ', ' ', 'X'},
@@ -192,24 +190,57 @@ public class DungeonKeep {
                 {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X'},
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
         };
-        int hero[] = {1,1};
+
         int guard[] = {1, 8};
         char guardTraject[] = {'A','S','S','S','S','A','A','A','A','A', 'A', 'S','D','D','D','D','D','D','D',
                 'W','W','W','W','W'};
         int guardInd[] = {0};
 
-        printGrid(grid, hero, guard);
+
+        printGrid(l1_grid, hero, guard);
 
         while(true) {
-            if(move(grid, scanner, hero, guard, guardTraject, guardInd) == 1) {
-                System.out.println("Congratulations, you escaped!");
+            if(move(l1_grid, scanner, hero, guard, guardTraject, guardInd) == 1) {
+                level2(hero, scanner);
                 break;
             }
-            if(checkForGuard(hero, guard) == 1) {
+            if(checkIfCaught(hero, guard) == 1) {
                 System.out.println("The guard caught you! You lost");
                 break;
             }
         }
+        return 1;
+    }
+
+    public static int level2(int hero[], Scanner scanner){
+        char l2_grid[][] = {
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'k','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ','X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+        };
+
+        hero[0] = 1;
+        hero[1] = 8;
+        int ogre[] = {5,1};
+        System.out.println("\n \n Level 2");
+        return 1;
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int hero[] = {1,1};
+
+        level1(hero, scanner);
 
     }
 }
