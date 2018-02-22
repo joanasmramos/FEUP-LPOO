@@ -67,6 +67,7 @@ public class DungeonKeep {
             if(hero[0]+1 == villain[0] || hero[0]-1 == villain[0])
                 return 1;
 
+
         return 0;
     }
     
@@ -160,7 +161,7 @@ public class DungeonKeep {
                 club[0] = ogre[0];
                 club[1] = ogre[1]-1;
 
-            default: return;
+            default:return;
 
         }
     }
@@ -408,6 +409,10 @@ public class DungeonKeep {
         	
             if(checkIfCaught(hero, ogre) == 1) {
                 System.out.println("The ogre destroyed you! You lost");
+                break;
+            }
+            if(checkIfCaught(hero, club) == 1) {
+                System.out.println("The ogre's club destroyed you! You lost");
                 break;
             }
         	
