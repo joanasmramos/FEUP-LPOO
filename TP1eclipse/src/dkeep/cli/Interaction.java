@@ -6,25 +6,12 @@ import dkeep.logic.*;
 
 public class Interaction {
 	
-	public enum Level {ONE, TWO;}
-	public enum Event {VICTORY, LOSS, LVLUP;}
-	<>
-	private Level level;
-	private Scanner scanner;
+	static Scanner scanner = new Scanner(System.in);
 	
-	public Interaction(Level level) {
-		this.level = level;
-		scanner = new Scanner(System.in);
-	}
-	
-	public Level getLevel() {
-		return this.level;
-	}
-
-	public char askCommand() {
+	public static char askCommand() {
 		System.out.println("Enter a command: \n W - up \n S - down \n A - left \n D - right");
 		
-        char mov = this.scanner.next().charAt(0);
+        char mov = scanner.next().charAt(0);
         mov=Character.toLowerCase(mov);
         
         return mov;
@@ -34,24 +21,19 @@ public class Interaction {
 		System.out.println(message);
 	}
 	
-	public void printMap() {
-		
-	}
-	
-	public static Event runGame() {
+	public void printMap(char map[][]) {
+		for(int i=0; i<map.length; i++) {
+			for(int j=0; j<map[i].length; j++) {
+				System.out.print(map[i][j]);
+			}
+		}
 	}
 	
 	public static void main(String args[]) {
-		if(runGame() == Event.LOSS){
-			promptMsg("You lost, good luck next time!");
-		}
 		
-		if(runGame() == Event.VICTORY) {
-			promptMsg("You won, congratulations!");
-		}
 		
-		if(runGame() == Event.LVLUP) {
-			promptMsg("On to the next level, good luck!");
-		}
+		
+		
+		
 	}
 }
