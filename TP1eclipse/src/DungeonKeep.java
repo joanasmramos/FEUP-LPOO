@@ -21,7 +21,7 @@ public class DungeonKeep {
         System.out.println();
     }
     
-    public static void printGridlv2(char grid[][], int hero[], int ogre[]) {
+    public static void printGridlv2(char grid[][], int hero[], int ogre[],int club[]) {
         for(int i=0;i<10;i++) {
             for(int j=0; j<10;j++) {
                 if(i==hero[0] && j == hero[1])
@@ -35,6 +35,11 @@ public class DungeonKeep {
                     if(ogre[0]==1 && ogre[1]==7)  // ogre is in the key position
                     	System.out.print("$ ");
                     else System.out.print("O ");
+
+                else if(i==club[0] && j==club[1])
+                    if(club[0]==1 && club[1]==7)  // club// is in the key position
+                        System.out.print("$ ");
+                    else System.out.print("* ");
 
                 else System.out.print(grid[i][j] + " ");
             }
@@ -136,6 +141,29 @@ public class DungeonKeep {
     		
     	return -1;
     }
+
+    public static void throwClub(char grid[][], int ogre[], int club[], Random rand){
+        switch (ogreDirection(rand)){
+            case 'w':
+                club[0] = ogre[0]-1;
+                club[1] = ogre[1];
+                return;
+            case 's':
+                club[0] = ogre[0]+1;
+                club[1] = ogre[1];
+                return;
+            case 'd':
+                club[0] = ogre[0];
+                club[1] = ogre[1]+1;
+                return;
+            case 'a':
+                club[0] = ogre[0];
+                club[1] = ogre[1]-1;
+
+            default: return;
+
+        }
+    }
     
     public static int moveOgreLv2(char grid[][], int character[], char dir) {
     	if(checkObstacle(grid, character, ' ', dir) || checkObstacle(grid, character, 'k', dir)) {
@@ -150,7 +178,7 @@ public class DungeonKeep {
     	return -1;
     }
     
-    public static int moveCharsLv2(char grid[][], int hero[], int ogre[], char dir, Random rand) {
+    public static int moveCharsLv2(char grid[][], int hero[], int ogre[], int club[], char dir, Random rand) {
     	if (moveHeroLv2(grid, hero, dir) == 1)
     		return 1;
     	
@@ -158,23 +186,24 @@ public class DungeonKeep {
     	
     	while(moveOgreLv2(grid, ogre, ogreDir)==1)
     		ogreDir=ogreDirection(rand);
+        throwClub(grid, ogre, club, rand);
     		
     	return 0;
     
     }
     
-    public static int moveLv2(char grid[][], Scanner scanner, Random rand, int hero[], int ogre[]) {
+    public static int moveLv2(char grid[][], Scanner scanner, Random rand, int hero[], int ogre[], int club[]) {
         System.out.println("Enter a command: \n W - up \n S - down \n A - left \n D - right");
 
         char dir = scanner.next().charAt(0);
         dir=Character.toLowerCase(dir);
         
-        if(moveCharsLv2(grid,hero,ogre,dir,rand)==1) {
-        	printGridlv2(grid, hero, ogre);
+        if(moveCharsLv2(grid,hero,ogre,club, dir,rand)==1) {
+        	printGridlv2(grid, hero, ogre, club);
         	return 1;
         }
         else {
-        	printGridlv2(grid, hero, ogre);
+        	printGridlv2(grid, hero, ogre, club);
         	return 0;
         }
         
@@ -364,14 +393,15 @@ public class DungeonKeep {
 
         int hero[] = {8, 1, 0}; // third element indicates if the hero has the key
         int ogre[] = {5,1};
+        int club[] = {-1,-1};
         
         Random rand = new Random();
         
         System.out.println("\n \nLevel 2");
-        printGridlv2(l2_grid, hero, ogre);
+        printGridlv2(l2_grid, hero, ogre, club);
         
         while(true) {
-        	if(moveLv2(l2_grid, scanner, rand, hero, ogre)==1) {
+        	if(moveLv2(l2_grid, scanner, rand, hero, ogre, club)==1) {
         		System.out.println("Congratulations, you escaped!");
         		break;
         	}
