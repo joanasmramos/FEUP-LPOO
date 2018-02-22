@@ -2,6 +2,7 @@ package dkeep.logic;
 
 public class Map {
 
+    char map[][];
 
     private static char map1[][] = {
             {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -30,7 +31,6 @@ public class Map {
     };
 
     public Map(int id){
-        char map[][];
 
         switch(id){
             case 1:
@@ -40,5 +40,9 @@ public class Map {
                 map = map2;
                 break;
         }
+    }
+
+    public char[][] getMap() {
+        return map;
     }
 }
