@@ -1,12 +1,14 @@
 package dkeep.cli;
 
 import java.util.Scanner;
+import java.lang.Character;
+import dkeep.logic.*;
 
 public class Interaction {
 	
 	public enum Level {ONE, TWO;}
-	public enum Events {VICTORY, LOSS, LVLUP;}
-	
+	public enum Event {VICTORY, LOSS, LVLUP;}
+	<>
 	private Level level;
 	private Scanner scanner;
 	
@@ -28,7 +30,7 @@ public class Interaction {
         return mov;
 	}
 	
-	public void promptMsg(String message) {
+	public static void promptMsg(String message) {
 		System.out.println(message);
 	}
 	
@@ -36,11 +38,20 @@ public class Interaction {
 		
 	}
 	
-	public int game() {
-		return 1;
+	public static Event runGame() {
 	}
 	
 	public static void main(String args[]) {
+		if(runGame() == Event.LOSS){
+			promptMsg("You lost, good luck next time!");
+		}
 		
+		if(runGame() == Event.VICTORY) {
+			promptMsg("You won, congratulations!");
+		}
+		
+		if(runGame() == Event.LVLUP) {
+			promptMsg("On to the next level, good luck!");
+		}
 	}
 }
