@@ -6,34 +6,26 @@ import dkeep.logic.*;
 
 public class Interaction {
 	
-	static Scanner scanner = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);
 	
 	public static char askCommand() {
 		System.out.println("Enter a command: \n W - up \n S - down \n A - left \n D - right");
 		
         char mov = scanner.next().charAt(0);
         mov=Character.toLowerCase(mov);
-        
+
+        System.out.println();
         return mov;
-	}
-	
-	public static void promptMsg(String message) {
-		System.out.println(message);
-	}
-	
-	public void printMap(char map[][]) {
-		for(int i=0; i<map.length; i++) {
-			for(int j=0; j<map[i].length; j++) {
-				System.out.print(map[i][j]);
-			}
-		}
 	}
 	
 	public static void main(String args[]) {
 		
-		
-		
-		
+		GameState game = new GameState();
+
+		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
+			game.game(askCommand());
+            game.checkEvents();
+		}
 		
 	}
 }
