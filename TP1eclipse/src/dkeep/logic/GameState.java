@@ -1,29 +1,28 @@
 package dkeep.logic;
-
-
-import java.util.Random;
+import java.util.Arrays;
 
 public class GameState {
     Map map  = new Map(1);
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(2, 1, 'O');
+    Object key = new Object(1,8,'K');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
+    private Object[][] objects  = {{},{key}};
+
 
     private int level;
 
-    public enum Events {CAUGHT, OPEN_DOORS;}
-    public enum States {VICTORY, DONE, GAME_OVER, PLAYING;}
+    public enum States { DONE, GAME_OVER, PLAYING;}
 
-    private Events current_event;
     private States current_state;
 
     public GameState() {
         map.setMap(1);
         level = 1;
         current_state=States.PLAYING;
-        map.printMap(characters);
+        map.printMap(characters, objects);
     }
 
     public Map getMap(){return map;}
@@ -37,18 +36,20 @@ public class GameState {
     public void checkEvents(){
         switch(level){
             case 1:
-                if(hero.checkIfCaught(guard)) {
+                if(hero.checkIfCaught(guard.getLine(), guard.getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
                 break;
             case 2:
-                if(hero.checkIfCaught(ogre)) {
+                if(hero.checkIfCaught(ogre.getLine(), ogre.getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
-                if(current_event == Events.OPEN_DOORS){ current_state = States.DONE;}
-                break;
+                if(hero.checkIfCaught(ogre.getClubLine(), ogre.getClubColumn())) {
+                    current_state = States.GAME_OVER;
+                    promptMsg("GAME OVER");
+                }
         }
     }
 
@@ -58,11 +59,11 @@ public class GameState {
         switch (level){
             case 1:
                 updatePos(1,user_input);
-                map.printMap(characters);
+                map.printMap(characters,objects);
                 break;
             case 2:
                 updatePos(2,user_input);
-                map.printMap(characters);
+                map.printMap(characters,objects);
                 break;
         }
     }
@@ -99,11 +100,19 @@ public class GameState {
                 guard.moveChar();
                 guard.incInd();
                 break;
+
             case 2:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir))
                 hero.moveChar(dir);
                 else promptMsg("Cannot move there.");
 
+                if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
+                    hero.setKey(true);
+                }
+
+                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
+                    ogre.moveChar();
+                }
 
 
         }

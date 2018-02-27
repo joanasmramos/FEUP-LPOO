@@ -5,9 +5,10 @@ public class Object {
     private int column;
     private char type;
 
-    public Object(int line, int column){
+    public Object(int line, int column, char type){
         this.line = line;
         this.column = column;
+        this.type = type;
     }
 
     public int getLine(){
@@ -23,8 +24,7 @@ public class Object {
         this.column = column;
     }
 
-    public char getType(){
+    public char getChar(){
         return type;
     }
 }
-

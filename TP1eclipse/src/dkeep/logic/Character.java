@@ -39,16 +39,24 @@ class Hero extends Character{
    private boolean key;
    public char charc;
 
+
+
    public Hero(int line, int column, char charc) {
        super(line, column, charc);
       key = false;
    }
 
+
+    public char getChar() {
+        if(key) return 'K';
+        else return 'H';
+    }
+
    public void setKey(boolean key){
       this.key = key;
    }
 
-   public boolean getKey(){
+   public boolean HasKey(){
       return this.key;
    }
 
@@ -71,13 +79,13 @@ class Hero extends Character{
     }
 
 
-    public boolean checkIfCaught(Character villain) {
-        if(this.line == villain.getLine())
-            if(this.column+1 == villain.getColumn() || this.column-1 == villain.getColumn())
+    public boolean checkIfCaught(int line, int col) {
+        if(this.line == line)
+            if(this.column+1 == col || this.column-1 == col)
                 return true;
 
-        if(this.column == villain.getColumn())
-            if(this.line+1 == villain.getLine() || this.line-1 == villain.getLine())
+        if(this.column == col)
+            if(this.line+1 == line || this.line-1 == line)
                 return true;
 
         return false;
@@ -85,49 +93,69 @@ class Hero extends Character{
 
 }
 
-class Ogre extends Character{
-   private int line_club;
-   private int column_club;
-   private Random rand = new Random();
+class Ogre extends Character {
+    private int line_club;
+    private int column_club;
+    private Random rand = new Random();
 
 
-   public Ogre(int line, int column, char charc) {super(line, column, charc); }
+    public Ogre(int line, int column, char charc) {
+        super(line, column, charc);
+    }
 
-   public void setClubCoordinates(int line, int column){
-      this.line_club = line;
-      this.column_club = column;
-   }
+    public void setClubCoordinates(int line, int column) {
+        this.line_club = line;
+        this.column_club = column;
+    }
 
-   public int getClubLine(){
-      return line_club;
-   }
+    public int getClubLine() {
+        return line_club;
+    }
 
-   public int getClubColumn(){
-      return column_club;
-   }
+    public int getClubColumn() {
+        return column_club;
+    }
 
-   public Random getRand() {
-      return rand;
-   }
+    public Random getRand() {
+        return rand;
+    }
 
 
-    public void throwClub(){
-        switch (rand.nextInt()){
+    public void throwClub() {
+        switch (rand.nextInt()) {
             case 'w':
-                this.line_club = this.line-1;
+                this.line_club = this.line - 1;
                 this.column_club = this.column;
                 return;
             case 's':
-                this.line_club = this.line+1;
+                this.line_club = this.line + 1;
                 this.column_club = this.column;
                 return;
             case 'd':
                 this.line_club = this.line;
-                this.column_club = this.column+1;
+                this.column_club = this.column + 1;
                 return;
             case 'a':
                 this.line_club = this.line;
-                this.column_club = this.column-1;
+                this.column_club = this.column - 1;
+        }
+    }
+
+    public void moveChar() {
+        switch (rand.nextInt(4)) {
+            case 0:
+                this.line--;
+                return;
+            case 2:
+                this.line++;
+                return;
+            case 3:
+                this.column++;
+                return;
+            case 4:
+                this.column--;
+
+            default:
         }
     }
 }
