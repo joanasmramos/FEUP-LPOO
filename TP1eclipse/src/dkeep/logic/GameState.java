@@ -6,7 +6,7 @@ public class GameState {
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(2, 1, 'O');
-    Object key = new Object(1,8,'K');
+    Object key = new Object(1,8,'k');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
     private Object[][] objects  = {{},{key}};
@@ -50,6 +50,9 @@ public class GameState {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
+            //case 3:
+            	//promptMsg("You won");
+            	//current_state = States.DONE;
         }
     }
 
@@ -65,6 +68,7 @@ public class GameState {
                 updatePos(2,user_input);
                 map.printMap(characters,objects);
                 break;
+           
         }
     }
 
@@ -104,15 +108,24 @@ public class GameState {
             case 2:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir))
                 hero.moveChar(dir);
-                else promptMsg("Cannot move there.");
+                else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
+                	hero.moveChar(dir);
+                	levelup(2);
+                }
+                else 
+                	promptMsg("Cannot move there.");
 
                 if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
                     hero.setKey(true);
+                    hero.setChar('K');
                 }
-
-                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
-                    ogre.moveChar();
+                
+                char odir = ogre.generateDir();
+                while(checkObstacle(ogre, 'I',dir) || checkObstacle(ogre, 'X',dir) || checkObstacle(ogre, 'k', dir)){
+                    odir = ogre.generateDir();
                 }
+                
+                ogre.moveChar(odir);
 
 
         }
@@ -124,7 +137,11 @@ public class GameState {
                 level++;
                 map.setMap(2);
                 hero.setCoordinates(8 ,1);
+                hero.setKey(false);
                 break;
+            case 2:
+            	level++;
+            	break;
         }
 
     }

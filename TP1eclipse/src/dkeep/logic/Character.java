@@ -52,6 +52,10 @@ class Hero extends Character{
         else return 'H';
     }
 
+    public void setChar(char symbol) {
+    	this.charc = symbol;
+    }
+    
    public void setKey(boolean key){
       this.key = key;
    }
@@ -140,22 +144,37 @@ class Ogre extends Character {
                 this.column_club = this.column - 1;
         }
     }
+    
+    public char generateDir() {
+    	switch(rand.nextInt(4)){
+    		case 0:
+    			return 'w';
+    		case 1:
+    			return 's';
+    		case 2:
+    			return 'd';
+    		case 3:
+    			return 'a';
+    		default: return 'z';
+    	}
+    }
 
-    public void moveChar() {
-        switch (rand.nextInt(4)) {
-            case 0:
+    public void moveChar(char dir) {
+        switch (dir) {
+            case 'w':
                 this.line--;
                 return;
-            case 2:
+            case 's':
                 this.line++;
                 return;
-            case 3:
+            case 'd':
                 this.column++;
                 return;
-            case 4:
+            case 'a':
                 this.column--;
+                return;
 
-            default:
+                default: return;
         }
     }
 }
