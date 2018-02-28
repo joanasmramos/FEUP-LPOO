@@ -48,3 +48,22 @@ class Club  extends Object{
         return dir;
     }
 }
+
+class Key extends Object{
+    private boolean picked_up;
+
+    public Key(int line, int column, char type){
+        super(line, column, type);
+        this.picked_up = false;
+    }
+
+    @Override
+    public char getChar() {
+        if(picked_up) return ' ';
+        else return super.type;
+    }
+
+    public void setPicked_up(boolean picked_up) {
+        this.picked_up = picked_up;
+    }
+}

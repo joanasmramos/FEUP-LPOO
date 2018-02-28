@@ -157,19 +157,19 @@ class Ogre extends Character {
         switch (dir) {
             case 'w':
                 this.line--;
-                return;
+                break;
             case 's':
                 this.line++;
-                return;
+                break;
             case 'd':
                 this.column++;
-                return;
+                break;
             case 'a':
                 this.column--;
-                return;
-
-                default: return;
+                break;
         }
+
+        this.getOgre_club().setCoordinates(this.line, this.column);
     }
 }
 

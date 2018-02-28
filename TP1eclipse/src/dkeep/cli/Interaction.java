@@ -19,12 +19,15 @@ public class Interaction {
 	}
 	
 	public static void main(String args[]) {
+
+		char cmd;
 		
 		GameState game = new GameState();
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
-			game.game(askCommand());
-            game.checkEvents();
+			cmd = askCommand();
+			game.game(cmd);
+            game.checkEvents(cmd);
 		}
 		
 	}
