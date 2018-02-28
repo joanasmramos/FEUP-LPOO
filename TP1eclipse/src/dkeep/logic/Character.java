@@ -209,6 +209,14 @@ class Guard extends Character{
    
     public char getDir(int i){return guardTraject[i];}
     
+    public void setAsleep(boolean asleep) {
+    	this.asleep = asleep;
+    }
+    
+    public void setReverse(boolean reverse) {
+    	this.reverse = reverse;
+    }
+    
     public boolean generateBool() {
 		int trigger = rand.nextInt(1);
 		if(trigger == 0)
