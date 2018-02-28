@@ -98,50 +98,40 @@ class Hero extends Character{
 }
 
 class Ogre extends Character {
-    private int line_club;
-    private int column_club;
     private Random rand = new Random();
-
+    private char dir;
+    private Club ogre_club = new Club(super.line,super.column,'*');
 
     public Ogre(int line, int column, char charc) {
         super(line, column, charc);
     }
 
-    public void setClubCoordinates(int line, int column) {
-        this.line_club = line;
-        this.column_club = column;
-    }
-
-    public int getClubLine() {
-        return line_club;
-    }
-
-    public int getClubColumn() {
-        return column_club;
-    }
 
     public Random getRand() {
         return rand;
     }
 
+    public char getDir() {
+        return dir;
+    }
 
-    public void throwClub() {
-        switch (rand.nextInt()) {
+    public Club getOgre_club() {
+        return ogre_club;
+    }
+
+    public void throwClub(char dir) {
+        switch (java.lang.Character.toLowerCase(dir)) {
             case 'w':
-                this.line_club = this.line - 1;
-                this.column_club = this.column;
+                this.ogre_club.setCoordinates(this.line - 1,this.column);
                 return;
             case 's':
-                this.line_club = this.line + 1;
-                this.column_club = this.column;
+                this.ogre_club.setCoordinates(this.line + 1,this.column);
                 return;
             case 'd':
-                this.line_club = this.line;
-                this.column_club = this.column + 1;
+                this.ogre_club.setCoordinates(this.line,this.column+1);
                 return;
             case 'a':
-                this.line_club = this.line;
-                this.column_club = this.column - 1;
+                this.ogre_club.setCoordinates(this.line ,this.column-1);
         }
     }
     
@@ -150,13 +140,17 @@ class Ogre extends Character {
     		case 0:
     			return 'w';
     		case 1:
-    			return 's';
+                return 's';
     		case 2:
-    			return 'd';
+                return 'd';
     		case 3:
-    			return 'a';
-    		default: return 'z';
+                return 'a';
+            default: return ' ';
     	}
+    }
+
+    public void setOgreDir(char dir){
+        this.dir = dir;
     }
 
     public void moveChar(char dir) {

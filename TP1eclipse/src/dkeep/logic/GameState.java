@@ -1,16 +1,14 @@
 package dkeep.logic;
-import java.util.Arrays;
 
 public class GameState {
     Map map  = new Map(1);
-    Hero hero = new Hero(1,1, 'H');
+    Hero hero = new Hero(1,7, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(2, 1, 'O');
     Object key = new Object(1,8,'k');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
-    private Object[][] objects  = {{},{key}};
-
+    private Object[][] objects  = {{},{key, ogre.getOgre_club()}};
 
     private int level;
 
@@ -19,8 +17,8 @@ public class GameState {
     private States current_state;
 
     public GameState() {
-        map.setMap(1);
-        level = 1;
+        map.setMap(2);
+        level = 2;
         current_state=States.PLAYING;
         map.printMap(characters, objects);
     }
@@ -46,13 +44,10 @@ public class GameState {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
-                if(hero.checkIfCaught(ogre.getClubLine(), ogre.getClubColumn())) {
+                if(hero.checkIfCaught(ogre.getOgre_club().getLine(), ogre.getOgre_club().getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
-            //case 3:
-            	//promptMsg("You won");
-            	//current_state = States.DONE;
         }
     }
 
@@ -88,7 +83,23 @@ public class GameState {
         }
     }
 
+    public boolean checkObstacle(Object object, char obstacle, char dir) {
+        switch (dir) {
+            case 'w':
+                return (map.getMap()[object.getLine()-1][object.getColumn()] == obstacle);
+            case 's':
+                return (map.getMap()[object.getLine()+1][object.getColumn()] == obstacle);
+            case 'd':
+                return (map.getMap()[object.getLine()][object.getColumn()+1] == obstacle);
+            case 'a':
+                return (map.getMap()[object.getLine()][object.getColumn()-1] == obstacle);
 
+            default: return true;
+        }
+    }
+
+
+    //NOTE: FIND A WAY TO MAKE THIS LESS SPAGHETTI
     public  void updatePos(int id, char dir){
         switch (id){
             case 1:
@@ -119,16 +130,26 @@ public class GameState {
                     hero.setKey(true);
                     hero.setChar('K');
                 }
-                
-                char odir = ogre.generateDir();
-                while(checkObstacle(ogre, 'I',dir) || checkObstacle(ogre, 'X',dir) || checkObstacle(ogre, 'k', dir)){
-                    odir = ogre.generateDir();
+
+                ogre.setOgreDir(ogre.generateDir());
+                while(checkObstacle(ogre, 'I',ogre.getDir()) || checkObstacle(ogre, 'X',ogre.getDir())){
+                    ogre.setOgreDir(ogre.generateDir());
                 }
-                
-                ogre.moveChar(odir);
+
+                ogre.moveChar(ogre.getDir());
 
 
+                ogre.getOgre_club().setDir(ogre.generateDir());
+                while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())){
+                    ogre.getOgre_club().setDir(ogre.generateDir());
+                }
+
+                ogre.throwClub(ogre.getOgre_club().getDir());
         }
+    }
+
+    public moveOgre(){
+
     }
 
     public void levelup(int id){
@@ -139,9 +160,6 @@ public class GameState {
                 hero.setCoordinates(8 ,1);
                 hero.setKey(false);
                 break;
-            case 2:
-            	level++;
-            	break;
         }
 
     }

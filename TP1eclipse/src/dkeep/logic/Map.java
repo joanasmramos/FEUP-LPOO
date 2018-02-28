@@ -92,6 +92,7 @@
                     for (int l = 0; l < objects[id - 1].length; l++) {
                         if (i == objects[id - 1][l].getLine() && j == objects[id - 1][l].getColumn()) {
                             System.out.print(objects[id - 1][l].getChar() + " ");
+                            if(print) j++;
                             print = true;
                             break;
                         }
