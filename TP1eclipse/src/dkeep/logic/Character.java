@@ -176,9 +176,9 @@ class Ogre extends Character {
 
 class Guard extends Character{
 
-   private char guardTraject[] = {'A','S','S','S','S','A','A','A','A','A', 'A', 'S','D','D','D','D','D','D','D',
+   protected char guardTraject[] = {'A','S','S','S','S','A','A','A','A','A', 'A', 'S','D','D','D','D','D','D','D',
            'W','W','W','W','W'};
-   private int trajInd = 0;
+   protected int trajInd = 0;
 
 
    public Guard(int line, int column, char charc) {super(line, column, charc);}
@@ -210,3 +210,68 @@ class Guard extends Character{
        }
     }
 }
+
+class DrunkenGuard extends Guard{
+	private boolean asleep;
+	private boolean reverse;
+	private Random rand = new Random();
+	private char reverseTraject[] = {'s', 'd', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a','a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
+	
+	public DrunkenGuard(int line, int column, char charc) {
+		super(line, column, charc);
+		asleep = false;
+		reverse = false;
+	}
+	
+	public boolean generateBool() {
+		int trigger = rand.nextInt(1);
+		if(trigger == 0)
+			return true;
+		else return false;
+	}
+	
+	public void moveChar(){
+		asleep = generateBool();
+		reverse = generateBool();
+		
+		if(asleep) {
+			charc = 'g';
+			return;
+		}
+		else if(reverse) {
+			switch(reverseTraject[trajInd]) {
+	          case 'w':
+	               this.line--;
+	               return;
+	           case 's':
+	               this.line++;
+	               return;
+	           case 'd':
+	               this.column++;
+	               return;
+	           case 'a':
+	               this.column--;
+				
+			}
+			trajInd--;
+			}
+			else {
+				switch(guardTraject[trajInd]) {
+		           case 'W':
+		               this.line--;
+		               return;
+		           case 'S':
+		               this.line++;
+		               return;
+		           case 'D':
+		               this.column++;
+		               return;
+		           case 'A':
+		               this.column--;
+				}
+				trajInd++;
+			}
+		}
+}
+	
+	
