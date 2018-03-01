@@ -226,7 +226,7 @@ class Guard extends Character{
 
     public void moveChar(){
 		if(asleep) {
-			charc = 'g';
+			charc = 'g'; 
 			return;
 		}
 		else if(reverse) {

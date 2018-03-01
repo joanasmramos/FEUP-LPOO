@@ -50,8 +50,8 @@
 
 
         public void openDoors() {
-            for (int i = 0; i < this.map.length; i++) {
-                for (int j = 0; j < this.map[i].length; j++) {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
                     if (this.map[i][j] == 'I')
                         this.map[i][j] = 'S';
                 }
@@ -73,10 +73,6 @@
                     map = map2;
                     break;
             }
-        }
-        
-        public void setMap(char map[][]) {
-        	this.map = map;
         }
 
         public void printMap(Character[][] characters, Object[][] objects) {
