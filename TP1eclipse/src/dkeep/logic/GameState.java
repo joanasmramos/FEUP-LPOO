@@ -2,7 +2,7 @@ package dkeep.logic;
 
 public class GameState {
     Map map  = new Map(1);
-    Hero hero = new Hero(1,7, 'H');
+    Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
     Object key = new Object(1,8,'k');
@@ -19,11 +19,13 @@ public class GameState {
     private Events current_event;
 
     public GameState() {
-        map.setMap(2);
-        level = 2;
+        map.setMap(1);
+        level = 1;
         current_state=States.PLAYING;
         current_event = Events.EMPTY;
         map.printMap(characters, objects);
+        guard.setAsleep(false);
+        guard.setReverse(false);
     }
 
     public Map getMap(){return map;}
@@ -114,7 +116,6 @@ public class GameState {
             case 1:
                 moveHero(level,dir);
                 guard.moveChar();
-                guard.incInd();
                 break;
 
             case 2:

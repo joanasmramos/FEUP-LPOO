@@ -225,9 +225,6 @@ class Guard extends Character{
     }
 
     public void moveChar(){
-		asleep = generateBool();
-		reverse = generateBool();
-		
 		if(asleep) {
 			charc = 'g';
 			return;
@@ -236,34 +233,36 @@ class Guard extends Character{
 			switch(reverseTraject[trajInd]) {
 	          case 'w':
 	               this.line--;
-	               return;
+	               break;
 	           case 's':
 	               this.line++;
-	               return;
+	               break;
 	           case 'd':
 	               this.column++;
-	               return;
+	               break;
 	           case 'a':
 	               this.column--;
+	               break;
 				
 			}
-			trajInd--;
+			decInd();
 			}
 			else {
 				switch(guardTraject[trajInd]) {
 		           case 'W':
 		               this.line--;
-		               return;
+		               break;
 		           case 'S':
 		               this.line++;
-		               return;
+		               break;
 		           case 'D':
 		               this.column++;
-		               return;
+		               break;
 		           case 'A':
 		               this.column--;
+		               break;
 				}
-				trajInd++;
+				incInd();
 			}
     }
 }
