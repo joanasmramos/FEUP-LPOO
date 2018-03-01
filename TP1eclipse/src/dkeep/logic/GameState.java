@@ -1,10 +1,13 @@
 package dkeep.logic;
+import java.util.HashSet;
+import java.util.Collections;
 
 public class GameState {
     Map map  = new Map(1);
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
+    HashSet<Ogre> ogres = new HashSet<Ogre>(7);
     Key key = new Key(1,8,'k');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
@@ -116,19 +119,22 @@ public class GameState {
 
 
     //NOTE: FIND A WAY TO MAKE THIS LESS SPAGHETTI
-    public  void updatePos(int level, int id, char dir){
-        switch (id){
+    public  void updatePos(int level, int id, char dir) {
+        switch (id) {
             case 1:
-                if(moveHero(dir) != 1) {
-                	guard.moveChar();
+                if (moveHero(dir) != 1) {
+                    guard.moveChar();
                 }
                 break;
 
             case 2:
                 if (moveHero(dir) != 1) {
-                	moveOgre();
+                    moveOgre(ogre);
+                    if (moveHero(dir) != 1) {
+                        moveOgre(ogre);
+                    }
+                    break;
                 }
-                break;
         }
     }
 
@@ -174,7 +180,12 @@ public class GameState {
         return 0;
     }
 
-    public void moveOgre(){
+    public void moveOgre(Ogre ogre){
+    	
+    	if(ogre.getStunned()) {
+    		ogre.setTurns(ogre.getTurns()-1);
+    	}
+    	
         //move Ogre
         ogre.setOgreDir(ogre.generateDir());
 
@@ -205,6 +216,15 @@ public class GameState {
                 map.setMap(2);
                 hero.setCoordinates(8 ,1);
                 hero.setKey(false);
+                ogres.add(ogre);
+                int nr = Ogre.generateNr(0, 4);
+                
+                for(int i=0; i<nr; i++) {
+                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, this.map.getLines()),
+                			Ogre.generateNr(1, this.map.getColumns(0)), 'O');
+                	ogres.add(anotherOgre);
+                }
+                
                 break;
             case 2:
                 current_event = Events.EXIT;
