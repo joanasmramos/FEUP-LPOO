@@ -24,7 +24,7 @@ public class Interaction {
 
 		char cmd;
 
-		GameState game = new GameState(map);
+		GameState game = new GameState();
 
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){

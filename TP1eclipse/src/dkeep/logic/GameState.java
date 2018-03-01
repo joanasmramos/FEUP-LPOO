@@ -1,15 +1,16 @@
 package dkeep.logic;
 import java.util.HashSet;
 
+import java.util.ArrayList;
+
 public class GameState {
+    Map map = new Map(1);
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
     HashSet<Ogre> ogres = new HashSet<Ogre>(7);
     Key key = new Key(1,8,'k');
-
-    private Character[][] characters = {{hero, guard}, {hero, ogre}};
-    private Object[][] objects  = {{},{key, ogre.getOgre_club()}};
+    Club club = new Club(8, 2, 'C');
 
     private int level;
 
@@ -19,12 +20,16 @@ public class GameState {
     private States current_state;
     private Events current_event;
 
-    public GameState(Map map) {
+    public GameState() {
         map.setMap(1);
         level = 1;
+        ArrayList<Character> chars = new ArrayList<Character>();
+        chars.add(hero);
+        chars.add(guard);
+        map.setChars(chars);
         current_state=States.PLAYING;
         current_event = Events.EMPTY;
-        map.printMap(characters, objects);
+        map.print();
         guard.setAsleep(false);
         guard.setReverse(false);
     }
@@ -51,10 +56,22 @@ public class GameState {
                 }
                 break;
             case 2:
-                if(hero.checkIfCaught(ogre.getLine(), ogre.getColumn())) {
+            	
+            	for(Ogre o: ogres) {
+                if(hero.checkIfCaught(o.getLine(), o.getColumn())) {
+                	if(hero.hasClub()) {
+                		o.setStunned(true);
+                		o.setTurns(2);
+                	}
+                	else {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
-                }
+                	}
+                }	
+            	}
+                
+                
+                
                 if(hero.checkIfCaught(ogre.getOgre_club().getLine(), ogre.getOgre_club().getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
@@ -74,13 +91,13 @@ public class GameState {
         switch (level){
             case 1:
                 updatePos(user_input);
-                map.printMap(characters,objects);
+                map.print();
                 break;
             case 2:
                 updatePos(user_input);
-                map.printMap(characters,objects);
+                map.print();
                 break;
-           
+
         }
     }
 
@@ -128,8 +145,11 @@ public class GameState {
             case 2:
                 if (moveHero(dir) != 1) {
                     moveOgre(ogre);
+
                     if (moveHero(dir) != 1) {
-                        moveOgre(ogre);
+                        for (Ogre o : ogres) {
+                            moveOgre(o);
+                        }
                     }
                     break;
                 }
@@ -156,8 +176,14 @@ public class GameState {
                 break;
 
             case 2:
-                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir))
+                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)) {
+                	if(checkObstacle(hero, 'C', dir)) {
+                		hero.setClub(true);
+                		//map.remObj(club);
+                		
+                	}
                     hero.moveChar(dir);
+                }
                 else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
                     hero.moveChar(dir);
                     levelup();
@@ -216,11 +242,17 @@ public class GameState {
                 hero.setKey(false);
                 ogres.add(ogre);
                 int nr = Ogre.generateNr(0, 4);
+                map.addObj(club);
+                map.addObj(key);
+                map.addObj(ogre.getOgre_club());
+                map.remChar(guard);
                 
                 for(int i=0; i<nr; i++) {
-                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, this.map.getLines()),
+                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 6),
                 			Ogre.generateNr(1, this.map.getColumns(0)), 'O');
                 	ogres.add(anotherOgre);
+                	map.addChar(anotherOgre);
+                	map.addObj(anotherOgre.getOgre_club());
                 }
                 
                 break;

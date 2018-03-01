@@ -33,13 +33,19 @@ public class Object {
     }
 
     public char getChar(){
-        return type;
+    	if(visible)
+    		return type;
+    	else return ' ';
+    }
+    
+    public void setVisible(boolean visible) {
+    	this.visible = visible;
     }
 }
 
 class Club  extends Object{
     private char dir;
-
+    
     public Club(int line, int column, char type){
         super.line = line;
         super.type = type;

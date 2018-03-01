@@ -38,8 +38,7 @@ class Hero extends Character{
 
    private boolean key;
    public char charc;
-
-
+   private boolean club;
 
    public Hero(int line, int column, char charc) {
        super(line, column, charc);
@@ -49,6 +48,8 @@ class Hero extends Character{
 
     public char getChar() {
         if(key) return 'K';
+        else if(club)
+        	return 'A';
         else return 'H';
     }
 
@@ -59,8 +60,16 @@ class Hero extends Character{
    public void setKey(boolean key){
       this.key = key;
    }
-
-   public boolean HasKey(){
+   
+   public void setClub(boolean club) {
+	   this.club = club;
+   }
+   
+   public boolean hasClub() {
+	   return this.club;
+   }
+   
+    public boolean HasKey(){
       return this.key;
    }
 
