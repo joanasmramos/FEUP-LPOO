@@ -44,6 +44,11 @@
             }
         }
 
+        public Map(char[][] newmap) {
+            this.map = newmap;
+            this.id = 3;
+        }
+
         public char[][] getMap() {
             return map;
         }
@@ -74,6 +79,7 @@
                     break;
             }
         }
+
 
         public void printMap(Character[][] characters, Object[][] objects) {
             boolean print_char = false;

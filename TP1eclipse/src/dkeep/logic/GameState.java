@@ -28,6 +28,11 @@ public class GameState {
         guard.setReverse(false);
     }
 
+    public int[] getHeroPos() {
+        int pos[] = {hero.getLine(), hero.getColumn()};
+        return pos;
+    }
+
     public Map getMap(){return map;}
 
     public States getCurrent_state(){return current_state;}
@@ -114,29 +119,31 @@ public class GameState {
     public  void updatePos(int level, int id, char dir){
         switch (id){
             case 1:
-                if(moveHero(level,dir) != 1) {
+                if(moveHero(dir) != 1) {
                 	guard.moveChar();
                 }
                 break;
 
             case 2:
-                if (moveHero(level,dir) != 1) {
+                if (moveHero(dir) != 1) {
                 	moveOgre();
                 }
                 break;
         }
     }
 
-    public int moveHero(int level, char dir){
-        switch (level){
+    public int moveHero(char dir){
+        switch (this.level){
             case 1:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
                     if(checkObstacle(hero, 'S', dir)) levelup(1);
 
-                    if(checkObstacle(hero, 'K',dir))
-                        map.openDoors();
-                    else hero.moveChar(dir);
+                    else {
+                        if (checkObstacle(hero, 'K', dir))
+                            map.openDoors();
+                        else hero.moveChar(dir);
+                    }
                 }else  {
                 	promptMsg("Cannot move there.");
                 	return 1;
