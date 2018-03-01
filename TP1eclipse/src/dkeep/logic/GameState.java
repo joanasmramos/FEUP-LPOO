@@ -1,6 +1,6 @@
 package dkeep.logic;
 import java.util.HashSet;
-import java.util.Collections;
+import java.util.ArrayList;
 
 public class GameState {
     Map map  = new Map(1);
@@ -9,9 +9,10 @@ public class GameState {
     Ogre ogre = new Ogre(5, 1, 'O');
     HashSet<Ogre> ogres = new HashSet<Ogre>(7);
     Key key = new Key(1,8,'k');
+    Club club = new Club(8, 2, 'C');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
-    private Object[][] objects  = {{},{key, ogre.getOgre_club()}};
+    private Object[][] objects  = {{},{key, ogre.getOgre_club(), club}};
 
     private int level;
 
@@ -24,6 +25,10 @@ public class GameState {
     public GameState() {
         map.setMap(1);
         level = 1;
+        ArrayList<Character> chars = new ArrayList<Character>();
+        chars.add(hero);
+        chars.add(guard);
+        map.setChars(chars);
         current_state=States.PLAYING;
         current_event = Events.EMPTY;
         map.printMap(characters, objects);
@@ -48,10 +53,22 @@ public class GameState {
                 }
                 break;
             case 2:
-                if(hero.checkIfCaught(ogre.getLine(), ogre.getColumn())) {
+            	
+            	for(Ogre o: ogres) {
+                if(hero.checkIfCaught(o.getLine(), o.getColumn())) {
+                	if(hero.hasClub()) {
+                		o.setStunned(true);
+                		o.setTurns(2);
+                	}
+                	else {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
-                }
+                	}
+                }	
+            	}
+                
+                
+                
                 if(hero.checkIfCaught(ogre.getOgre_club().getLine(), ogre.getOgre_club().getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
@@ -71,11 +88,11 @@ public class GameState {
         switch (level){
             case 1:
                 updatePos(1, 1,user_input);
-                map.printMap(characters,objects);
+                map.print();
                 break;
             case 2:
                 updatePos(2, 2,user_input);
-                map.printMap(characters,objects);
+                map.print();
                 break;
            
         }
@@ -124,7 +141,9 @@ public class GameState {
 
             case 2:
                 if (moveHero(level,dir) != 1) {
-                	moveOgre(ogre);
+                	for(Ogre o: ogres) {
+                		moveOgre(o);
+                	}
                 }
                 break;
         }
@@ -148,8 +167,14 @@ public class GameState {
                 break;
 
             case 2:
-                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir))
+                if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)) {
+                	if(checkObstacle(hero, 'C', dir)) {
+                		hero.setClub(true);
+                		//map.remObj(club);
+                		
+                	}
                     hero.moveChar(dir);
+                }
                 else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
                     hero.moveChar(dir);
                     levelup(2);
@@ -208,12 +233,20 @@ public class GameState {
                 hero.setKey(false);
                 ogres.add(ogre);
                 int nr = Ogre.generateNr(0, 4);
+                map.addObj(club);
+                map.addObj(key);
+                ArrayList<Character> nova = new ArrayList<Character>();
+                nova.add(hero);
+                nova.add(ogre);
                 
                 for(int i=0; i<nr; i++) {
                 	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, this.map.getLines()),
                 			Ogre.generateNr(1, this.map.getColumns(0)), 'O');
                 	ogres.add(anotherOgre);
+                	nova.add(anotherOgre);
                 }
+                
+                map.setChars(nova);
                 
                 break;
             case 2:

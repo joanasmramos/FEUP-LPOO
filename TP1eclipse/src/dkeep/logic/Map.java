@@ -1,9 +1,13 @@
     package dkeep.logic;
+    import java.util.ArrayList;
 
     public class Map {
 
         private char map[][];
         int id;
+        
+        ArrayList<Character> chars;
+        ArrayList<Object> objects;
 
         private static char map1[][] = {
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -33,6 +37,8 @@
 
         public Map(int id) {
             this.id = id;
+            this.chars = new ArrayList<Character>();
+            this.objects = new ArrayList<Object>();
 
             switch (id) {
                 case 1:
@@ -44,6 +50,47 @@
             }
         }
 
+        public void setChars(ArrayList<Character> chars) {
+        	this.chars = chars;
+        }
+        
+        public ArrayList<Character> getChars(){
+        	return this.chars;
+        }
+        
+        public void addObj(Character charac) {
+        	this.chars.add(charac);
+        }
+        
+        public void remChar(Character charac) {
+        	this.chars.remove(charac);
+        }
+        
+        public void clearChars() {
+        	this.chars.clear();
+        }
+        
+        public void setObjs(ArrayList<Object> objs) {
+        	this.objects = objs;
+        }
+        
+        public ArrayList<Object> getObjs(){
+        	return this.objects;
+        }
+        
+        public void addObj(Object obj) {
+        	this.objects.add(obj);
+        }
+        
+        public void remObj(Object obj) {
+        	this.objects.remove(obj);
+        }
+        
+        public void clearObjs() {
+        	this.objects.clear();
+        }
+        
+        
         public char[][] getMap() {
             return map;
         }
@@ -79,6 +126,40 @@
                 case 2:
                     map = map2;
                     break;
+            }
+        }
+        
+        public void print() {
+            boolean print_char = false;
+            boolean print_obj = false;
+
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                	
+                	for (Character charac : chars) {
+                		if(i==charac.getLine() && j==charac.getColumn()) {
+                			System.out.print(charac.getChar() + " ");
+                			print_char = true;
+                		}
+                	}
+                	
+                	for(Object obj : objects) {
+                		if(i==obj.getLine() && j==obj.getColumn()) {
+                			if(obj.isVisible()) {
+                				if(print_char) j++;
+                                System.out.print(obj.getChar() + " ");
+                                print_obj = true;
+                			}
+                		}
+                	}
+                	
+                	if(!print_char && !print_obj) System.out.print(this.map[i][j] + " ");
+
+                    print_char = false;
+                    print_obj = false;
+                	
+                }
+                System.out.println();
             }
         }
 
