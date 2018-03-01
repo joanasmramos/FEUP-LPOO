@@ -243,7 +243,6 @@ class Guard extends Character{
 	           case 'a':
 	               this.column--;
 	               break;
-				
 			}
 			decInd();
 			}
