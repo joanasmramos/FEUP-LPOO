@@ -58,7 +58,7 @@
         	return this.chars;
         }
         
-        public void addObj(Character charac) {
+        public void addChar(Character charac) {
         	this.chars.add(charac);
         }
         

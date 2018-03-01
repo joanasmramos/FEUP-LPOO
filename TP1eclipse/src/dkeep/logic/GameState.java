@@ -11,9 +11,6 @@ public class GameState {
     Key key = new Key(1,8,'k');
     Club club = new Club(8, 2, 'C');
 
-    private Character[][] characters = {{hero, guard}, {hero, ogre}};
-    private Object[][] objects  = {{},{key, ogre.getOgre_club(), club}};
-
     private int level;
 
     public enum States { DONE, GAME_OVER, PLAYING;}
@@ -31,7 +28,7 @@ public class GameState {
         map.setChars(chars);
         current_state=States.PLAYING;
         current_event = Events.EMPTY;
-        map.printMap(characters, objects);
+        map.print();
         guard.setAsleep(false);
         guard.setReverse(false);
     }
@@ -235,18 +232,16 @@ public class GameState {
                 int nr = Ogre.generateNr(0, 4);
                 map.addObj(club);
                 map.addObj(key);
-                ArrayList<Character> nova = new ArrayList<Character>();
-                nova.add(hero);
-                nova.add(ogre);
+                map.addObj(ogre.getOgre_club());
+                map.remChar(guard);
                 
                 for(int i=0; i<nr; i++) {
-                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, this.map.getLines()),
+                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 6),
                 			Ogre.generateNr(1, this.map.getColumns(0)), 'O');
                 	ogres.add(anotherOgre);
-                	nova.add(anotherOgre);
+                	map.addChar(anotherOgre);
+                	map.addObj(anotherOgre.getOgre_club());
                 }
-                
-                map.setChars(nova);
                 
                 break;
             case 2:
