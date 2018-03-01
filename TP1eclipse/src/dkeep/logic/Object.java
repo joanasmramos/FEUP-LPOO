@@ -4,13 +4,19 @@ public class Object {
     protected int line;
     protected int column;
     protected char type;
+    protected boolean visible;
 
-    public Object(){};
+    public Object(){this.visible=true;};
 
     public Object(int line, int column, char type){
         this.line = line;
         this.column = column;
         this.type = type;
+        this.visible = true;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public int getLine(){
@@ -57,13 +63,9 @@ class Key extends Object{
         this.picked_up = false;
     }
 
-    @Override
-    public char getChar() {
-        if(picked_up) return ' ';
-        else return super.type;
-    }
 
     public void setPicked_up(boolean picked_up) {
         this.picked_up = picked_up;
+        super.visible = false;
     }
 }

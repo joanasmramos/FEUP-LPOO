@@ -76,32 +76,37 @@
         }
 
         public void printMap(Character[][] characters, Object[][] objects) {
-            boolean print = false;
+            boolean print_char = false;
+            boolean print_obj = false;
 
-            for (int i = 0; i < this.map.length; i++) {
-                for (int j = 0; j < this.map[i].length; j++) {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
 
                     for (int l = 0; l < characters[id - 1].length; l++) {
                         if (i == characters[id - 1][l].getLine() && j == characters[id - 1][l].getColumn()) {
                             System.out.print(characters[id - 1][l].getChar() + " ");
-                            print = true;
+                            print_char = true;
                             break;
                         }
                     }
 
                     for (int l = 0; l < objects[id - 1].length; l++) {
                         if (i == objects[id - 1][l].getLine() && j == objects[id - 1][l].getColumn()) {
-                            System.out.print(objects[id - 1][l].getChar() + " ");
-                            if(print) j++;
-                            print = true;
+
+                            if(objects[id - 1][l].isVisible()) {
+                                if(print_char) j++;
+                                System.out.print(objects[id - 1][l].getChar() + " ");
+                                print_obj = true;
+                            }
                             break;
                         }
 
                     }
 
-                    if(!print) System.out.print(this.map[i][j] + " ");
+                    if(!print_char && !print_obj) System.out.print(this.map[i][j] + " ");
 
-                    print = false;
+                    print_char = false;
+                    print_obj = false;
                 }
                 System.out.println();
             }

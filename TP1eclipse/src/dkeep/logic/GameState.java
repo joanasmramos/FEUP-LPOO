@@ -5,7 +5,7 @@ public class GameState {
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
-    Object key = new Object(1,8,'k');
+    Key key = new Key(1,8,'k');
 
     private Character[][] characters = {{hero, guard}, {hero, ogre}};
     private Object[][] objects  = {{},{key, ogre.getOgre_club()}};
@@ -159,6 +159,7 @@ public class GameState {
                 if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
                     hero.setKey(true);
                     hero.setChar('K');
+                    key.setPicked_up(true);
                 }
 
                 break;
