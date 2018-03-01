@@ -44,10 +44,11 @@
             }
         }
 
-        public Map(char[][] newmap) {
+        public  Map(char[][] newmap) {
             this.map = newmap;
             this.id = 3;
         }
+
 
         public char[][] getMap() {
             return map;
@@ -85,6 +86,11 @@
                     map = map2;
                     break;
             }
+        }
+
+        public void setMap(char[][] newmap) {
+            this.map = newmap;
+            this.id = 3;
         }
 
 

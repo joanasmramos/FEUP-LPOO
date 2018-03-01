@@ -5,6 +5,8 @@ import java.lang.Character;
 import dkeep.logic.*;
 
 public class Interaction {
+
+	static Map map = new Map(1);
 	
 	private static Scanner scanner = new Scanner(System.in);
 	
@@ -21,8 +23,9 @@ public class Interaction {
 	public static void main(String args[]) {
 
 		char cmd;
-		
-		GameState game = new GameState();
+
+		GameState game = new GameState(map);
+
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();

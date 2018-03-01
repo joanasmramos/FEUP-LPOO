@@ -1,9 +1,7 @@
 package dkeep.logic;
 import java.util.HashSet;
-import java.util.Collections;
 
 public class GameState {
-    Map map  = new Map(1);
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
@@ -21,7 +19,7 @@ public class GameState {
     private States current_state;
     private Events current_event;
 
-    public GameState() {
+    public GameState(Map map) {
         map.setMap(1);
         level = 1;
         current_state=States.PLAYING;
@@ -75,11 +73,11 @@ public class GameState {
     public void game(char user_input){
         switch (level){
             case 1:
-                updatePos(1, 1,user_input);
+                updatePos(user_input);
                 map.printMap(characters,objects);
                 break;
             case 2:
-                updatePos(2, 2,user_input);
+                updatePos(user_input);
                 map.printMap(characters,objects);
                 break;
            
@@ -119,8 +117,8 @@ public class GameState {
 
 
     //NOTE: FIND A WAY TO MAKE THIS LESS SPAGHETTI
-    public  void updatePos(int level, int id, char dir) {
-        switch (id) {
+    public  void updatePos(char dir) {
+        switch (this.level) {
             case 1:
                 if (moveHero(dir) != 1) {
                     guard.moveChar();
@@ -143,7 +141,7 @@ public class GameState {
             case 1:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
-                    if(checkObstacle(hero, 'S', dir)) levelup(1);
+                    if(checkObstacle(hero, 'S', dir)) levelup();
 
                     else {
                         if (checkObstacle(hero, 'K', dir))
@@ -162,7 +160,7 @@ public class GameState {
                     hero.moveChar(dir);
                 else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
                     hero.moveChar(dir);
-                    levelup(2);
+                    levelup();
                 }
                 else {
                     promptMsg("Cannot move there.");
@@ -209,8 +207,8 @@ public class GameState {
     }
 
 
-    public void levelup(int id){
-        switch (id){
+    public void levelup(){
+        switch (this.level){
             case 1:
                 level++;
                 map.setMap(2);
