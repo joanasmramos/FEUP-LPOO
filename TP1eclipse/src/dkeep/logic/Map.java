@@ -48,6 +48,13 @@
             return map;
         }
 
+        public int getLines() {
+        	return this.map.length;
+        }
+        
+        public int getColumns(int line) {
+        	return this.map[line].length;
+        }
 
         public void openDoors() {
             for (int i = 0; i < 10; i++) {

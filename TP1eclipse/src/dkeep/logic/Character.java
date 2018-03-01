@@ -98,15 +98,52 @@ class Hero extends Character{
 }
 
 class Ogre extends Character {
-    private Random rand = new Random();
+	private boolean stunned = false;
+	private int turnsLeft = 2;
+    private static Random rand = new Random();
     private char dir;
     private Club ogre_club = new Club(super.line,super.column,'*');
-
+    
     public Ogre(int line, int column, char charc) {
         super(line, column, charc);
+        stunned = false;
+        turnsLeft = 2;
     }
 
-
+    public void setStunned(boolean stun) {
+    	stunned = stun;
+    }
+    
+    public boolean getStunned() {
+    	return stunned;
+    }
+    
+    
+    public static int generateNr(int n1, int n2) {
+    	return rand.nextInt(n2 - n1 + 1) + n1;
+    }
+    
+   
+   public void setTurns(int turns) {
+	   this.turnsLeft = turns;
+   }
+   
+   public int getTurns() {
+	   return turnsLeft;
+   }
+   
+   public boolean generateBool() {
+	   if(rand.nextInt(1) == 0)
+		   return true;
+	   else return false;
+   }
+    
+   public char getChar() {
+	   if(stunned)
+		   return '8';
+	   else return 'O';
+   }
+   
     public Random getRand() {
         return rand;
     }
@@ -152,7 +189,7 @@ class Ogre extends Character {
     public void setOgreDir(char dir){
         this.dir = dir;
     }
-
+    
     public void moveChar(char dir) {
         switch (dir) {
             case 'w':
@@ -181,7 +218,7 @@ class Guard extends Character{
    private int trajInd = 0;
    private boolean asleep;
    private boolean reverse;
-   private Random rand = new Random();
+   private static Random rand = new Random();
    private char reverseTraject[] = {'s', 'd', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a','a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
 
 
