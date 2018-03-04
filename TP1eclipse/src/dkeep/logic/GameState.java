@@ -7,9 +7,9 @@ public class GameState {
     public Map map;
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
-    Ogre ogre = new Ogre(5, 1, 'O');
+    public Ogre ogre = new Ogre(5, 1, 'O');
     HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-    Key key = new Key(1,8,'k');
+    public Key key = new Key(1,8,'k');
     Club club = new Club(8, 2, 'C');
 
     ArrayList<Character> chars = new ArrayList<Character>();
@@ -30,9 +30,8 @@ public class GameState {
         guard.setReverse(false);
     }
 
-    public int[] getHeroPos() {
-        int pos[] = {hero.getLine(), hero.getColumn()};
-        return pos;
+    public Hero getHero() {
+        return hero;
     }
 
     public Map getMap(){return map;}

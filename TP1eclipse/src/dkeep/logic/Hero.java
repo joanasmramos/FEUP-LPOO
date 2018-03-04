@@ -1,0 +1,73 @@
+package dkeep.logic;
+
+public class Hero extends Character{
+
+    private boolean key;
+    public char charc;
+    private boolean club;
+
+    public Hero(int line, int column, char charc) {
+        super(line, column, charc);
+        key = false;
+    }
+
+
+    public char getChar() {
+        if(key) return 'K';
+        else if(club)
+            return 'A';
+        else return 'H';
+    }
+
+    public void setChar(char symbol) {
+        this.charc = symbol;
+    }
+
+    public void setKey(boolean key){
+        this.key = key;
+    }
+
+    public void setClub(boolean club) {
+        this.club = club;
+    }
+
+    public boolean hasClub() {
+        return this.club;
+    }
+
+    public boolean HasKey(){
+        return this.key;
+    }
+
+    public void moveChar(char dir) {
+        switch (dir) {
+            case 'w':
+                this.line--;
+                return;
+            case 's':
+                this.line++;
+                return;
+            case 'd':
+                this.column++;
+                return;
+            case 'a':
+                this.column--;
+
+            default:
+        }
+    }
+
+
+    public boolean checkIfCaught(int line, int col) {
+        if(this.line == line)
+            if(this.column+1 == col || this.column-1 == col)
+                return true;
+
+        if(this.column == col)
+            if(this.line+1 == line || this.line-1 == line)
+                return true;
+
+        return false;
+    }
+
+}

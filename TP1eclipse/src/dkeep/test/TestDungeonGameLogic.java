@@ -23,10 +23,19 @@ public class TestDungeonGameLogic {
         game.setMap(map);
 
         int posHero[] = {1,1};
-        assertArrayEquals(posHero, game.getHeroPos());
+        assertEquals(1, game.getHero().getLine());
+        assertEquals(1, game.getHero().getColumn());
         game.moveHero('d');
-        posHero[1] = 2;
-        assertArrayEquals(posHero, game.getHeroPos());
+        assertEquals(1, game.getHero().getLine());
+        assertEquals(2, game.getHero().getColumn());
+    }
+
+    @Test
+    public void testHeroIsCapturedByGuard(){
+        Map map = new Map(map1);
+        GameState game = new GameState();
+        game.setMap(map);
+        assertFalse(game.getCurrent_state()== GameState.States.GAME_OVER);
     }
 
 
