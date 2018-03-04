@@ -5,27 +5,55 @@ import java.util.ArrayList;
 
 public class GameState {
     public Map map;
-    Hero hero = new Hero(1,1, 'H');
-    Guard guard = new Guard(1, 8, 'G');
+    public Hero hero = new Hero(1,1, 'H');
+    public Guard guard = new Guard(1, 8, 'G');
     public Ogre ogre = new Ogre(5, 1, 'O');
     HashSet<Ogre> ogres = new HashSet<Ogre>(7);
     public Key key = new Key(1,8,'k');
     Club club = new Club(8, 2, 'C');
 
-    ArrayList<Character> chars = new ArrayList<Character>();
-
     private int level;
 
-    public enum States { DONE, GAME_OVER, PLAYING;}
-    public enum Events { EMPTY, EXIT;}
+    public enum States { DONE, GAME_OVER, PLAYING}
 
     private States current_state = States.PLAYING;
-    private Events current_event=Events.EMPTY;
+
+
+    private static char map1[][] =  {
+            { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+            { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+            { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+            { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X' },
+            { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+    };
+
+    private static char map2[][] = {
+            {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+            {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+    };
 
     public GameState() {
+        ArrayList<Character> chars = new ArrayList<Character>();
+        ArrayList<Object> objects = new ArrayList<Object>();
         level = 1;
+        map = new Map(map1);
         chars.add(hero);
         chars.add(guard);
+        map.setChars(chars);
+        map.setObjs(objects);
         guard.setAsleep(false);
         guard.setReverse(false);
     }
@@ -38,7 +66,6 @@ public class GameState {
 
     public void setMap(Map map) {
         this.map = map;
-        this.map.setChars(this.chars);
     }
 
     public States getCurrent_state(){return current_state;}
@@ -47,7 +74,7 @@ public class GameState {
         System.out.println(message);
     }
 
-    public void checkEvents(char dir){
+    public void checkEvents(){
         switch(level){
             case 1:
                 if(hero.checkIfCaught(guard.getLine(), guard.getColumn())) {
@@ -69,17 +96,10 @@ public class GameState {
                 	}
                 }	
             	}
-                
-                
-                
+
                 if(hero.checkIfCaught(ogre.getOgre_club().getLine(), ogre.getOgre_club().getColumn())) {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
-                }
-
-                if(current_event == Events.EXIT) {
-                    current_state = States.DONE;
-                    promptMsg("YOU WIN");
                 }
                 break;
         }
@@ -154,6 +174,7 @@ public class GameState {
                     break;
                 }
         }
+
     }
 
     public int moveHero(char dir){
@@ -237,7 +258,7 @@ public class GameState {
         switch (this.level){
             case 1:
                 level++;
-                map.setMap(2);
+                map.setMap(map2);
                 hero.setCoordinates(8 ,1);
                 hero.setKey(false);
                 ogres.add(ogre);
@@ -249,7 +270,7 @@ public class GameState {
                 
                 for(int i=0; i<nr; i++) {
                 	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 6),
-                			Ogre.generateNr(1, this.map.getColumns(0)), 'O');
+                			Ogre.generateNr(1, this.map.getColumns()), 'O');
                 	ogres.add(anotherOgre);
                 	map.addChar(anotherOgre);
                 	map.addObj(anotherOgre.getOgre_club());
@@ -257,8 +278,13 @@ public class GameState {
                 
                 break;
             case 2:
-                current_event = Events.EXIT;
+                current_state = States.DONE;
         }
 
+    }
+
+    public boolean isGameOver(){
+        checkEvents();
+        return (current_state==States.GAME_OVER);
     }
 }

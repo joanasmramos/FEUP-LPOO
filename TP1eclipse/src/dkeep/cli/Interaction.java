@@ -7,6 +7,7 @@ import dkeep.logic.*;
 public class Interaction {
 	
 	private static Scanner scanner = new Scanner(System.in);
+
 	
 	public static char askCommand() {
 		System.out.println("Enter a command: \n W - up \n S - down \n A - left \n D - right");
@@ -23,13 +24,12 @@ public class Interaction {
 		char cmd;
 
 		GameState game = new GameState();
-		game.map.setMap(1);
 		game.map.print();
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();
 			game.game(cmd);
-            game.checkEvents(cmd);
+			game.checkEvents();
 		}
 		
 	}
