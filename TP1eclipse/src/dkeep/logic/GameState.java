@@ -86,7 +86,7 @@ public class GameState {
             	
             	for(Ogre o: ogres) {
                 if(hero.checkIfCaught(o.getLine(), o.getColumn())) {
-                	if(hero.hasClub()) {
+                	if(hero.HasCub()) {
                 		o.setStunned(true);
                 		o.setTurns(2);
                 	}
@@ -136,6 +136,7 @@ public class GameState {
             default: return true;
         }
     }
+
 
     public boolean checkObstacle(Object object, char obstacle, char dir) {
         switch (dir) {
@@ -198,12 +199,11 @@ public class GameState {
 
             case 2:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)) {
-                	if(checkObstacle(hero, 'C', dir)) {
-                		hero.setClub(true);
-                		//map.remObj(club);
+                	if(hero.catchClub(club,dir)) {
+                		map.remObj(club);
                 		
                 	}
-                    hero.moveChar(dir);
+                	hero.moveChar(dir);
                 }
                 else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
                     hero.moveChar(dir);
@@ -262,6 +262,7 @@ public class GameState {
                 hero.setCoordinates(8 ,1);
                 hero.setKey(false);
                 ogres.add(ogre);
+                map.addChar(ogre);
                 int nr = Ogre.generateNr(0, 4);
                 map.addObj(club);
                 map.addObj(key);

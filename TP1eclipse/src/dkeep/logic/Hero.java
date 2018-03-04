@@ -14,8 +14,7 @@ public class Hero extends Character{
 
     public char getChar() {
         if(key) return 'K';
-        else if(club)
-            return 'A';
+        else if(club) return 'A';
         else return 'H';
     }
 
@@ -31,7 +30,27 @@ public class Hero extends Character{
         this.club = club;
     }
 
-    public boolean hasClub() {
+    public boolean catchClub(Club club, char dir) {
+        switch (dir){
+            case 'w':
+                if(this.getLine()==club.getLine()+1 && this.getColumn()==club.getColumn()) this.club=true;
+                break;
+            case 's':
+                if(this.getLine()==club.getLine()-1 && this.getColumn()==club.getColumn()) this.club=true;
+                break;
+            case 'd':
+                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()-1) this.club=true;
+                break;
+            case 'a':
+                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()+1) this.club=true;
+                break;
+
+
+        }
+        return this.club;
+    }
+
+    public boolean HasCub(){
         return this.club;
     }
 

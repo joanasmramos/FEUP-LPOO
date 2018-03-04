@@ -78,8 +78,8 @@
 
         
         public void print() {
-            boolean print_char = false;
-            boolean print_obj = false;
+            int print_char = 0;
+            int print_obj = 0;
 
             for (int i = 0; i < n_lines; i++) {
                 for (int j = 0; j < n_columns; j++) {
@@ -87,24 +87,24 @@
                 	for (Character charac : chars) {
                 		if(i==charac.getLine() && j==charac.getColumn()) {
                 			System.out.print(charac.getChar() + " ");
-                			print_char = true;
+                			print_char++;
                 		}
                 	}
                 	
                 	for(Object obj : objects) {
                 		if(i==obj.getLine() && j==obj.getColumn()) {
                 			if(obj.isVisible()) {
-                				if(print_char) j++;
+                				if(print_char>0) j+=print_char;
                                 System.out.print(obj.getChar() + " ");
-                                print_obj = true;
+                                print_obj++;
                 			}
                 		}
                 	}
                 	
-                	if(!print_char && !print_obj) System.out.print(this.map[i][j] + " ");
+                	if(print_char==0 && print_obj==0) System.out.print(this.map[i][j] + " ");
 
-                    print_char = false;
-                    print_obj = false;
+                    print_char = 0;
+                    print_obj = 0;
                 	
                 }
                 System.out.println();
