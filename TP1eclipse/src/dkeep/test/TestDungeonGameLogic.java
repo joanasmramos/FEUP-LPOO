@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import dkeep.logic.*;
 
 public class TestDungeonGameLogic {
-    char map[][] = {{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    char map1[][] = {{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
     {'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
     {'X', 'X', 'X', ' ', 'X', ' ', ' ', ' ', ' ', 'X'},
     {'X', ' ', 'I', ' ', ' ', ' ', 'X', ' ', ' ', 'X'},
@@ -18,8 +18,10 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testMoveHeroIntoFreeCell(){
+        Map map = new Map(map1);
         GameState game = new GameState();
-        game.getMap().setMap(2);
+        game.setMap(map);
+
         int posHero[] = {1,1};
         assertArrayEquals(posHero, game.getHeroPos());
         game.moveHero('d');

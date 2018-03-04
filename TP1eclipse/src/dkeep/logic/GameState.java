@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 
 public class GameState {
-    Map map = new Map(1);
+    public Map map;
     Hero hero = new Hero(1,1, 'H');
     Guard guard = new Guard(1, 8, 'G');
     Ogre ogre = new Ogre(5, 1, 'O');
@@ -12,24 +12,20 @@ public class GameState {
     Key key = new Key(1,8,'k');
     Club club = new Club(8, 2, 'C');
 
+    ArrayList<Character> chars = new ArrayList<Character>();
+
     private int level;
 
     public enum States { DONE, GAME_OVER, PLAYING;}
     public enum Events { EMPTY, EXIT;}
 
-    private States current_state;
-    private Events current_event;
+    private States current_state = States.PLAYING;
+    private Events current_event=Events.EMPTY;
 
     public GameState() {
-        map.setMap(1);
         level = 1;
-        ArrayList<Character> chars = new ArrayList<Character>();
         chars.add(hero);
         chars.add(guard);
-        map.setChars(chars);
-        current_state=States.PLAYING;
-        current_event = Events.EMPTY;
-        map.print();
         guard.setAsleep(false);
         guard.setReverse(false);
     }
@@ -40,6 +36,11 @@ public class GameState {
     }
 
     public Map getMap(){return map;}
+
+    public void setMap(Map map) {
+        this.map = map;
+        this.map.setChars(this.chars);
+    }
 
     public States getCurrent_state(){return current_state;}
 
