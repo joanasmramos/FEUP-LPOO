@@ -120,7 +120,7 @@ public class DungeonKeep {
 		moveup.setEnabled(false);
 		controlspnl.add(moveup);
 		
-		JPanel leftrightpnl = new JPanel(); 
+		JPanel leftrightpnl = new JPanel();  
 		controlspnl.add(leftrightpnl);
 		leftrightpnl.setLayout(new GridLayout(0, 2, 0, 0));
 		
