@@ -10,7 +10,7 @@
         public Guard guard = new Guard(1, 8, 'G');
         public Ogre ogre = new Ogre(5, 1, 'O');
         public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-        private Key key = new Key(1,8,'k');
+        public Object key = new Object(1,8,'k');
         public Club club = new Club(8, 2, 'C');
 
         private int level;
@@ -19,38 +19,11 @@
 
         private States current_state = States.PLAYING;
 
-
-        private static char map1[][] =  {
-                { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-                { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-                { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-                { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-                { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-                { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-                { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-                { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
-                { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X' },
-                { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-        };
-
-        private static char map2[][] = {
-                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-                {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-        };
-
-        public GameState() {
+        public GameState(Map map) {
             ArrayList<Character> chars = new ArrayList<>();
             ArrayList<Object> objects = new ArrayList<>();
             level = 1;
-            map = new Map(map1);
+            this.map = map;
             chars.add(hero);
             chars.add(guard);
             map.setChars(chars);
@@ -65,9 +38,6 @@
 
         public Map getMap(){return map;}
 
-        public void setMap(Map map) {
-            this.map = map;
-        }
 
         public States getCurrent_state(){return current_state;}
 
@@ -100,7 +70,7 @@
                         }
                     }
 
-                    if(current_state == States.MAP_DONE){ current_state = States.PLAYING; }
+                    if(current_state == States.MAP_DONE){ current_state = States.DONE; }
                     break;
             }
         }
@@ -269,7 +239,6 @@
             switch (this.level){
                 case 1:
                     level++;
-                    map.setMap(map2);
                     hero.setCoordinates(8 ,1);
                     hero.setKey(false);
                     ogres.add(ogre);
@@ -291,7 +260,7 @@
 
                     break;
                 case 2:
-                    current_state = States.DONE;
+                    break;
             }
 
         }
