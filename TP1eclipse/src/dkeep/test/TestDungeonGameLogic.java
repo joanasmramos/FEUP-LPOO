@@ -8,7 +8,7 @@ public class TestDungeonGameLogic {
     char map1[][] = {{ 'X', 'I', 'X', 'X', 'X' },
     { 'X', ' ', ' ', 'G', 'X' },
     { 'X', ' ', ' ', ' ', 'X' },
-    { 'X', 'k', ' ', ' ', 'X' },
+    { 'X', 'K', ' ', ' ', 'X' },
     { 'X', 'X', 'X', 'X', 'X' } };
 
     @Test
@@ -26,6 +26,23 @@ public class TestDungeonGameLogic {
     }
 
     @Test
+    public void testHeroMovesIntoWall(){
+        Map map = new Map(map1);
+        GameState game = new GameState();
+        game.setMap(map);
+        game.guard.setCoordinates(1,3);
+
+        game.moveHero('a');
+        assertEquals(1, game.getHero().getLine());
+        assertEquals(1, game.getHero().getColumn());
+
+        game.moveHero('w');
+        assertEquals(1, game.getHero().getLine());
+        assertEquals(1, game.getHero().getColumn());
+    }
+
+
+    @Test
     public void testHeroIsCapturedByGuard(){
         Map map = new Map(map1);
         GameState game = new GameState();
@@ -37,5 +54,49 @@ public class TestDungeonGameLogic {
         assertTrue(game.isGameOver());
     }
 
+    @Test
+    public void testHeroLeavesClosedDoor(){
+        Map map = new Map(map1);
+        GameState game = new GameState();
+        game.setMap(map);
+        game.guard.setCoordinates(1,3);
+
+        assertEquals(1, game.getHero().getLine());
+        assertEquals(1, game.getHero().getColumn());
+
+        assertFalse(game.getMap().areDoorsOpen());
+    }
+
+
+    @Test
+    public void testHeroOpensDoor(){
+        Map map = new Map(map1);
+        GameState game = new GameState();
+        game.setMap(map);
+        game.guard.setCoordinates(1,3);
+
+        game.moveHero('s');
+        game.moveHero('s');
+
+        assertTrue(game.getMap().areDoorsOpen());
+    }
+
+    @Test
+    public void testHeroGoThroughDoor(){
+        Map map = new Map(map1);
+        GameState game = new GameState();
+        game.setMap(map);
+        game.guard.setCoordinates(1,3);
+
+        game.moveHero('s');
+        game.moveHero('s');
+
+        game.moveHero('w');
+        game.moveHero('w');
+        game.moveHero('w');
+
+        assertTrue(game.getCurrent_state()== GameState.States.MAP_DONE);
+
+    }
 
 }

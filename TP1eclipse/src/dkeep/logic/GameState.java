@@ -14,7 +14,7 @@ public class GameState {
 
     private int level;
 
-    public enum States { DONE, GAME_OVER, PLAYING}
+    public enum States { DONE, GAME_OVER, PLAYING, MAP_DONE}
 
     private States current_state = States.PLAYING;
 
@@ -81,7 +81,11 @@ public class GameState {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
+
+
+                if(current_state == States.MAP_DONE){ current_state = States.PLAYING; }
                 break;
+
             case 2:
             	
             	for(Ogre o: ogres) {
@@ -101,6 +105,8 @@ public class GameState {
                     current_state = States.GAME_OVER;
                     promptMsg("GAME OVER");
                 }
+
+                if(current_state == States.MAP_DONE){ current_state = States.PLAYING; }
                 break;
         }
     }
@@ -111,10 +117,12 @@ public class GameState {
         switch (level){
             case 1:
                 updatePos(user_input);
+                if(current_state == States.MAP_DONE) levelup();
                 map.print();
                 break;
             case 2:
                 updatePos(user_input);
+                if(current_state == States.MAP_DONE) levelup();
                 map.print();
                 break;
 
@@ -154,7 +162,6 @@ public class GameState {
     }
 
 
-    //NOTE: FIND A WAY TO MAKE THIS LESS SPAGHETTI
     public  void updatePos(char dir) {
         switch (this.level) {
             case 1:
@@ -179,7 +186,7 @@ public class GameState {
             case 1:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
-                    if(checkObstacle(hero, 'S', dir)) levelup();
+                    if(checkObstacle(hero, 'S', dir)) current_state = States.MAP_DONE;
 
                     else {
                         if (checkObstacle(hero, 'K', dir))
@@ -203,7 +210,7 @@ public class GameState {
                 }
                 else if(checkObstacle(hero, 'I', dir) && hero.HasKey()) {
                     hero.moveChar(dir);
-                    levelup();
+                    current_state = States.MAP_DONE;
                 }
                 else {
                     promptMsg("Cannot move there.");
