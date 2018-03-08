@@ -14,8 +14,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testMoveHeroIntoFreeCell(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
@@ -28,8 +27,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testHeroMovesIntoWall(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         game.moveHero('a');
@@ -45,8 +43,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testHeroIsCapturedByGuard(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         assertFalse(game.isGameOver());
@@ -57,8 +54,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testHeroLeavesClosedDoor(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
@@ -71,8 +67,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testHeroOpensDoor(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         game.moveHero('s');
@@ -84,8 +79,7 @@ public class TestDungeonGameLogic {
     @Test
     public void testHeroGoThroughDoor(){
         Map map = new Map(map1);
-        GameState game = new GameState();
-        game.setMap(map);
+        GameState game = new GameState(map);
         game.guard.setCoordinates(1,3);
 
         game.moveHero('s');

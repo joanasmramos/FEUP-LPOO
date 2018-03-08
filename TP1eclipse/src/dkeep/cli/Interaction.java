@@ -9,6 +9,32 @@ public class Interaction {
 	
 	private static Scanner scanner = new Scanner(System.in);
 
+    public static char map1[][] =  {
+            { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+            { 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+            { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+            { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+            { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X' },
+            { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+    };
+
+    public static char map2[][] = {
+            {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+            {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+            {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+    };
+
 
     public static void print(Map map) {
         int print_char = 0;
@@ -65,13 +91,16 @@ public class Interaction {
 
 		char cmd;
 
-		GameState game = new GameState();
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
 		print(game.map);
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();
 			game.game(cmd);
 			game.checkEvents();
+
+			if(game.getCurrent_state() == GameState.States.MAP_DONE) game.getMap().setMap(map2);
 		}
 		
 	}
