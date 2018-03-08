@@ -164,22 +164,18 @@ public class GameState {
                 break;
 
             case 2:
-                if (moveHero(dir) != 1) {
-                    moveOgre(ogre);
-
-                    if (moveHero(dir) != 1) {
-                        for (Ogre o : ogres) {
-                            moveOgre(o);
-                        }
+            	if (moveHero(dir) != 1) {
+            		for (Ogre o : ogres) {
+            			moveOgre(o);
                     }
-                    break;
-                }
+            	}
+                break;
         }
 
     }
 
-    public int moveHero(char dir){
-        switch (this.level){
+    public int moveHero(char dir) {
+        switch (this.level) {
             case 1:
                 if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
@@ -228,7 +224,14 @@ public class GameState {
     public void moveOgre(Ogre ogre){
     	
     	if(ogre.getStunned()) {
-    		ogre.setTurns(ogre.getTurns()-1);
+    		if(ogre.getTurns() != 0) {
+    			ogre.setTurns(ogre.getTurns()-1);
+    			return;
+    		}
+    		else {
+    			ogre.setStunned(false);
+    			ogre.setTurns(2);
+    		}
     	}
     	
         //move Ogre
@@ -270,8 +273,8 @@ public class GameState {
                 map.remChar(guard);
                 
                 for(int i=0; i<nr; i++) {
-                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 6),
-                			Ogre.generateNr(1, this.map.getColumns()), 'O');
+                	Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
+                			Ogre.generateNr(1, 8), 'O');
                 	ogres.add(anotherOgre);
                 	map.addChar(anotherOgre);
                 	map.addObj(anotherOgre.getOgre_club());

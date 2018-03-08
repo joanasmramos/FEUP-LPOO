@@ -33,16 +33,24 @@ public class Hero extends Character{
     public boolean catchClub(Club club, char dir) {
         switch (dir){
             case 'w':
-                if(this.getLine()==club.getLine()+1 && this.getColumn()==club.getColumn()) this.club=true;
+                if(this.getLine()==club.getLine()+1 && this.getColumn()==club.getColumn()) {
+                	this.club=true;
+                }
                 break;
             case 's':
-                if(this.getLine()==club.getLine()-1 && this.getColumn()==club.getColumn()) this.club=true;
+                if(this.getLine()==club.getLine()-1 && this.getColumn()==club.getColumn()) {
+                	this.club=true;
+                }
                 break;
             case 'd':
-                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()-1) this.club=true;
+                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()-1) {
+                	this.club=true;
+                }
                 break;
             case 'a':
-                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()+1) this.club=true;
+                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()+1) { 
+                	this.club=true;
+                }
                 break;
 
 

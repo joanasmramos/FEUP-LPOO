@@ -59,6 +59,7 @@ class Club  extends Object{
     public char getDir() {
         return dir;
     }
+    
 }
 
 class Key extends Object{
