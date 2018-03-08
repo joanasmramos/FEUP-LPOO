@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import dkeep.cli.Interaction;
+
 public class Hero extends Character{
 
     private boolean key;

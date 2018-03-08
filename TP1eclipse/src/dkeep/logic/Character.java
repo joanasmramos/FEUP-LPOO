@@ -33,6 +33,8 @@ public class Character implements GameElement{
     public char getChar() {
         return charc;
     }
+
+
 }
 
 

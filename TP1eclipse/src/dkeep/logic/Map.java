@@ -82,42 +82,14 @@
 
         public boolean areDoorsOpen(){ return this.opendoors; }
 
-        
-        public void print() {
-            int print_char = 0;
-            int print_obj = 0;
 
-            for (int i = 0; i < n_lines; i++) {
-                for (int j = 0; j < n_columns; j++) {
-                	
-                	for (Character charac : chars) {
-                		if(i==charac.getLine() && j==charac.getColumn()) {
-                			System.out.print(charac.getChar() + " ");
-                			print_char++;
-                		}
-                	}
-                	
-                	for(Object obj : objects) {
-                		if(i==obj.getLine() && j==obj.getColumn()) {
-                			if(obj.isVisible()) {
-                                System.out.print(obj.getChar() + " ");
-                                print_obj++;
-                			}
-                		}
-                	}
-                	
-                	if(print_char==0 && print_obj==0) System.out.print(this.map[i][j] + " ");
-
-                    print_char = 0;
-                    print_obj = 0;
-                	
-                }
-                System.out.println();
-            }
-        }
 
         public void setMap(char[][] newmap) {
             this.map = newmap;
+        }
+
+        public int getN_lines() {
+            return n_lines;
         }
 
     }
