@@ -28,9 +28,6 @@ public class Hero extends Character{
         this.key = key;
     }
 
-    public void setClub(boolean club) {
-        this.club = club;
-    }
 
     public boolean catchClub(Club club, char dir) {
         switch (dir){

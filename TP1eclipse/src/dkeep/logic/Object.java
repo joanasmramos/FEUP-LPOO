@@ -37,6 +37,10 @@ public class Object implements GameElement{
     		return type;
     	else return ' ';
     }
+
+    public void setChar(char c){
+        this.type = c;
+    }
     
     public void setVisible(boolean visible) {
     	this.visible = visible;
@@ -60,20 +64,22 @@ class Club  extends Object{
     public char getDir() {
         return dir;
     }
-    
+
+    public boolean isInKeyPos(int line, int column) {
+        if (this.getLine() == line && this.column == column) {setChar('$'); return true; }
+        else {
+            setChar('k');
+            return false;
+        }
+    }
+
 }
 
 class Key extends Object{
-    private boolean picked_up;
 
     public Key(int line, int column, char type){
         super(line, column, type);
-        this.picked_up = false;
     }
 
 
-    public void setPicked_up(boolean picked_up) {
-        this.picked_up = picked_up;
-        super.visible = false;
-    }
 }

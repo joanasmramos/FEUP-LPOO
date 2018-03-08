@@ -86,18 +86,18 @@
 
                 case 2:
 
-                    for(Ogre o: ogres) {
-                    if(hero.checkIfCaught(o.getLine(), o.getColumn())) {
-                        if(!hero.HasCub()) {
-                        current_state = States.GAME_OVER;
-                            Interaction.promptMsg("GAME OVER");
+                    for (Ogre o : ogres) {
+                        if (hero.checkIfCaught(o.getLine(), o.getColumn())) {
+                            if (hero.HasCub()) {
+                                o.setStunned(true);
+                                o.setTurns(2);
+                            }else current_state = States.GAME_OVER;
+                        }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
+                            if (!hero.HasCub()) {
+                                current_state = States.GAME_OVER;
+                                Interaction.promptMsg("GAME OVER");
+                            }
                         }
-                    }
-                    }
-
-                    if(hero.checkIfCaught(ogre.getOgre_club().getLine(), ogre.getOgre_club().getColumn())) {
-                        current_state = States.GAME_OVER;
-                        Interaction.promptMsg("GAME OVER");
                     }
 
                     if(current_state == States.MAP_DONE){ current_state = States.PLAYING; }
@@ -202,16 +202,6 @@
                             map.remObj(club);
                         }
 
-                        for (Ogre o : ogres) {
-                            if (hero.checkIfCaught(o.getLine(), o.getColumn())) {
-                                if (hero.HasCub()) {
-                                    o.setStunned(true);
-                                    o.setTurns(2);
-                                    break;
-                                }
-                            }
-                        }
-
                         hero.moveChar(dir);
 
                     }else if (checkObstacle(hero, 'I', dir) && hero.HasKey()) {
@@ -226,7 +216,7 @@
                     if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
                         hero.setKey(true);
                         hero.setChar('K');
-                        key.setPicked_up(true);
+                        key.visible = false;
                     }
 
                     break;
@@ -264,9 +254,12 @@
 
             //generate a direction possible for ogre's club to move to
             while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
-                    checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir()) || checkObstacle(hero, ogre, ogre.getDir())){
+                      checkObstacle(hero, ogre, ogre.getDir())){
                 ogre.getOgre_club().setDir(ogre.generateDir());
             }
+
+            if(checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir()))
+                ogre.getOgre_club().isInKeyPos(key.getLine(), key.getColumn());
 
             ogre.throwClub(ogre.getOgre_club().getDir());
         }
