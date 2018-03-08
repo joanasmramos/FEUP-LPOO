@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Object {
+public class Object implements GameElement{
     protected int line;
     protected int column;
     protected char type;
@@ -50,6 +50,7 @@ class Club  extends Object{
         super.line = line;
         super.type = type;
         super.column = column;
+        this.setVisible(false);
     }
 
     public void setDir(char dir) {

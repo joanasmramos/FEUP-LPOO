@@ -100,7 +100,6 @@
                 	for(Object obj : objects) {
                 		if(i==obj.getLine() && j==obj.getColumn()) {
                 			if(obj.isVisible()) {
-                				if(print_char>0 || print_obj>0) j += print_char + print_obj;
                                 System.out.print(obj.getChar() + " ");
                                 print_obj++;
                 			}

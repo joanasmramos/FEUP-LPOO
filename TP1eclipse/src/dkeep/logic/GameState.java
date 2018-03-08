@@ -8,9 +8,9 @@ public class GameState {
     public Hero hero = new Hero(1,1, 'H');
     public Guard guard = new Guard(1, 8, 'G');
     public Ogre ogre = new Ogre(5, 1, 'O');
-    HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-    public Key key = new Key(1,8,'k');
-    Club club = new Club(8, 2, 'C');
+    public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
+    private Key key = new Key(1,8,'k');
+    public Club club = new Club(8, 2, 'C');
 
     private int level;
 
@@ -161,6 +161,24 @@ public class GameState {
         }
     }
 
+    public boolean checkObstacle(GameElement object, GameElement obstacle, char dir) {
+        switch (dir) {
+            case 'w':
+                return (object.getLine()-1 == obstacle.getLine() && object.getColumn() == obstacle.getColumn());
+            case 's':
+                return (object.getLine()+1 == obstacle.getLine() && object.getColumn() == obstacle.getColumn());
+            case 'd':
+                return (object.getLine() == obstacle.getLine() && object.getColumn()+1 == obstacle.getColumn());
+            case 'a':
+                return (object.getLine() == obstacle.getLine() && object.getColumn()-1 == obstacle.getColumn());
+
+            default: return true;
+        }
+    }
+
+
+
+
 
     public  void updatePos(char dir) {
         switch (this.level) {
@@ -245,7 +263,8 @@ public class GameState {
         ogre.setOgreDir(ogre.generateDir());
 
         //generate a direction possible for ogre to move to
-        while(checkObstacle(ogre, 'I',ogre.getDir()) || checkObstacle(ogre, 'X',ogre.getDir())){
+        while(checkObstacle(ogre, 'I',ogre.getDir()) || checkObstacle(ogre, 'X',ogre.getDir()) ||
+                checkObstacle(hero, ogre, ogre.getDir())){
             ogre.setOgreDir(ogre.generateDir());
         }
 
@@ -256,7 +275,8 @@ public class GameState {
         ogre.getOgre_club().setDir(ogre.generateDir());
 
         //generate a direction possible for ogre's club to move to
-        while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())){
+        while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
+                checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir())){
             ogre.getOgre_club().setDir(ogre.generateDir());
         }
 
@@ -274,6 +294,7 @@ public class GameState {
                 ogres.add(ogre);
                 map.addChar(ogre);
                 int nr = Ogre.generateNr(0, 4);
+                club.setVisible(true);
                 map.addObj(club);
                 map.addObj(key);
                 map.addObj(ogre.getOgre_club());

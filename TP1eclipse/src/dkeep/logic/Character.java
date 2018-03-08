@@ -1,7 +1,7 @@
 package dkeep.logic;
 import java.util.Random;
 
-public class Character {
+public class Character implements GameElement{
 
     protected int line;
     protected int column;

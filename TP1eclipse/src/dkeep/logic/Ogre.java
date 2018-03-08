@@ -62,6 +62,8 @@ public class Ogre extends Character {
     }
 
     public void throwClub(char dir) {
+        this.getOgre_club().setVisible(true);
+
         switch (java.lang.Character.toLowerCase(dir)) {
             case 'w':
                 this.ogre_club.setCoordinates(this.line - 1,this.column);
