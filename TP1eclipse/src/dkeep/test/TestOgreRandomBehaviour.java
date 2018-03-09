@@ -15,7 +15,7 @@ public class TestOgreRandomBehaviour {
             { 'X', 'X', 'X', 'X', 'X' }
     };
 
-    @Test
+    @Test (timeout = 1000)
     public void testRandomBehaviour(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
@@ -41,10 +41,11 @@ public class TestOgreRandomBehaviour {
         boolean right_down = false;
         boolean right_up = false;
 
-        while(!up_up || !up_down || !up_right || !up_left || !down_down || !down_up ||
-                !down_left || !down_right ||
-                !right_down || !right_left || !right_right || !right_up ||
-                !left_down || !left_left || !left_right || !left_up){
+        while(!up_up || !up_down || !up_right || !up_left
+                || !down_down || !down_up || !down_left || !down_right
+                || !right_down || !right_left || !right_right || !right_up
+                || !left_down || !left_left || !left_right || !left_up)
+        {
 
             game.moveOgre(game.ogre);
 

@@ -13,6 +13,19 @@
         public Object key = new Object(1,8,'k');
         public Club club = new Club(8, 2, 'C');
 
+        public static char map2[][] = {
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+        };
+
         private int level;
 
         public enum States { DONE, GAME_OVER, PLAYING, MAP_DONE}
@@ -47,11 +60,7 @@
                 case 1:
                     if(hero.checkIfCaught(guard.getLine(), guard.getColumn())) {
                         current_state = States.GAME_OVER;
-                        Interaction.promptMsg("GAME OVER");
                     }
-
-
-                    if(current_state == States.MAP_DONE){ current_state = States.PLAYING; }
                     break;
 
                 case 2:
@@ -65,7 +74,7 @@
                         }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
                             if (!hero.HasCub()) {
                                 current_state = States.GAME_OVER;
-                                Interaction.promptMsg("GAME OVER");
+                                current_state = States.GAME_OVER;
                             }
                         }
                     }
@@ -160,17 +169,15 @@
                 case 1:
                     if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
-                        if(checkObstacle(hero, 'S', dir)) current_state = States.MAP_DONE;
+                        if(checkObstacle(hero, 'S', dir))
+                        {current_state = States.MAP_DONE; map.setMap(map2);}
 
                         else {
                             if (checkObstacle(hero, 'K', dir))
                                 map.openDoors();
                             else hero.moveChar(dir);
                         }
-                    }else  {
-                        Interaction.promptMsg("GAME OVER");
-                        return 1;
-                    }
+                    }else return 1;
 
                     break;
 
@@ -186,10 +193,8 @@
                             hero.moveChar(dir);
                             current_state = States.MAP_DONE;
 
-                    } else {
-                        Interaction.promptMsg("GAME OVER");
+                    } else
                         return 1;
-                    }
 
                     if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
                         hero.setKey(true);
@@ -232,7 +237,7 @@
 
             //generate a direction possible for ogre's club to move to
             while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
-                      checkObstacle(hero, ogre, ogre.getDir())){
+                      checkObstacle(hero, ogre.getOgre_club(), ogre.getOgre_club().getDir())){
                 ogre.getOgre_club().setDir(ogre.generateDir());
             }
 
@@ -265,6 +270,8 @@
                         map.addChar(anotherOgre);
                         map.addObj(anotherOgre.getOgre_club());
                     }
+
+                    current_state = States.PLAYING;
 
                     break;
                 case 2:

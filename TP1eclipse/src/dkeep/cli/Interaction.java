@@ -98,10 +98,15 @@ public class Interaction {
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();
 			game.game(cmd);
-			game.checkEvents();
+            game.checkEvents();
 
-			if(game.getCurrent_state() == GameState.States.MAP_DONE) game.getMap().setMap(map2);
-		}
+            if(game.getCurrent_state() == GameState.States.MAP_DONE) game.getMap().setMap(map2);
+
+            else if(game.getCurrent_state() == GameState.States.GAME_OVER) promptMsg(" \n GAME OVER");
+
+            else if(game.getCurrent_state() == GameState.States.DONE) promptMsg("\n GAME OVER");
+
+        }
 		
 	}
 }
