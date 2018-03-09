@@ -74,7 +74,6 @@
                         }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
                             if (!hero.HasCub()) {
                                 current_state = States.GAME_OVER;
-                                current_state = States.GAME_OVER;
                             }
                         }
                     }
@@ -225,7 +224,7 @@
 
             //generate a direction possible for ogre to move to
             while(checkObstacle(ogre, 'I',ogre.getDir()) || checkObstacle(ogre, 'X',ogre.getDir()) ||
-                    checkObstacle(hero, ogre, ogre.getDir()) || checkObstacle(key, ogre, ogre.getDir())){
+                    checkObstacle(ogre, hero, ogre.getDir()) || checkObstacle(key, ogre, ogre.getDir())){
                 ogre.setOgreDir(ogre.generateDir());
             }
 
@@ -236,8 +235,7 @@
             ogre.getOgre_club().setDir(ogre.generateDir());
 
             //generate a direction possible for ogre's club to move to
-            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
-                      checkObstacle(hero, ogre.getOgre_club(), ogre.getOgre_club().getDir())){
+            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())){
                 ogre.getOgre_club().setDir(ogre.generateDir());
             }
 
