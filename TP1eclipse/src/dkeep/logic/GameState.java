@@ -97,13 +97,21 @@
         public boolean checkObstacle(GameElement character, char obstacle, char dir) {
             switch (dir) {
                 case 'w':
-                    return (map.getMap()[character.getLine()-1][character.getColumn()] == obstacle);
+                    if(character.getLine()-1 >= 0)
+                        return (map.getMap()[character.getLine()-1][character.getColumn()] == obstacle);
+                    else return false;
                 case 's':
-                    return (map.getMap()[character.getLine()+1][character.getColumn()] == obstacle);
+                    if(character.getLine()+1 < this.getMap().getN_lines())
+                        return (map.getMap()[character.getLine()+1][character.getColumn()] == obstacle);
+                    else return false;
                 case 'd':
+                    if(character.getColumn()+1 < this.getMap().getColumns())
                     return (map.getMap()[character.getLine()][character.getColumn()+1] == obstacle);
+                    else return false;
                 case 'a':
+                    if(character.getLine()-1 >= 0)
                     return (map.getMap()[character.getLine()][character.getColumn()-1] == obstacle);
+                    else return false;
 
                 default: return true;
             }
