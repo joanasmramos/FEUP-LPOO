@@ -7,7 +7,7 @@
     public class GameState {
         public Map map;
         public Hero hero = new Hero(1,1, 'H');
-        public Guard guard = new Guard(1, 8, 'G');
+        public Guard guard = new Rookie(1, 8, 'G');
         public Ogre ogre = new Ogre(5, 1, 'O');
         public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
         public Object key = new Object(1,8,'k');
@@ -41,8 +41,6 @@
             chars.add(guard);
             map.setChars(chars);
             map.setObjs(objects);
-            guard.setAsleep(false);
-            guard.setReverse(false);
         }
 
         public Hero getHero() {
@@ -58,7 +56,7 @@
         public void checkEvents(){
             switch(level){
                 case 1:
-                    if(hero.checkIfCaught(guard.getLine(), guard.getColumn())) {
+                    if(hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
                         current_state = States.GAME_OVER;
                     }
                     break;

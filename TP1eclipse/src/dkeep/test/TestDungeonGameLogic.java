@@ -6,7 +6,7 @@ import dkeep.logic.*;
 
 public class TestDungeonGameLogic {
     char map1[][] = {{ 'X', 'I', 'X', 'X', 'X' },
-    { 'X', ' ', ' ', 'G', 'X' },
+    { 'X', ' ', ' ', ' ', 'X' },
     { 'X', ' ', ' ', ' ', 'X' },
     { 'X', 'K', ' ', ' ', 'X' },
     { 'X', 'X', 'X', 'X', 'X' } };
@@ -93,4 +93,52 @@ public class TestDungeonGameLogic {
 
     }
 
+    @Test(timeout = 1000)
+    public void testDrunkenGuardisAsleep(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.guard = new Drunken(1,3,'G');
+
+        boolean asleep = false;
+        boolean awake = false;
+
+        while(!asleep || !awake){
+            game.guard.moveChar();
+
+            if(game.guard.isAsleep())
+                asleep = true;
+            else awake = true;
+        }
+    }
+
+    @Test(timeout = 1000)
+    public void testSuspiciousGuardisReverse(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.guard = new Suspicious(1,3,'G');
+
+        boolean reverse = false;
+        boolean normal = false;
+
+        while(!normal || !reverse){
+            game.guard.moveChar();
+
+            if(game.guard.isReverse())
+                normal = true;
+            else reverse = true;
+        }
+    }
+
+    @Test
+    public void testHeroLosesWithGuardAsleep(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.guard = new Drunken(1,3,'G');
+
+        game.guard.setAsleep(true);
+        game.moveHero('d');
+
+        game.checkEvents();
+        assertTrue(GameState.States.PLAYING == game.getCurrent_state());
+    }
 }
