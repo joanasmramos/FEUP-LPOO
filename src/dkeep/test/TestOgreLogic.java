@@ -15,12 +15,30 @@ public class TestOgreLogic {
             { 'X', 'X', 'X', 'X', 'X' }
     };
 
+
+
+    @Test
+    public void testClubNotVisable(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        assertFalse(game.ogre.getOgre_club().isVisible());
+    }
+
+    @Test
+    public void testOgreChar(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.levelup();
+        assertTrue('8' == game.ogre.getChar() || 'O' == game.ogre.getChar());
+    }
+
     @Test
     public void testHeroIsCapturedByOgre(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
         game.ogre.setCoordinates(1,4);
+
         game.hero.setCoordinates(1,1);
         game.key.setCoordinates(3,1);
 

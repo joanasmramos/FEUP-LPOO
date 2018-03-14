@@ -48,7 +48,7 @@ public class TestOgreRandomBehaviour {
         {
 
             game.moveOgre(game.ogre);
-
+            assertTrue(game.ogre.getOgre_club().isVisible());
 
            if(game.ogre.getDir() == 'w'){
 

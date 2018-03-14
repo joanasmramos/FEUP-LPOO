@@ -9,9 +9,7 @@ public class Suspicious extends Guard {
     public void setReverse(boolean reverse) {
         this.reverse = reverse;
     }
-
-
-
+    
 
     @Override
     public void moveChar(){

@@ -11,6 +11,31 @@ public class TestDungeonGameLogic {
     { 'X', 'K', ' ', ' ', 'X' },
     { 'X', 'X', 'X', 'X', 'X' } };
 
+
+
+    @Test
+    public void testHeroChar(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        assertTrue('H' == game.hero.getChar());
+    }
+
+    @Test
+    public void testGuardChar(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        assertTrue('G' == game.guard.getChar()|| 'g' == game.guard.getChar());
+    }
+
+    @Test
+    public void testKeyChar(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        assertTrue('k' == game.key.getChar()|| '$' == game.key.getChar());
+        game.key.setVisible(false);
+        assertTrue(' ' == game.key.getChar());
+    }
+
     @Test
     public void testMoveHeroIntoFreeCell(){
         Map map = new Map(map1);
@@ -101,12 +126,18 @@ public class TestDungeonGameLogic {
 
         boolean asleep = false;
         boolean awake = false;
+        int line, column;
 
         while(!asleep || !awake){
+            line = game.guard.getLine();
+            column = game.guard.getColumn();
             game.guard.moveChar();
 
-            if(game.guard.isAsleep())
+            if(game.guard.isAsleep()) {
                 asleep = true;
+                assertEquals(line, game.guard.getLine());
+                assertEquals(column, game.guard.getColumn());
+            }
             else awake = true;
         }
     }
@@ -136,6 +167,7 @@ public class TestDungeonGameLogic {
         game.guard = new Drunken(1,3,'G');
 
         game.guard.setAsleep(true);
+        assertTrue(game.guard.isAsleep());
         game.moveHero('d');
 
         game.checkEvents();
