@@ -34,6 +34,7 @@ public class DungeonKeep {
 	private JComboBox<String> guard;
 	JTextArea consoledisp;
 	JButton moveleft, moveright, moveup, movedown;
+	JLabel statusMsg;
 
 	public static char map1[][] =  {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -85,7 +86,7 @@ public class DungeonKeep {
 		
 		JPanel controls = new JPanel();
 		
-		JLabel status = new JLabel("You can start a new game.");
+		statusMsg = new JLabel("You can start a new game.");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -99,7 +100,7 @@ public class DungeonKeep {
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(127)
 							.addGap(26)
-							.addComponent(status)))
+							.addComponent(statusMsg)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(controls, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
 		);
@@ -111,7 +112,7 @@ public class DungeonKeep {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(display, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(status, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(statusMsg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(18))
 				.addComponent(controls, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
 		);
@@ -137,7 +138,7 @@ public class DungeonKeep {
 		controls.add(controlspnl);
 		controlspnl.setLayout(new GridLayout(3, 0, 0, 0));
 		
-		JButton moveup = new JButton("Up");
+		moveup = new JButton("Up");
 		moveup.setEnabled(false);
 		controlspnl.add(moveup);
 		
@@ -153,16 +154,15 @@ public class DungeonKeep {
 		});
 		leftrightpnl.add(moveleft);
 		
-		JButton moveright = new JButton("Right");
+		moveright = new JButton("Right");
 		moveright.setEnabled(false);
 		leftrightpnl.add(moveright);
 		
-		JButton movedown = new JButton("Down");
+		movedown = new JButton("Down");
 		movedown.setEnabled(false);
 		controlspnl.add(movedown);
 		
 		JPanel exitpnl = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) exitpnl.getLayout();
 		controls.add(exitpnl);
 		
 		JButton btnExit = new JButton("Exit");
@@ -194,9 +194,9 @@ public class DungeonKeep {
 		Interaction newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
 		GameState game = newGame.Dungeon();
 		
-		consoledisp.setText(newGame.printToString(game.getMap()));
+		consoledisp.setText(newGame.printToString(game.getMap())); // display map
+		statusMsg.setText("You can play now");
 		enableMoveKeys();
-		
 	}
 	
 	public void enableMoveKeys() {
