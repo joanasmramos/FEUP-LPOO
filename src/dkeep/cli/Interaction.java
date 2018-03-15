@@ -145,6 +145,8 @@ public class Interaction {
         System.out.println(message);
     }
     
+    
+    
     public Interaction(String nrOgres, int guardType) {
     	this.nrOgres = Integer.parseInt(nrOgres);
     	this.guardType = guardType;
@@ -154,7 +156,21 @@ public class Interaction {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.setNrOgres(nrOgres);
+        
+        switch(this.guardType) {
+        case 0:
+        	game.setGuard(new Rookie(1, 8, 'G'));
+        	break;
+        case 1:
+        	game.setGuard(new Drunken(1, 8, 'G'));
+        	break;
+        case 2:
+        	game.setGuard(new Suspicious(1, 8, 'G'));
+        	break;
+        }
+        
 		print(game.getMap());
+		
 		
 		return game;
     }

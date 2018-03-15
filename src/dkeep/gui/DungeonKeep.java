@@ -33,6 +33,7 @@ public class DungeonKeep {
 	private JTextField ogresnr;
 	private JComboBox<String> guard;
 	JTextArea consoledisp;
+	JButton moveleft, moveright, moveup, movedown;
 
 	public static char map1[][] =  {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -144,7 +145,7 @@ public class DungeonKeep {
 		controlspnl.add(leftrightpnl);
 		leftrightpnl.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JButton moveleft = new JButton("Left");
+		moveleft = new JButton("Left");
 		moveleft.setEnabled(false);
 		moveleft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -192,7 +193,16 @@ public class DungeonKeep {
 	public void newGamePressed() {
 		Interaction newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
 		GameState game = newGame.Dungeon();
-		consoledisp.setText(newGame.printToString(game.getMap()));
 		
+		consoledisp.setText(newGame.printToString(game.getMap()));
+		enableMoveKeys();
+		
+	}
+	
+	public void enableMoveKeys() {
+		moveleft.setEnabled(true);
+		moveright.setEnabled(true);
+		moveup.setEnabled(true);
+		movedown.setEnabled(true);
 	}
 }
