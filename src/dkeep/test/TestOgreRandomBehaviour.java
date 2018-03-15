@@ -20,9 +20,9 @@ public class TestOgreRandomBehaviour {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,3);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,3);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         boolean up_up = false;
         boolean up_down = false;
@@ -47,53 +47,53 @@ public class TestOgreRandomBehaviour {
                 || !left_down || !left_left || !left_right || !left_up)
         {
 
-            game.moveOgre(game.ogre);
-            assertTrue(game.ogre.getOgre_club().isVisible());
+            game.moveOgre(game.getOgre());
+            assertTrue(game.getOgre().getOgre_club().isVisible());
 
-           if(game.ogre.getDir() == 'w'){
+           if(game.getOgre().getDir() == 'w'){
 
-                if(game.ogre.getOgre_club().getDir() == 'w')
+                if(game.getOgre().getOgre_club().getDir() == 'w')
                     up_up = true;
-                else if(game.ogre.getOgre_club().getDir() == 's')
+                else if(game.getOgre().getOgre_club().getDir() == 's')
                     up_down = true;
-                else if(game.ogre.getOgre_club().getDir() == 'd')
+                else if(game.getOgre().getOgre_club().getDir() == 'd')
                     up_right = true;
-                else if(game.ogre.getOgre_club().getDir() == 'a')
+                else if(game.getOgre().getOgre_club().getDir() == 'a')
                     up_left = true;
 
 
-            }else if(game.ogre.getDir() == 's'){
+            }else if(game.getOgre().getDir() == 's'){
 
-                if(game.ogre.getOgre_club().getDir() == 'w')
+                if(game.getOgre().getOgre_club().getDir() == 'w')
                     down_up = true;
-                else if(game.ogre.getOgre_club().getDir() == 's')
+                else if(game.getOgre().getOgre_club().getDir() == 's')
                     down_down = true;
-                else if(game.ogre.getOgre_club().getDir() == 'd')
+                else if(game.getOgre().getOgre_club().getDir() == 'd')
                     down_right = true;
-                else if(game.ogre.getOgre_club().getDir() == 'a')
+                else if(game.getOgre().getOgre_club().getDir() == 'a')
                     down_left = true;
 
 
-            }else if(game.ogre.getDir() == 'd'){
+            }else if(game.getOgre().getDir() == 'd'){
 
-                if(game.ogre.getOgre_club().getDir() == 'w')
+                if(game.getOgre().getOgre_club().getDir() == 'w')
                     right_up = true;
-                else if(game.ogre.getOgre_club().getDir() == 's')
+                else if(game.getOgre().getOgre_club().getDir() == 's')
                     right_down = true;
-                else if(game.ogre.getOgre_club().getDir() == 'd')
+                else if(game.getOgre().getOgre_club().getDir() == 'd')
                     right_right = true;
-                else if(game.ogre.getOgre_club().getDir() == 'a')
+                else if(game.getOgre().getOgre_club().getDir() == 'a')
                     right_left = true;
 
-           }else if(game.ogre.getDir() == 'a'){
+           }else if(game.getOgre().getDir() == 'a'){
 
-                if(game.ogre.getOgre_club().getDir() == 'w')
+                if(game.getOgre().getOgre_club().getDir() == 'w')
                     left_up = true;
-                else if(game.ogre.getOgre_club().getDir() == 's')
+                else if(game.getOgre().getOgre_club().getDir() == 's')
                     left_down = true;
-                else if(game.ogre.getOgre_club().getDir() == 'd')
+                else if(game.getOgre().getOgre_club().getDir() == 'd')
                     left_right = true;
-                else if(game.ogre.getOgre_club().getDir() == 'a')
+                else if(game.getOgre().getOgre_club().getDir() == 'a')
                     left_left = true;
 
             }else fail();

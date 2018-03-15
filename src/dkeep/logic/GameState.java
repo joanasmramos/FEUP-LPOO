@@ -1,18 +1,17 @@
     package dkeep.logic;
     import java.util.HashSet;
     import dkeep.cli.*;
-import dkeep.logic.GameState.States;
 
 import java.util.ArrayList;
 
     public class GameState {
-        public Map map;
-        public Hero hero = new Hero(1,1, 'H');
-        public Guard guard = new Rookie(1, 8, 'G');
-        public Ogre ogre = new Ogre(5, 1, 'O');
-        public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-        public Object key = new Object(1,8,'k');
-        public Club club = new Club(8, 2, 'C');
+        private Map map;
+        private Hero hero = new Hero(1,1, 'H');
+        private Guard guard = new Rookie(1, 8, 'G');
+        private Ogre ogre = new Ogre(5, 1, 'O');
+        private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
+        private Object key = new Object(1,8,'k');
+        private Club club = new Club(8, 2, 'C');
         private int nrOgres; 
         
         public Guard getGuard() {
@@ -126,7 +125,9 @@ import java.util.ArrayList;
             return hero;
         }
 
-        public Map getMap(){return map;}
+        public Map getMap(){
+        	return map;
+        	}
 
 
         public States getCurrent_state(){return current_state;}
@@ -167,12 +168,12 @@ import java.util.ArrayList;
                 case 1:
                     updatePos(user_input);
                     if(current_state == States.MAP_DONE) levelup();
-                    Interaction.print(map);
+                    //Interaction.print(map);
                     break;
                 case 2:
                     updatePos(user_input);
                     if(current_state == States.MAP_DONE) levelup();
-                    Interaction.print(map);
+                    //Interaction.print(map);
                     break;
 
             }
@@ -338,7 +339,7 @@ import java.util.ArrayList;
                     map.addObj(ogre.getOgre_club());
                     map.remChar(guard);
 
-                    for(int i=0; i<nr; i++) {
+                    for(int i=0; i<this.nrOgres - 2; i++) {
                         Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
                                 Ogre.generateNr(1, 8), 'O');
                         ogres.add(anotherOgre);

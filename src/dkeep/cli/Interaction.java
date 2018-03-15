@@ -4,10 +4,29 @@ import java.util.Scanner;
 import java.lang.Character;
 import dkeep.logic.*;
 import dkeep.logic.Object;
+import dkeep.gui.DungeonKeep;
 
 public class Interaction {
 	
 	private static Scanner scanner = new Scanner(System.in);
+	private int nrOgres = 1;
+	private int guardType = 0;
+	
+	public int getNrOgres() {
+		return nrOgres;
+	}
+
+	public void setNrOgres(int nrOgres) {
+		this.nrOgres = nrOgres;
+	}
+
+	public int getGuardType() {
+		return guardType;
+	}
+
+	public void setGuardType(int guardType) {
+		this.guardType = guardType;
+	}
 
     public static char map1[][] =  {
             { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -125,6 +144,20 @@ public class Interaction {
     public static void promptMsg(String message) {
         System.out.println(message);
     }
+    
+    public Interaction(String nrOgres, int guardType) {
+    	this.nrOgres = Integer.parseInt(nrOgres);
+    	this.guardType = guardType;
+    }
+    
+    public GameState Dungeon() {
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.setNrOgres(nrOgres);
+		print(game.getMap());
+		
+		return game;
+    }
 	
 	public static void main(String args[]) {
 
@@ -132,11 +165,12 @@ public class Interaction {
 
         Map map = new Map(map1);
         GameState game = new GameState(map);
-		print(game.map);
+		print(game.getMap());
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();
 			game.game(cmd);
+			print(game.getMap());
             game.checkEvents();
 
             if(game.getCurrent_state() == GameState.States.MAP_DONE) game.getMap().setMap(map2);
@@ -148,4 +182,5 @@ public class Interaction {
         }
 		
 	}
+
 }

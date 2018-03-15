@@ -11,7 +11,6 @@ import dkeep.logic.Map;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
-import javax.swing.JSplitPane;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
@@ -32,6 +31,8 @@ public class DungeonKeep {
 
 	private JFrame frame;
 	private JTextField ogresnr;
+	private JComboBox<String> guard;
+	JTextArea consoledisp;
 
 	public static char map1[][] =  {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -88,16 +89,18 @@ public class DungeonKeep {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(options, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
-						.addComponent(display, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(options, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
+							.addGap(0, 0, Short.MAX_VALUE))
+						.addComponent(display, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGap(127)
 							.addGap(26)
 							.addComponent(status)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(controls, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+					.addComponent(controls, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -107,12 +110,12 @@ public class DungeonKeep {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(display, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(status)
+					.addComponent(status, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(18))
-				.addComponent(controls, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
+				.addComponent(controls, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
 		);
 		
-		JTextArea consoledisp = new JTextArea();
+		consoledisp = new JTextArea();
 		consoledisp.setFont(new Font("Courier New", Font.PLAIN, 13));
 		consoledisp.setEditable(false);
 		display.add(consoledisp);
@@ -124,7 +127,7 @@ public class DungeonKeep {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				newGamePressed();
 			}
 		});
 		pnlnewgame.add(btnNewGame);
@@ -162,6 +165,11 @@ public class DungeonKeep {
 		controls.add(exitpnl);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		exitpnl.add(btnExit);
 		options.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -175,9 +183,16 @@ public class DungeonKeep {
 		JLabel lblguard = new JLabel("Guard Personality");
 		options.add(lblguard);
 		
-		JComboBox guard = new JComboBox();
-		guard.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guard = new JComboBox<String>();
+		guard.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		options.add(guard);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+	
+	public void newGamePressed() {
+		Interaction newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
+		GameState game = newGame.Dungeon();
+		consoledisp.setText(newGame.printToString(game.getMap()));
+		
 	}
 }

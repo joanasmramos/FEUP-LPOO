@@ -17,30 +17,30 @@ public class TestDungeonGameLogic {
     public void testHeroChar(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        assertTrue('H' == game.hero.getChar());
+        assertTrue('H' == game.getHero().getChar());
     }
 
     @Test
     public void testGuardChar(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        assertTrue('G' == game.guard.getChar()|| 'g' == game.guard.getChar());
+        assertTrue('G' == game.getGuard().getChar()|| 'g' == game.getGuard().getChar());
     }
 
     @Test
     public void testKeyChar(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        assertTrue('k' == game.key.getChar()|| '$' == game.key.getChar());
-        game.key.setVisible(false);
-        assertTrue(' ' == game.key.getChar());
+        assertTrue('k' == game.getKey().getChar()|| '$' == game.getKey().getChar());
+        game.getKey().setVisible(false);
+        assertTrue(' ' == game.getKey().getChar());
     }
 
     @Test
     public void testMoveHeroIntoFreeCell(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
         assertEquals(1, game.getHero().getColumn());
@@ -53,7 +53,7 @@ public class TestDungeonGameLogic {
     public void testHeroMovesIntoWall(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('a');
         assertEquals(1, game.getHero().getLine());
@@ -69,7 +69,7 @@ public class TestDungeonGameLogic {
     public void testHeroIsCapturedByGuard(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertFalse(game.isGameOver());
         game.moveHero('d');
@@ -80,7 +80,7 @@ public class TestDungeonGameLogic {
     public void testHeroLeavesClosedDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
         assertEquals(1, game.getHero().getColumn());
@@ -93,7 +93,7 @@ public class TestDungeonGameLogic {
     public void testHeroOpensDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('s');
         game.moveHero('s');
@@ -105,7 +105,7 @@ public class TestDungeonGameLogic {
     public void testHeroGoThroughDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('s');
         game.moveHero('s');
@@ -122,21 +122,21 @@ public class TestDungeonGameLogic {
     public void testDrunkenGuardisAsleep(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard = new Drunken(1,3,'G');
+        game.setGuard(new Drunken(1,3,'G'));
 
         boolean asleep = false;
         boolean awake = false;
         int line, column;
 
         while(!asleep || !awake){
-            line = game.guard.getLine();
-            column = game.guard.getColumn();
-            game.guard.moveChar();
+            line = game.getGuard().getLine();
+            column = game.getGuard().getColumn();
+            game.getGuard().moveChar();
 
-            if(game.guard.isAsleep()) {
+            if(game.getGuard().isAsleep()) {
                 asleep = true;
-                assertEquals(line, game.guard.getLine());
-                assertEquals(column, game.guard.getColumn());
+                assertEquals(line, game.getGuard().getLine());
+                assertEquals(column, game.getGuard().getColumn());
             }
             else awake = true;
         }
@@ -146,15 +146,15 @@ public class TestDungeonGameLogic {
     public void testSuspiciousGuardisReverse(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard = new Suspicious(1,3,'G');
+        game.setGuard( new Suspicious(1,3,'G'));
 
         boolean reverse = false;
         boolean normal = false;
 
         while(!normal || !reverse){
-            game.guard.moveChar();
+            game.getGuard().moveChar();
 
-            if(game.guard.isReverse())
+            if(game.getGuard().isReverse())
                 normal = true;
             else reverse = true;
         }
@@ -164,10 +164,10 @@ public class TestDungeonGameLogic {
     public void testHeroLosesWithGuardAsleep(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard = new Drunken(1,3,'G');
+        game.setGuard(new Drunken(1,3,'G'));
 
-        game.guard.setAsleep(true);
-        assertTrue(game.guard.isAsleep());
+        game.getGuard().setAsleep(true);
+        assertTrue(game.getGuard().isAsleep());
         game.moveHero('d');
 
         game.checkEvents();
