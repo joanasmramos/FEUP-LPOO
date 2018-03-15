@@ -1,17 +1,18 @@
     package dkeep.logic;
     import java.util.HashSet;
     import dkeep.cli.*;
+import dkeep.logic.GameState.States;
 
-    import java.util.ArrayList;
+import java.util.ArrayList;
 
     public class GameState {
-        private Map map;
-		private Hero hero = new Hero(1,1, 'H');
-        private Guard guard = new Guard(1, 8, 'G');
-        private Ogre ogre = new Ogre(5, 1, 'O');
-        private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-        private Object key = new Object(1,8,'k');
-        private Club club = new Club(8, 2, 'C');
+        public Map map;
+        public Hero hero = new Hero(1,1, 'H');
+        public Guard guard = new Rookie(1, 8, 'G');
+        public Ogre ogre = new Ogre(5, 1, 'O');
+        public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
+        public Object key = new Object(1,8,'k');
+        public Club club = new Club(8, 2, 'C');
         private int nrOgres; 
         
         public Guard getGuard() {
@@ -119,17 +120,14 @@
             chars.add(guard);
             map.setChars(chars);
             map.setObjs(objects);
-            guard.setAsleep(false);
-            guard.setReverse(false);
         }
 
         public Hero getHero() {
             return hero;
         }
 
-        public Map getMap() {
-        	return map;
-        }
+        public Map getMap(){return map;}
+
 
         public States getCurrent_state(){return current_state;}
 
@@ -137,7 +135,7 @@
         public void checkEvents(){
             switch(level){
                 case 1:
-                    if(hero.checkIfCaught(guard.getLine(), guard.getColumn())) {
+                    if(hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
                         current_state = States.GAME_OVER;
                     }
                     break;

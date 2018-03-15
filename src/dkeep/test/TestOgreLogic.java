@@ -15,14 +15,32 @@ public class TestOgreLogic {
             { 'X', 'X', 'X', 'X', 'X' }
     };
 
+
+
+    @Test
+    public void testClubNotVisable(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        assertFalse(game.ogre.getOgre_club().isVisible());
+    }
+
+    @Test
+    public void testOgreChar(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.levelup();
+        assertTrue('8' == game.ogre.getChar() || 'O' == game.ogre.getChar());
+    }
+
     @Test
     public void testHeroIsCapturedByOgre(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
-        game.getHero().setCoordinates(1,1);
-        game.getKey().setCoordinates(3,1);
+        game.ogre.setCoordinates(1,4);
+
+        game.hero.setCoordinates(1,1);
+        game.key.setCoordinates(3,1);
 
         game.moveHero('d');
         game.moveHero('d');
@@ -35,14 +53,14 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
-        game.getHero().setCoordinates(1,1);
-        game.getKey().setCoordinates(3,1);
+        game.ogre.setCoordinates(1,4);
+        game.hero.setCoordinates(1,1);
+        game.key.setCoordinates(3,1);
 
         game.moveHero('s');
         game.moveHero('s');
 
-        assertEquals('K', game.getHero().getChar());
+        assertEquals('K', game.hero.getChar());
     }
 
     @Test
@@ -50,9 +68,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
-        game.getHero().setCoordinates(1,1);
-        game.getKey().setCoordinates(3,1);
+        game.ogre.setCoordinates(1,4);
+        game.hero.setCoordinates(1,1);
+        game.key.setCoordinates(3,1);
 
         game.moveHero('w');
 
@@ -65,9 +83,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
-        game.getHero().setCoordinates(1,1);
-        game.getKey().setCoordinates(3,1);
+        game.ogre.setCoordinates(1,4);
+        game.hero.setCoordinates(1,1);
+        game.key.setCoordinates(3,1);
 
         //get key
         game.moveHero('s');
@@ -86,9 +104,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
-        game.getHero().setCoordinates(1,1);
-        game.getKey().setCoordinates(3,1);
+        game.ogre.setCoordinates(1,3);
+        game.hero.setCoordinates(1,1);
+        game.key.setCoordinates(3,1);
 
         //get key
         game.moveHero('s');
@@ -101,6 +119,24 @@ public class TestOgreLogic {
 
         game.checkEvents();
         assertEquals(GameState.States.DONE, game.getCurrent_state());
+    }
+
+    @Test
+    public void testOgreStunned(){
+        Map map = new Map(map1);
+        GameState game = new GameState(map);
+        game.levelup();
+        game.ogre.setCoordinates(1,3);
+        game.hero.setCoordinates(1,1);
+        game.club.setCoordinates(2,1);
+
+        //get key
+        game.moveHero('s');
+        game.moveHero('w');
+        game.moveHero('d');
+
+        game.checkEvents();
+        assertEquals('8', game.ogre.getChar());
     }
 
 }
