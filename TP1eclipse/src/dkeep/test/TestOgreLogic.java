@@ -20,9 +20,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,4);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,4);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         game.moveHero('d');
         game.moveHero('d');
@@ -35,14 +35,14 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,4);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,4);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         game.moveHero('s');
         game.moveHero('s');
 
-        assertEquals('K', game.hero.getChar());
+        assertEquals('K', game.getHero().getChar());
     }
 
     @Test
@@ -50,9 +50,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,4);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,4);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         game.moveHero('w');
 
@@ -65,9 +65,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,4);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,4);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         //get key
         game.moveHero('s');
@@ -86,9 +86,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.ogre.setCoordinates(1,4);
-        game.hero.setCoordinates(1,1);
-        game.key.setCoordinates(3,1);
+        game.getOgre().setCoordinates(1,4);
+        game.getHero().setCoordinates(1,1);
+        game.getKey().setCoordinates(3,1);
 
         //get key
         game.moveHero('s');

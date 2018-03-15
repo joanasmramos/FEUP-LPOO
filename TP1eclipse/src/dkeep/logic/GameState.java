@@ -5,13 +5,91 @@
     import java.util.ArrayList;
 
     public class GameState {
-        public Map map;
-        public Hero hero = new Hero(1,1, 'H');
-        public Guard guard = new Guard(1, 8, 'G');
-        public Ogre ogre = new Ogre(5, 1, 'O');
-        public HashSet<Ogre> ogres = new HashSet<Ogre>(7);
-        public Object key = new Object(1,8,'k');
-        public Club club = new Club(8, 2, 'C');
+        private Map map;
+		private Hero hero = new Hero(1,1, 'H');
+        private Guard guard = new Guard(1, 8, 'G');
+        private Ogre ogre = new Ogre(5, 1, 'O');
+        private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
+        private Object key = new Object(1,8,'k');
+        private Club club = new Club(8, 2, 'C');
+        private int nrOgres; 
+        
+        public Guard getGuard() {
+			return guard;
+		}
+
+		public void setGuard(Guard guard) {
+			this.guard = guard;
+		}
+
+		public Ogre getOgre() {
+			return ogre;
+		}
+
+		public void setOgre(Ogre ogre) {
+			this.ogre = ogre;
+		}
+
+		public HashSet<Ogre> getOgres() {
+			return ogres;
+		}
+
+		public void setOgres(HashSet<Ogre> ogres) {
+			this.ogres = ogres;
+		}
+
+		public Object getKey() {
+			return key;
+		}
+
+		public void setKey(Object key) {
+			this.key = key;
+		}
+
+		public Club getClub() {
+			return club;
+		}
+
+		public void setClub(Club club) {
+			this.club = club;
+		}
+
+		public int getNrOgres() {
+			return nrOgres;
+		}
+
+		public void setNrOgres(int nrOgres) {
+			this.nrOgres = nrOgres;
+		}
+
+		public static char[][] getMap2() {
+			return map2;
+		}
+
+		public static void setMap2(char[][] map2) {
+			GameState.map2 = map2;
+		}
+
+		public int getLevel() {
+			return level;
+		}
+
+		public void setLevel(int level) {
+			this.level = level;
+		}
+
+		public void setMap(Map map) {
+			this.map = map;
+		}
+
+		public void setHero(Hero hero) {
+			this.hero = hero;
+		}
+
+		public void setCurrent_state(States current_state) {
+			this.current_state = current_state;
+		}
+
 
         public static char map2[][] = {
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -49,8 +127,9 @@
             return hero;
         }
 
-        public Map getMap(){return map;}
-
+        public Map getMap() {
+        	return map;
+        }
 
         public States getCurrent_state(){return current_state;}
 

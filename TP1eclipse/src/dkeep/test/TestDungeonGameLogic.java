@@ -15,7 +15,7 @@ public class TestDungeonGameLogic {
     public void testMoveHeroIntoFreeCell(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
         assertEquals(1, game.getHero().getColumn());
@@ -28,7 +28,7 @@ public class TestDungeonGameLogic {
     public void testHeroMovesIntoWall(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('a');
         assertEquals(1, game.getHero().getLine());
@@ -44,7 +44,7 @@ public class TestDungeonGameLogic {
     public void testHeroIsCapturedByGuard(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertFalse(game.isGameOver());
         game.moveHero('d');
@@ -55,7 +55,7 @@ public class TestDungeonGameLogic {
     public void testHeroLeavesClosedDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
         assertEquals(1, game.getHero().getColumn());
@@ -68,7 +68,7 @@ public class TestDungeonGameLogic {
     public void testHeroOpensDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('s');
         game.moveHero('s');
@@ -80,7 +80,7 @@ public class TestDungeonGameLogic {
     public void testHeroGoThroughDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.guard.setCoordinates(1,3);
+        game.getGuard().setCoordinates(1,3);
 
         game.moveHero('s');
         game.moveHero('s');

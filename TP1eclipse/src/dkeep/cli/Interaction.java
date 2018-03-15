@@ -71,6 +71,45 @@ public class Interaction {
             System.out.println();
         }
     }
+    
+    public String printToString(Map map) {
+    	String mapstr = "";
+        int print_char = 0;
+        int print_obj = 0;
+
+        for (int i = 0; i < map.getN_lines(); i++) {
+            for (int j = 0; j < map.getColumns(); j++) {
+
+                for (dkeep.logic.Character charac : map.getChars()) {
+                    if(i==charac.getLine() && j==charac.getColumn()) {
+                        mapstr += charac.getChar() + " ";
+                        print_char++;
+                        break;
+                    }
+                }
+
+                for(Object obj : map.getObjs()) {
+                    if(i==obj.getLine() && j==obj.getColumn()) {
+                        if(obj.isVisible()) {
+                            if(print_char>0) j++;
+                            mapstr += obj.getChar() + " ";
+                            print_obj++;
+                            break;
+                        }
+                    }
+                }
+
+                if(print_char==0 && print_obj==0) mapstr += map.getMap()[i][j] + " ";
+
+                print_char = 0;
+                print_obj = 0;
+
+            }
+            mapstr += "\n";
+        }
+        
+        return mapstr;
+    }
 
 	
 	public static char askCommand() {
@@ -93,7 +132,7 @@ public class Interaction {
 
         Map map = new Map(map1);
         GameState game = new GameState(map);
-		print(game.map);
+		print(game.getMap());
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();
