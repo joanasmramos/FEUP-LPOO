@@ -1,5 +1,6 @@
 package dkeep.cli;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.lang.Character;
 import dkeep.logic.*;
@@ -9,8 +10,9 @@ import dkeep.gui.DungeonKeep;
 public class Interaction {
 	
 	private static Scanner scanner = new Scanner(System.in);
-	private int nrOgres = 1;
-	private int guardType = 0;
+	private static Random rand = new Random();
+	private int nrOgres;
+	private int guardType;
 	
 	public int getNrOgres() {
 		return nrOgres;
@@ -155,6 +157,7 @@ public class Interaction {
     public GameState Dungeon() {
         Map map = new Map(map1);
         GameState game = new GameState(map);
+        game.getMap().remChar(game.getGuard());
         game.setNrOgres(nrOgres);
         
         switch(this.guardType) {
@@ -168,7 +171,7 @@ public class Interaction {
         	game.setGuard(new Suspicious(1, 8, 'G'));
         	break;
         }
-        
+        game.getMap().addChar(game.getGuard());
 		print(game.getMap());
 		
 		
@@ -181,6 +184,8 @@ public class Interaction {
 
         Map map = new Map(map1);
         GameState game = new GameState(map);
+        game.setNrOgres(rand.nextInt(4)+1);
+
 		print(game.getMap());
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
@@ -189,11 +194,9 @@ public class Interaction {
 			print(game.getMap());
             game.checkEvents();
 
-            if(game.getCurrent_state() == GameState.States.MAP_DONE) game.getMap().setMap(map2);
+            if(game.getCurrent_state() == GameState.States.GAME_OVER) promptMsg(" \n GAME OVER");
 
-            else if(game.getCurrent_state() == GameState.States.GAME_OVER) promptMsg(" \n GAME OVER");
-
-            else if(game.getCurrent_state() == GameState.States.DONE) promptMsg("\n GAME OVER");
+            else if(game.getCurrent_state() == GameState.States.DONE) promptMsg("\n GAME DONE");
 
         }
 		

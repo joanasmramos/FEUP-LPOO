@@ -1,6 +1,5 @@
     package dkeep.logic;
     import java.util.HashSet;
-    import dkeep.cli.*;
 
 import java.util.ArrayList;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
         private Map map;
         private Hero hero = new Hero(1,1, 'H');
         private Guard guard = new Rookie(1, 8, 'G');
-        private Ogre ogre = new Ogre(5, 1, 'O');
+        //private Ogre ogre = new Ogre(5, 1, 'O');
         private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
         private Object key = new Object(1,8,'k');
         private Club club = new Club(8, 2, 'C');
@@ -22,60 +21,28 @@ import java.util.ArrayList;
 			this.guard = guard;
 		}
 
-		public Ogre getOgre() {
-			return ogre;
-		}
-
-		public void setOgre(Ogre ogre) {
-			this.ogre = ogre;
-		}
 
 		public HashSet<Ogre> getOgres() {
 			return ogres;
 		}
-
-		public void setOgres(HashSet<Ogre> ogres) {
-			this.ogres = ogres;
+		
+		public void addOgre(Ogre o){
+			ogres.add(o);
+			map.addChar(o);
+            map.addObj(o.getOgre_club());
 		}
+
 
 		public Object getKey() {
 			return key;
-		}
-
-		public void setKey(Object key) {
-			this.key = key;
-		}
-
-		public Club getClub() {
-			return club;
-		}
-
-		public void setClub(Club club) {
-			this.club = club;
-		}
-
-		public int getNrOgres() {
-			return nrOgres;
 		}
 
 		public void setNrOgres(int nrOgres) {
 			this.nrOgres = nrOgres;
 		}
 
-		public static char[][] getMap2() {
-			return map2;
-		}
-
-		public static void setMap2(char[][] map2) {
-			GameState.map2 = map2;
-		}
-
 		public int getLevel() {
 			return level;
-		}
-
-		public void setLevel(int level) {
-			this.level = level;
 		}
 
 		public void setMap(Map map) {
@@ -168,12 +135,10 @@ import java.util.ArrayList;
                 case 1:
                     updatePos(user_input);
                     if(current_state == States.MAP_DONE) levelup();
-                    //Interaction.print(map);
                     break;
                 case 2:
                     updatePos(user_input);
                     if(current_state == States.MAP_DONE) levelup();
-                    //Interaction.print(map);
                     break;
 
             }
@@ -330,16 +295,12 @@ import java.util.ArrayList;
                     level++;
                     hero.setCoordinates(8 ,1);
                     hero.setKey(false);
-                    ogres.add(ogre);
-                    map.addChar(ogre);
-                    int nr = Ogre.generateNr(0, 4);
                     club.setVisible(true);
                     map.addObj(club);
                     map.addObj(key);
-                    map.addObj(ogre.getOgre_club());
                     map.remChar(guard);
 
-                    for(int i=0; i<this.nrOgres - 2; i++) {
+                    for(int i=0; i<this.nrOgres ; i++) {
                         Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
                                 Ogre.generateNr(1, 8), 'O');
                         ogres.add(anotherOgre);

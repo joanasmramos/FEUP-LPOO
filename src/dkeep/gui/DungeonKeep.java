@@ -35,19 +35,9 @@ public class DungeonKeep {
 	JTextArea consoledisp;
 	JButton moveleft, moveright, moveup, movedown;
 	JLabel statusMsg;
+	GameState game;
+	Interaction newGame;
 
-	public static char map1[][] =  {
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
-			{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'K', ' ', 'X' },
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-	};
 
 	/**
 	 * Launch the application.
@@ -65,6 +55,15 @@ public class DungeonKeep {
 		});
 	}
 
+	
+	public void buttonsHandler(char button){
+		if(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!= GameState.States.GAME_OVER){
+			game.game(button);
+			game.checkEvents();
+			consoledisp.setText(newGame.printToString(game.getMap()));
+		}
+	}
+	
 	/**
 	 * Create the application.
 	 */
@@ -139,6 +138,12 @@ public class DungeonKeep {
 		controlspnl.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		moveup = new JButton("Up");
+		moveup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonsHandler('w');
+				
+			}
+		});
 		moveup.setEnabled(false);
 		controlspnl.add(moveup);
 		
@@ -150,16 +155,27 @@ public class DungeonKeep {
 		moveleft.setEnabled(false);
 		moveleft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				buttonsHandler('a');
 			}
 		});
 		leftrightpnl.add(moveleft);
 		
 		moveright = new JButton("Right");
 		moveright.setEnabled(false);
+		moveright.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonsHandler('d');
+			}
+		});
 		leftrightpnl.add(moveright);
 		
 		movedown = new JButton("Down");
 		movedown.setEnabled(false);
+		movedown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonsHandler('s');
+			}
+		});
 		controlspnl.add(movedown);
 		
 		JPanel exitpnl = new JPanel();
@@ -184,16 +200,17 @@ public class DungeonKeep {
 		JLabel lblguard = new JLabel("Guard Personality");
 		options.add(lblguard);
 		
-		guard = new JComboBox<String>();
-		guard.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guard = new JComboBox<>();
+		guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		options.add(guard);
 		frame.getContentPane().setLayout(groupLayout);
 	}
 	
 	public void newGamePressed() {
-		Interaction newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
-		GameState game = newGame.Dungeon();
-		
+		 newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
+		 game = newGame.Dungeon();
+		 game.getMap().resetMap();
+	
 		consoledisp.setText(newGame.printToString(game.getMap())); // display map
 		statusMsg.setText("You can play now");
 		enableMoveKeys();

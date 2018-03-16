@@ -43,10 +43,7 @@
         public void remChar(Character charac) {
         	this.chars.remove(charac);
         }
-        
-        public void clearChars() {
-        	this.chars.clear();
-        }
+
         
         public void setObjs(ArrayList<Object> objs) {
         	this.objects = objs;
@@ -63,10 +60,7 @@
         public void remObj(Object obj) {
         	this.objects.remove(obj);
         }
-        
-        public void clearObjs() {
-        	this.objects.clear();
-        }
+
 
 
         public void openDoors() {
@@ -80,8 +74,18 @@
             this.opendoors=true;
         }
 
-        public boolean areDoorsOpen(){ return this.opendoors; }
+        public void resetMap() {
+            for (int i = 0; i < this.n_lines; i++) {
+                for (int j = 0; j < this.n_columns; j++) {
+                    if (this.map[i][j] == 'S')
+                        this.map[i][j] = 'I';
+                }
+            }
 
+            this.opendoors=false;
+        }
+
+        public boolean areDoorsOpen(){ return this.opendoors; }
 
 
         public void setMap(char[][] newmap) {

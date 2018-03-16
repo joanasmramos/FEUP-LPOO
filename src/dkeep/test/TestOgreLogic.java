@@ -21,7 +21,9 @@ public class TestOgreLogic {
     public void testClubNotVisable(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        assertFalse(game.getOgre().getOgre_club().isVisible());
+        Ogre ogre = new Ogre(1,3,'O');
+        game.addOgre(ogre);
+        assertFalse(ogre.getOgre_club().isVisible());
     }
 
     @Test
@@ -29,7 +31,9 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        assertTrue('8' == game.getOgre().getChar() || 'O' == game.getOgre().getChar());
+        Ogre ogre = new Ogre(1,3,'O');
+        game.addOgre(ogre);
+        assertTrue('8' == ogre.getChar() || 'O' == ogre.getChar());
     }
 
     @Test
@@ -37,7 +41,8 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
+        Ogre ogre = new Ogre(1,4,'O');
+        game.addOgre(ogre);
 
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
@@ -53,7 +58,8 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
+        Ogre ogre = new Ogre(1,4,'O');
+        game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
 
@@ -68,7 +74,8 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
+        Ogre ogre = new Ogre(1,4,'O');
+        game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
 
@@ -83,7 +90,8 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,4);
+        Ogre ogre = new Ogre(1,4,'O');
+        game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
 
@@ -104,7 +112,8 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,3);
+        Ogre ogre = new Ogre(1,3,'O');
+        game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
 
@@ -126,9 +135,10 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        game.getOgre().setCoordinates(1,3);
+        Ogre ogre = new Ogre(1,3,'O');
+        game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
-        game.getClub().setCoordinates(2,1);
+        ogre.getOgre_club().setCoordinates(2,1);
 
         //get key
         game.moveHero('s');
@@ -136,7 +146,7 @@ public class TestOgreLogic {
         game.moveHero('d');
 
         game.checkEvents();
-        assertEquals('8', game.getOgre().getChar());
+        assertEquals('8', ogre.getChar());
     }
 
 }
