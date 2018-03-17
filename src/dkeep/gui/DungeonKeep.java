@@ -61,7 +61,16 @@ public class DungeonKeep {
 			game.game(button);
 			game.checkEvents();
 			consoledisp.setText(newGame.printToString(game.getMap()));
+		}else{
+			enableMoveKeys(false);
 		}
+
+
+		if(game.getCurrent_state()== GameState.States.DONE){
+           statusMsg.setText("YOU WIN");}
+        if(game.getCurrent_state()== GameState.States.GAME_OVER){
+            statusMsg.setText("GAME OVER");
+        }
 	}
 	
 	/**
@@ -213,13 +222,14 @@ public class DungeonKeep {
 	
 		consoledisp.setText(newGame.printToString(game.getMap())); // display map
 		statusMsg.setText("You can play now");
-		enableMoveKeys();
+		enableMoveKeys(true);
 	}
-	
-	public void enableMoveKeys() {
-		moveleft.setEnabled(true);
-		moveright.setEnabled(true);
-		moveup.setEnabled(true);
-		movedown.setEnabled(true);
+
+	public void enableMoveKeys(boolean value) {
+		moveleft.setEnabled(value);
+		moveright.setEnabled(value);
+		moveup.setEnabled(value);
+		movedown.setEnabled(value);
 	}
+
 }

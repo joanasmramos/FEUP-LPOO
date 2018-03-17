@@ -267,25 +267,34 @@ import java.util.ArrayList;
 
             //generate a direction possible for ogre to move to
             while(checkObstacle(ogre, 'I',ogre.getDir()) || checkObstacle(ogre, 'X',ogre.getDir()) ||
-                    checkObstacle(ogre, hero, ogre.getDir()) || checkObstacle(key, ogre, ogre.getDir())){
+                    checkObstacle(ogre, hero, ogre.getDir()) || checkObstacle(ogre, key, ogre.getDir())){
                 ogre.setOgreDir(ogre.generateDir());
             }
 
             ogre.moveChar(ogre.getDir());
 
-
             //move ogre's club
             ogre.getOgre_club().setDir(ogre.generateDir());
 
             //generate a direction possible for ogre's club to move to
-            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) || checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())){
-                ogre.getOgre_club().setDir(ogre.generateDir());
+            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) ||
+                    checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
+                    checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
+
+                if(checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
+                    if(!hero.HasCub())
+                        current_state = States.GAME_OVER;
+                    else break;
+                }
+
+                    ogre.getOgre_club().setDir(ogre.generateDir());
             }
 
             if(checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir()))
                 ogre.getOgre_club().isInKeyPos(key.getLine(), key.getColumn());
 
-            ogre.throwClub(ogre.getOgre_club().getDir());
+
+                ogre.throwClub(ogre.getOgre_club().getDir());
         }
 
 
