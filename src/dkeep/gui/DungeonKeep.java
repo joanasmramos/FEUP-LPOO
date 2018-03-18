@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import javax.swing.JOptionPane;
 
 
 public class DungeonKeep {
@@ -133,7 +133,7 @@ public class DungeonKeep {
 		
 		JPanel pnlnewgame = new JPanel();
 		controls.add(pnlnewgame);
-		
+
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,10 +216,24 @@ public class DungeonKeep {
 	}
 	
 	public void newGamePressed() {
-		 newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
-		 game = newGame.Dungeon();
-		 game.getMap().resetMap();
-	
+
+        try {
+            Integer.parseInt(ogresnr.getText());
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Enter a valid number.");
+            return;
+        }
+
+        if(Integer.parseInt(ogresnr.getText())>5) {
+            JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
+            return;
+        }
+
+        newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
+        game = newGame.Dungeon();
+        game.getMap().resetMap();
+
+
 		consoledisp.setText(newGame.printToString(game.getMap())); // display map
 		statusMsg.setText("You can play now");
 		enableMoveKeys(true);
