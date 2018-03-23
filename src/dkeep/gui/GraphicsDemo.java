@@ -14,10 +14,9 @@ import dkeep.logic.*;
 
 public class GraphicsDemo extends JPanel {
 
-    GraphicsBank graphics;
-    char[][] map;
-    int width = 20;
-    int height = 20;
+    private GraphicsBank graphics;
+    private char[][] map;
+
 
     GraphicsDemo() throws IOException{
         map = null;
@@ -26,8 +25,10 @@ public class GraphicsDemo extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        int x = 30;
-        int y = 30;
+        int width = 30;
+        int height = 30;
+        int x = 20;
+        int y = 20;
         if(map==null) return;
 
         for (int i = 0; i<10;i++){
@@ -41,22 +42,39 @@ public class GraphicsDemo extends JPanel {
                         g.fillRect(x,y,width,height);
                         break;
                     case 'I':
-                        g.drawImage(graphics.getDoor(), x, y, width, height, this);
+                        g.drawImage(graphics.getClosedDoor(), x, y, width, height, this);
+                        break;
+                    case 'S':
+                        g.drawImage(graphics.getOpenDoor(), x, y, width, height, this);
                         break;
                     case 'H':
                         g.drawImage(graphics.getHero(), x, y, width, height, this);
                         break;
                     case 'G':
-                        g.setColor(Color.YELLOW);
-                        g.fillRect(x,y,width,height);
+                        g.drawImage(graphics.getGuard(), x, y, width, height, this);
+                        break;
+                    case 'O':
+                        g.drawImage(graphics.getOgre(), x, y, width, height, this);
                         break;
                     case 'k':
                         g.drawImage(graphics.getKey(), x, y, width, height, this);
                         break;
+                    case 'C':
+                        g.drawImage(graphics.getRing(), x, y, width, height, this);
+                        break;
+                    case '*':
+                        g.drawImage(graphics.getPotion(), x, y, width, height, this);
+                        break;
+                    case 'A':
+                        g.drawImage(graphics.getClocked_hero(), x, y, width, height, this);
+                        break;
+                    case 'K':
+                        g.drawImage(graphics.getLever(), x, y, width, height, this);
+                        break;
                 }
                 x+=width;
             }
-            x=30;
+            x=20;
             y+=height;
         }
     }

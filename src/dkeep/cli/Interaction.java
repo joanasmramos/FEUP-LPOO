@@ -103,7 +103,9 @@ public class Interaction {
 
                 for (dkeep.logic.Character charac : map.getChars()) {
                     if(i==charac.getLine() && j==charac.getColumn()) {
-                        mapstr[i][j] = charac.getChar();
+                        if(charac instanceof Hero && charac.getChar()=='K')
+                            mapstr[i][j] = 'A';
+                        else mapstr[i][j] = charac.getChar();
                         print_char++;
                         break;
                     }
