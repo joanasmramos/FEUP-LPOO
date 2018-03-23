@@ -6,13 +6,10 @@ import dkeep.cli.Interaction;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import dkeep.logic.GameState;
-import dkeep.logic.Map;
 
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
+
 import java.awt.GridLayout;
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -25,6 +22,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
+import dkeep.gui.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.io.IOException;
 
 
 public class DungeonKeep {
@@ -32,11 +33,12 @@ public class DungeonKeep {
 	private JFrame frame;
 	private JTextField ogresnr;
 	private JComboBox<String> guard;
-	JTextArea consoledisp;
 	JButton moveleft, moveright, moveup, movedown;
 	JLabel statusMsg;
 	GameState game;
 	Interaction newGame;
+
+	GraphicsDemo graphicsPanel;
 
 
 	/**
@@ -60,7 +62,8 @@ public class DungeonKeep {
 		if(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!= GameState.States.GAME_OVER){
 			game.game(button);
 			game.checkEvents();
-			consoledisp.setText(newGame.printToString(game.getMap()));
+
+            graphicsPanel.setMaze(game.getMap());
 		}else{
 			enableMoveKeys(false);
 		}
@@ -76,14 +79,14 @@ public class DungeonKeep {
 	/**
 	 * Create the application.
 	 */
-	public DungeonKeep() {
-		initialize();
+	public DungeonKeep() throws IOException{
+		initialize() ;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,15 +102,14 @@ public class DungeonKeep {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(options, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
-							.addGap(0, 0, Short.MAX_VALUE))
-						.addComponent(display, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGap(127)
-							.addGap(26)
+							.addGap(0, 40, Short.MAX_VALUE))
+						.addComponent(display, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(153)
 							.addComponent(statusMsg)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(controls, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
@@ -117,18 +119,18 @@ public class DungeonKeep {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(options, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+					.addGap(7)
+					.addComponent(display, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(display, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(statusMsg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(statusMsg, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
 					.addGap(18))
 				.addComponent(controls, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
 		);
-		
-		consoledisp = new JTextArea();
-		consoledisp.setFont(new Font("Courier New", Font.PLAIN, 13));
-		consoledisp.setEditable(false);
-		display.add(consoledisp);
+        display.setLayout(new BorderLayout(0, 0));
+
+        graphicsPanel = new GraphicsDemo();
+
+		display.add(graphicsPanel);
 		controls.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel pnlnewgame = new JPanel();
@@ -213,6 +215,7 @@ public class DungeonKeep {
 		guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		options.add(guard);
 		frame.getContentPane().setLayout(groupLayout);
+
 	}
 	
 	public void newGamePressed() {
@@ -234,8 +237,8 @@ public class DungeonKeep {
         game.getMap().resetMap();
 
 
-		consoledisp.setText(newGame.printToString(game.getMap())); // display map
-		statusMsg.setText("You can play now");
+        graphicsPanel.setMaze(game.getMap());
+        statusMsg.setText("You can play now");
 		enableMoveKeys(true);
 	}
 

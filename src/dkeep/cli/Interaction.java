@@ -93,8 +93,8 @@ public class Interaction {
         }
     }
 
-    public String printToString(Map map) {
-    	String mapstr = "";
+    public static char[][] printToString(Map map) {
+    	char[][] mapstr = new char[map.getMap().length][map.getMap()[0].length];
         int print_char = 0;
         int print_obj = 0;
 
@@ -103,7 +103,7 @@ public class Interaction {
 
                 for (dkeep.logic.Character charac : map.getChars()) {
                     if(i==charac.getLine() && j==charac.getColumn()) {
-                        mapstr += charac.getChar() + " ";
+                        mapstr[i][j] = charac.getChar();
                         print_char++;
                         break;
                     }
@@ -113,20 +113,19 @@ public class Interaction {
                     if(i==obj.getLine() && j==obj.getColumn()) {
                         if(obj.isVisible()) {
                             if(print_char>0) j++;
-                            mapstr += obj.getChar() + " ";
+                            mapstr[i][j] =  obj.getChar();
                             print_obj++;
                             break;
                         }
                     }
                 }
 
-                if(print_char==0 && print_obj==0) mapstr += map.getMap()[i][j] + " ";
+                if(print_char==0 && print_obj==0) mapstr[i][j] =  map.getMap()[i][j];
 
                 print_char = 0;
                 print_obj = 0;
 
             }
-            mapstr += "\n";
         }
         
         return mapstr;
