@@ -7,10 +7,10 @@ import java.util.ArrayList;
         private Map map;
         private Hero hero = new Hero(1,1, 'H');
         private Guard guard = new Rookie(1, 8, 'G');
-        //private Ogre ogre = new Ogre(5, 1, 'O');
         private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
         private Object key = new Object(1,8,'k');
         private Club club = new Club(8, 2, 'C');
+        private Lever lever = new Lever(8,7);
         private int nrOgres; 
         
         public Guard getGuard() {
@@ -84,6 +84,7 @@ import java.util.ArrayList;
             this.map = map;
             chars.add(hero);
             chars.add(guard);
+            objects.add(lever);
             map.setChars(chars);
             map.setObjs(objects);
         }
@@ -215,9 +216,10 @@ import java.util.ArrayList;
                         {current_state = States.MAP_DONE; map.setMap(map2);}
 
                         else {
-                            if (checkObstacle(hero, 'K', dir))
+                            if (checkObstacle(hero, lever, dir)) {
                                 map.openDoors();
-                            else hero.moveChar(dir);
+                                lever.setUp(false);
+                            }else hero.moveChar(dir);
                         }
                     }else return 1;
 
@@ -308,6 +310,7 @@ import java.util.ArrayList;
                     map.addObj(club);
                     map.addObj(key);
                     map.remChar(guard);
+                    map.remObj(lever);
 
                     for(int i=0; i<this.nrOgres ; i++) {
                         Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),

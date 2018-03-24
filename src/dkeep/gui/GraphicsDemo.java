@@ -69,7 +69,10 @@ public class GraphicsDemo extends JPanel {
                         g.drawImage(graphics.getClocked_hero(), x, y, width, height, this);
                         break;
                     case 'K':
-                        g.drawImage(graphics.getLever(), x, y, width, height, this);
+                        g.drawImage(graphics.getLeverUp(), x, y, width, height, this);
+                        break;
+                    case 'L':
+                        g.drawImage(graphics.getLeverDown(), x, y, width, height, this);
                         break;
                 }
                 x+=width;
