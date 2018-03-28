@@ -129,6 +129,7 @@ public class DungeonKeep {
         display.setLayout(new BorderLayout(0, 0));
 
         graphicsPanel = new GraphicsDemo();
+        graphicsPanel.setBounds(20,20,300,300);
 
 		display.add(graphicsPanel);
 		controls.setLayout(new GridLayout(3, 0, 0, 0));

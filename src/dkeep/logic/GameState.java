@@ -22,10 +22,6 @@ import java.util.ArrayList;
 		}
 
 
-		public HashSet<Ogre> getOgres() {
-			return ogres;
-		}
-		
 		public void addOgre(Ogre o){
 			ogres.add(o);
 			map.addChar(o);
@@ -41,22 +37,14 @@ import java.util.ArrayList;
 			this.nrOgres = nrOgres;
 		}
 
-		public int getLevel() {
-			return level;
-		}
+        public Lever getLever() {
+            return lever;
+        }
 
-		public void setMap(Map map) {
-			this.map = map;
-		}
 
-		public void setHero(Hero hero) {
-			this.hero = hero;
-		}
-
-		public void setCurrent_state(States current_state) {
-			this.current_state = current_state;
-		}
-
+        public Club getClub() {
+            return club;
+        }
 
         public static char map2[][] = {
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},

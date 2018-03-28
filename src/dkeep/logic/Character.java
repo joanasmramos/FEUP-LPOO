@@ -5,11 +5,9 @@ public class Character implements GameElement{
 
     protected int line;
     protected int column;
-    private int[] pos = {line, column};
     protected char charc;
 
-   public Character() {
-   }
+
 
    public Character(int line, int column, char charc) {
       this.line = line;

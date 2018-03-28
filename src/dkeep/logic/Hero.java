@@ -86,11 +86,11 @@ public class Hero extends Character{
 
     public boolean checkIfCaught(int line, int col) {
         if(this.line == line)
-            if(this.column+1 == col || this.column-1 == col)
+            if(this.column+1 == col || this.column-1 == col || this.column == col)
                 return true;
 
         if(this.column == col)
-            if(this.line+1 == line || this.line-1 == line)
+            if(this.line+1 == line || this.line-1 == line   )
                 return true;
 
         return false;

@@ -135,10 +135,11 @@ public class TestOgreLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.levelup();
-        Ogre ogre = new Ogre(1,3,'O');
+        Ogre ogre = new Ogre(1,2,'O');
         game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         ogre.getOgre_club().setCoordinates(2,1);
+        game.getClub().setCoordinates(2,1);
 
         //get key
         game.moveHero('s');

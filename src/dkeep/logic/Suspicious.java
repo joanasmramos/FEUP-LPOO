@@ -6,11 +6,6 @@ public class Suspicious extends Guard {
         super(line, column, charc);
     }
 
-    public void setReverse(boolean reverse) {
-        this.reverse = reverse;
-    }
-    
-
     @Override
     public void moveChar(){
 

@@ -30,7 +30,6 @@ public abstract class Guard extends Character{
         this.asleep = asleep;
     }
 
-    public int getInd(){return trajInd;}
 
     public void incInd(){
         if(trajInd==guardTraject.length-1){
@@ -46,7 +45,6 @@ public abstract class Guard extends Character{
         else trajInd--;
     }
 
-    public char getDir(int i){return guardTraject[i];}
 
 
     public boolean generateBool() {

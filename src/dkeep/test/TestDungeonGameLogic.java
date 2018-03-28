@@ -8,7 +8,7 @@ public class TestDungeonGameLogic {
     char map1[][] = {{ 'X', 'I', 'X', 'X', 'X' },
     { 'X', ' ', ' ', ' ', 'X' },
     { 'X', ' ', ' ', ' ', 'X' },
-    { 'X', 'K', ' ', ' ', 'X' },
+    { 'X', ' ', ' ', ' ', 'X' },
     { 'X', 'X', 'X', 'X', 'X' } };
 
 
@@ -89,11 +89,12 @@ public class TestDungeonGameLogic {
     }
 
 
-    @Test
+   @Test
     public void testHeroOpensDoor(){
         Map map = new Map(map1);
         GameState game = new GameState(map);
-        game.getGuard().setCoordinates(1,3);
+        game.getLever().setCoordinates(3,1);
+        game.getGuard().setCoordinates(1,1);
 
         game.moveHero('s');
         game.moveHero('s');
@@ -106,6 +107,7 @@ public class TestDungeonGameLogic {
         Map map = new Map(map1);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
+        game.getLever().setCoordinates(3,1);
 
         game.moveHero('s');
         game.moveHero('s');
