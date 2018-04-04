@@ -64,14 +64,35 @@
 
 
         public void openDoors() {
-            for (int i = 0; i < this.n_lines; i++) {
-                for (int j = 0; j < this.n_columns; j++) {
-                    if (this.map[i][j] == 'I')
-                        this.map[i][j] = 'S';
-                }
-            }
+        	boolean found1 = false;
+        	int index = 0, n = 0;
+        	
+        	for (char [] line : map) {
+        		if(line[0] == 'I')
+        			if(found1 == true) {
+        				line[0] = 'S';
+        				map[index][0] ='S';
+        				continue;
+        			}
+        			else {
+        				found1 = true;
+        				index = n;
+        				continue;
+        			}
+        		found1=false;
+        		n++;
+        	}
 
             this.opendoors=true;
+        }
+        
+        public void openAllDoors() {
+        	for(int i=0;i<map.length;i++) {
+        		for(int j=0;j<map[i].length;j++) {
+        			if(map[i][j] == 'I')
+        				map[i][j] = 'S';
+        		}
+        	}
         }
 
         public void resetMap() {
@@ -95,5 +116,6 @@
         public int getN_lines() {
             return n_lines;
         }
+        
 
     }

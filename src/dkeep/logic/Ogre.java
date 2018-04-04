@@ -2,6 +2,8 @@ package dkeep.logic;
 
 import java.util.Random;
 
+import dkeep.logic.GameState.States;
+
 public class Ogre extends Character {
     private boolean stunned = false;
     private int turnsLeft = 2;
@@ -115,4 +117,5 @@ public class Ogre extends Character {
 
         this.getOgre_club().setCoordinates(this.line, this.column);
     }
+    
 }

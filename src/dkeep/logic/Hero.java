@@ -7,10 +7,12 @@ public class Hero extends Character{
     private boolean key;
     public char charc;
     private boolean club;
+    private boolean movedOntoDoor;
 
     public Hero(int line, int column, char charc) {
         super(line, column, charc);
         key = false;
+        movedOntoDoor = false;
     }
 
 
@@ -95,5 +97,15 @@ public class Hero extends Character{
 
         return false;
     }
+
+
+	public boolean hasMovedOntoDoor() {
+		return movedOntoDoor;
+	}
+
+
+	public void movedOntoDoor(boolean movedOntoDoor) {
+		this.movedOntoDoor = movedOntoDoor;
+	}
 
 }

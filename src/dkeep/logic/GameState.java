@@ -1,6 +1,8 @@
     package dkeep.logic;
     import java.util.HashSet;
 
+import dkeep.logic.GameState.States;
+
 import java.util.ArrayList;
 
     public class GameState {
@@ -222,8 +224,14 @@ import java.util.ArrayList;
                         hero.moveChar(dir);
 
                     }else if (checkObstacle(hero, 'I', dir) && hero.HasKey()) {
-                            hero.moveChar(dir);
-                            current_state = States.MAP_DONE;
+                    		if(hero.hasMovedOntoDoor()) {
+                    			map.openAllDoors();
+                    			hero.moveChar(dir);
+                    			current_state = States.MAP_DONE;
+                    		}
+                    		else
+                    			hero.movedOntoDoor(true);
+                   
 
                     } else
                         return 1;
@@ -238,12 +246,38 @@ import java.util.ArrayList;
             }
             return 0;
         }
+        
+        public void moveClub(Ogre ogre) {
+            ogre.getOgre_club().setDir(ogre.generateDir());
+
+            //generate a direction possible for ogre's club to move to
+            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) ||
+                    checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
+                    checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
+
+                if(checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
+                	current_state = States.GAME_OVER;
+                }
+
+                    ogre.getOgre_club().setDir(ogre.generateDir());
+            }
+
+            if(checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir()))
+                ogre.getOgre_club().isInKeyPos(key.getLine(), key.getColumn());
+
+
+                ogre.throwClub(ogre.getOgre_club().getDir());
+        }
 
         public void moveOgre(Ogre ogre){
 
             if(ogre.getStunned()) {
+            	
+            	moveClub(ogre);
+            	
                 if(ogre.getTurns() != 0) {
                     ogre.setTurns(ogre.getTurns()-1);
+                    
                     return;
                 }
                 else {
@@ -263,28 +297,7 @@ import java.util.ArrayList;
 
             ogre.moveChar(ogre.getDir());
 
-            //move ogre's club
-            ogre.getOgre_club().setDir(ogre.generateDir());
-
-            //generate a direction possible for ogre's club to move to
-            while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) ||
-                    checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
-                    checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
-
-                if(checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
-                    if(!hero.HasCub())
-                        current_state = States.GAME_OVER;
-                    else break;
-                }
-
-                    ogre.getOgre_club().setDir(ogre.generateDir());
-            }
-
-            if(checkObstacle(ogre.getOgre_club(), key, ogre.getOgre_club().getDir()))
-                ogre.getOgre_club().isInKeyPos(key.getLine(), key.getColumn());
-
-
-                ogre.throwClub(ogre.getOgre_club().getDir());
+            moveClub(ogre);
         }
 
 
