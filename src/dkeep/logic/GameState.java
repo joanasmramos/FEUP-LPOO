@@ -108,7 +108,9 @@ import java.util.ArrayList;
                                 o.setTurns(2);
                             }else current_state = States.GAME_OVER;
                         }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
+                            if (!hero.HasCub()) {
                                 current_state = States.GAME_OVER;
+                            }
                         }
                     }
 
@@ -252,7 +254,10 @@ import java.util.ArrayList;
             while(checkObstacle(ogre.getOgre_club(), 'I',ogre.getOgre_club().getDir()) ||
                     checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
                     checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
-                
+
+                if(checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
+                	current_state = States.GAME_OVER;
+                }
 
                     ogre.getOgre_club().setDir(ogre.generateDir());
             }
