@@ -75,7 +75,8 @@ public class DungeonKeep{
 	 */
 	public DungeonKeep() throws IOException{
 		initialize() ;
-	}
+        graphicsPanel.setFocusable(true);
+    }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -135,6 +136,7 @@ public class DungeonKeep{
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newGamePressed();
+				graphicsPanel.requestFocusInWindow();
 			}
 		});
 		pnlnewgame.add(btnNewGame);
@@ -147,8 +149,10 @@ public class DungeonKeep{
 		moveup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				graphicsPanel.buttonsHandler('w');
-				
-			}
+                graphicsPanel.requestFocusInWindow();
+
+
+            }
 		});
 		moveup.setEnabled(false);
 		controlspnl.add(moveup);
@@ -162,7 +166,8 @@ public class DungeonKeep{
 		moveleft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                 graphicsPanel.buttonsHandler('a');
-			}
+                graphicsPanel.requestFocusInWindow();
+            }
 		});
 		leftrightpnl.add(moveleft);
 		
@@ -171,7 +176,9 @@ public class DungeonKeep{
 		moveright.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                 graphicsPanel.buttonsHandler('d');
-			}
+                graphicsPanel.requestFocusInWindow();
+
+            }
 		});
 		leftrightpnl.add(moveright);
 		
@@ -180,7 +187,9 @@ public class DungeonKeep{
 		movedown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                 graphicsPanel.buttonsHandler('s');
-			}
+                graphicsPanel.requestFocusInWindow();
+
+            }
 		});
 		controlspnl.add(movedown);
 		
@@ -191,7 +200,9 @@ public class DungeonKeep{
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
-			}
+                graphicsPanel.requestFocusInWindow();
+
+            }
 		});
 		exitpnl.add(btnExit);
 		options.setLayout(new GridLayout(0, 2, 0, 0));

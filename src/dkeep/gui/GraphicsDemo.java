@@ -33,8 +33,12 @@ import dkeep.logic.*;
         int y = 20;
         if(map==null) return;
 
+
         for (int i = 0; i<10;i++){
             for (int j = 0; j<10; j++){
+                g.drawImage(graphics.getFloor(), x, y, width, height, this);
+
+
                 switch (map[i][j]){
                     case 'X':
                         g.drawImage(graphics.getWall(), x, y, width, height, this);
@@ -118,7 +122,7 @@ import dkeep.logic.*;
 
 
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_A:
+                case KeyEvent.VK_LEFT:
                     buttonsHandler('a');
                     break;
                 case KeyEvent.VK_RIGHT:
