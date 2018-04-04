@@ -25,18 +25,18 @@ public class GraphicsBank {
     }
 
     public void loadGraphics() throws IOException {
-        wall = ImageIO.read(new File("graphics/wall.jpg"));
-        closedDoor =  ImageIO.read(new File("graphics/closeddoor.png"));
-        openDoor =  ImageIO.read(new File("graphics/opendoor.png"));
-        hero =  ImageIO.read(new File("graphics/hero.jpg"));
-        key =  ImageIO.read(new File("graphics/key.png"));
-        guard =  ImageIO.read(new File("graphics/guard.jpg"));
-        ogre =  ImageIO.read(new File("graphics/ogre.jpg"));
-        ring =  ImageIO.read(new File("graphics/ring.jpg"));
-        potion =  ImageIO.read(new File("graphics/potion.png"));
-        clocked_hero =  ImageIO.read(new File("graphics/heroclocked.jpg"));
-        leverUp =  ImageIO.read(new File("graphics/leverup.jpg"));
-        leverDown =  ImageIO.read(new File("graphics/leverdown.jpg"));
+    	closedDoor =  ImageIO.read(new File("../graphics/closeddoor.png"));
+        wall = ImageIO.read(new File("../graphics/wall.jpg"));
+        openDoor =  ImageIO.read(new File("../graphics/opendoor.png"));
+        hero =  ImageIO.read(new File("../graphics/hero.jpg"));
+        key =  ImageIO.read(new File("../graphics/key.png"));
+        guard =  ImageIO.read(new File("../graphics/guard.jpg"));
+        ogre =  ImageIO.read(new File("../graphics/ogre.jpg"));
+        ring =  ImageIO.read(new File("../graphics/ring.jpg"));
+        potion =  ImageIO.read(new File("../graphics/potion.png"));
+        clocked_hero =  ImageIO.read(new File("../graphics/heroclocked.jpg"));
+        leverUp =  ImageIO.read(new File("../graphics/leverup.jpg"));
+        leverDown =  ImageIO.read(new File("../graphics/leverdown.jpg"));
     }
 
     public BufferedImage getWall() {
