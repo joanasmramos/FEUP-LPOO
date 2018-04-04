@@ -100,20 +100,7 @@ public class Ogre extends Character {
     }
 
     public void moveChar(char dir) {
-        switch (dir) {
-            case 'w':
-                this.line--;
-                break;
-            case 's':
-                this.line++;
-                break;
-            case 'd':
-                this.column++;
-                break;
-            case 'a':
-                this.column--;
-                break;
-        }
+    	updateCoords(dir);
 
         this.getOgre_club().setCoordinates(this.line, this.column);
     }

@@ -7,8 +7,8 @@ public abstract class Guard extends Character{
     protected boolean asleep;
     protected boolean reverse;
 
-    protected char guardTraject[] = {'A','S','S','S','S','A','A','A','A','A', 'A', 'S','D','D','D','D','D','D','D',
-            'W','W','W','W','W'};
+    protected char guardTraject[] = {'a','s','s','s','s','a','a','a','a','a', 'a', 's','d','d','d','d','d','d','d',
+            'w','w','w','w','w'};
     protected int trajInd = 0;
     protected static Random rand = new Random();
     protected char reverseTraject[] = {'s', 'd', 'w', 'w', 'w', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'a', 'a','a', 'a', 'a', 'a', 'a', 's', 's', 's', 's', 's'};
@@ -56,20 +56,7 @@ public abstract class Guard extends Character{
     }
 
     public void moveChar(){
-            switch(guardTraject[trajInd]) {
-                case 'W':
-                    this.line--;
-                    break;
-                case 'S':
-                    this.line++;
-                    break;
-                case 'D':
-                    this.column++;
-                    break;
-                case 'A':
-                    this.column--;
-                    break;
-            }
+            updateCoords(guardTraject[trajInd]);
             incInd();
         }
 }

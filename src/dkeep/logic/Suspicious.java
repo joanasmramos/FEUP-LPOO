@@ -12,20 +12,7 @@ public class Suspicious extends Guard {
         this.reverse = super.generateBool();
 
         if(reverse) {
-            switch(reverseTraject[trajInd]) {
-                case 'w':
-                    this.line--;
-                    break;
-                case 's':
-                    this.line++;
-                    break;
-                case 'd':
-                    this.column++;
-                    break;
-                case 'a':
-                    this.column--;
-                    break;
-            }
+            updateCoords(reverseTraject[trajInd]);
             decInd();
         }
         else {
