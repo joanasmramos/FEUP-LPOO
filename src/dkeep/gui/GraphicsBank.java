@@ -29,11 +29,11 @@ public class GraphicsBank {
     	closedDoor =  ImageIO.read(new File("../graphics/closeddoor.png"));
         wall = ImageIO.read(new File("../graphics/wall.jpg"));
         openDoor =  ImageIO.read(new File("../graphics/opendoor.png"));
-        hero =  ImageIO.read(new File("../graphics/hero.jpg"));
+        hero =  ImageIO.read(new File("../graphics/hero.png"));
         key =  ImageIO.read(new File("../graphics/key.png"));
         guard =  ImageIO.read(new File("../graphics/guard.jpg"));
         ogre =  ImageIO.read(new File("../graphics/ogre.png"));
-        ring =  ImageIO.read(new File("../graphics/ring.jpg"));
+        ring =  ImageIO.read(new File("../graphics/ring.png"));
         potion =  ImageIO.read(new File("../graphics/potion.png"));
         clocked_hero =  ImageIO.read(new File("../graphics/heroclocked.jpg"));
         leverUp =  ImageIO.read(new File("../graphics/leverup.jpg"));

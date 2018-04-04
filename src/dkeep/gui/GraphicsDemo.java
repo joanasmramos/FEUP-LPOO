@@ -6,13 +6,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import dkeep.logic.*;
 
 
-
-public class GraphicsDemo extends JPanel {
+ class GraphicsDemo extends JPanel implements KeyListener {
 
     private GraphicsBank graphics;
     private char[][] map;
@@ -21,6 +22,7 @@ public class GraphicsDemo extends JPanel {
     GraphicsDemo() throws IOException{
         map = null;
         graphics =  new GraphicsBank();
+        addKeyListener(this);
     }
 
     @Override
@@ -38,9 +40,11 @@ public class GraphicsDemo extends JPanel {
                         g.drawImage(graphics.getWall(), x, y, width, height, this);
                         break;
                     case 'I':
+                        g.drawImage(graphics.getWall(), x, y, width, height, this);
                         g.drawImage(graphics.getClosedDoor(), x, y, width, height, this);
                         break;
                     case 'S':
+                        g.drawImage(graphics.getWall(), x, y, width, height, this);
                         g.drawImage(graphics.getOpenDoor(), x, y, width, height, this);
                         break;
                     case 'H':
@@ -85,5 +89,54 @@ public class GraphicsDemo extends JPanel {
     }
 
 
+     public void buttonsHandler(char button){
+         if(DungeonKeep.getGame().getCurrent_state()!= GameState.States.DONE && DungeonKeep.getGame().getCurrent_state()!= GameState.States.GAME_OVER){
+             DungeonKeep.getGame().game(button);
+             DungeonKeep.getGame().checkEvents();
 
+             this.setMaze(DungeonKeep.getGame().getMap());
+         }else{
+             DungeonKeep.enableMoveKeys(false);
+         }
+
+
+         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.DONE){
+             DungeonKeep.getStatusMsg().setText("YOU WIN");}
+         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.GAME_OVER){
+             DungeonKeep.getStatusMsg().setText("GAME OVER");
+         }
+     }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_A:
+                    buttonsHandler('a');
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    buttonsHandler('d');
+                    break;
+                case KeyEvent.VK_UP:
+                    buttonsHandler('w');
+                    break;
+                case KeyEvent.VK_DOWN:
+                    buttonsHandler('s');
+                    break;
+
+            }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

@@ -25,18 +25,20 @@ import javax.swing.JOptionPane;
 import dkeep.gui.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 
-public class DungeonKeep {
+public class DungeonKeep{
 
 	private JFrame frame;
-	private JTextField ogresnr;
-	private JComboBox<String> guard;
-	JButton moveleft, moveright, moveup, movedown;
-	JLabel statusMsg;
-	GameState game;
-	Interaction newGame;
+	private static JTextField ogresnr;
+	private static JComboBox<String> guard;
+	private static JButton moveleft, moveright, moveup, movedown;
+	private static JLabel statusMsg;
+    static Interaction newGame = null;
+	static GameState game = null;
 
 	GraphicsDemo graphicsPanel;
 
@@ -57,24 +59,16 @@ public class DungeonKeep {
 		});
 	}
 
-	
-	public void buttonsHandler(char button){
-		if(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!= GameState.States.GAME_OVER){
-			game.game(button);
-			game.checkEvents();
-
-            graphicsPanel.setMaze(game.getMap());
-		}else{
-			enableMoveKeys(false);
-		}
 
 
-		if(game.getCurrent_state()== GameState.States.DONE){
-           statusMsg.setText("YOU WIN");}
-        if(game.getCurrent_state()== GameState.States.GAME_OVER){
-            statusMsg.setText("GAME OVER");
-        }
-	}
+
+    public static GameState getGame() {
+        return game;
+    }
+
+    public static JLabel getStatusMsg(){
+	    return statusMsg;
+    }
 	
 	/**
 	 * Create the application.
@@ -152,7 +146,7 @@ public class DungeonKeep {
 		moveup = new JButton("Up");
 		moveup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonsHandler('w');
+				graphicsPanel.buttonsHandler('w');
 				
 			}
 		});
@@ -167,7 +161,7 @@ public class DungeonKeep {
 		moveleft.setEnabled(false);
 		moveleft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonsHandler('a');
+                graphicsPanel.buttonsHandler('a');
 			}
 		});
 		leftrightpnl.add(moveleft);
@@ -176,7 +170,7 @@ public class DungeonKeep {
 		moveright.setEnabled(false);
 		moveright.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonsHandler('d');
+                graphicsPanel.buttonsHandler('d');
 			}
 		});
 		leftrightpnl.add(moveright);
@@ -185,7 +179,7 @@ public class DungeonKeep {
 		movedown.setEnabled(false);
 		movedown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonsHandler('s');
+                graphicsPanel.buttonsHandler('s');
 			}
 		});
 		controlspnl.add(movedown);
@@ -243,11 +237,13 @@ public class DungeonKeep {
 		enableMoveKeys(true);
 	}
 
-	public void enableMoveKeys(boolean value) {
+	public static void enableMoveKeys(boolean value) {
 		moveleft.setEnabled(value);
 		moveright.setEnabled(value);
 		moveup.setEnabled(value);
 		movedown.setEnabled(value);
 	}
+
+
 
 }
