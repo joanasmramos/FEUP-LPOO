@@ -255,9 +255,6 @@ import java.util.ArrayList;
                     checkObstacle(ogre.getOgre_club(), 'X',ogre.getOgre_club().getDir())||
                     checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
 
-                if(checkObstacle(ogre.getOgre_club(), hero,ogre.getOgre_club().getDir())){
-                	current_state = States.GAME_OVER;
-                }
 
                     ogre.getOgre_club().setDir(ogre.generateDir());
             }
