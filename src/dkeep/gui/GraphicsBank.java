@@ -20,6 +20,7 @@ public class GraphicsBank {
     private BufferedImage leverUp;
     private BufferedImage leverDown;
 
+
     GraphicsBank() throws IOException{
         loadGraphics();
     }
@@ -31,7 +32,7 @@ public class GraphicsBank {
         hero =  ImageIO.read(new File("../graphics/hero.jpg"));
         key =  ImageIO.read(new File("../graphics/key.png"));
         guard =  ImageIO.read(new File("../graphics/guard.jpg"));
-        ogre =  ImageIO.read(new File("../graphics/ogre.jpg"));
+        ogre =  ImageIO.read(new File("../graphics/ogre.png"));
         ring =  ImageIO.read(new File("../graphics/ring.jpg"));
         potion =  ImageIO.read(new File("../graphics/potion.png"));
         clocked_hero =  ImageIO.read(new File("../graphics/heroclocked.jpg"));
@@ -86,4 +87,5 @@ public class GraphicsBank {
     public BufferedImage getLeverDown() {
         return leverDown;
     }
+
 }

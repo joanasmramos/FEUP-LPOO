@@ -37,10 +37,6 @@ public class GraphicsDemo extends JPanel {
                     case 'X':
                         g.drawImage(graphics.getWall(), x, y, width, height, this);
                         break;
-                    case ' ':
-                        g.setColor(Color.WHITE);
-                        g.fillRect(x,y,width,height);
-                        break;
                     case 'I':
                         g.drawImage(graphics.getClosedDoor(), x, y, width, height, this);
                         break;

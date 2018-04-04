@@ -104,6 +104,8 @@ public class TestOgreLogic {
         game.moveHero('w');
         game.moveHero('w');
 
+        game.checkEvents();
+
         assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
     }
 

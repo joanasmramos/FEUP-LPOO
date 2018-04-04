@@ -116,6 +116,8 @@ public class TestDungeonGameLogic {
         game.moveHero('w');
         game.moveHero('w');
 
+        game.checkEvents();
+
         assertTrue(game.getCurrent_state()== GameState.States.MAP_DONE);
 
     }
