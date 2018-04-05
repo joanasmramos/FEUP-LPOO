@@ -1,5 +1,6 @@
 package dkeep.cli;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.lang.Character;
@@ -13,6 +14,8 @@ public class Interaction {
 	private static Random rand = new Random();
 	private int nrOgres;
 	private int guardType;
+    static int print_char = 0;
+    static int print_obj = 0;
 	
 	public int getNrOgres() {
 		return nrOgres;
@@ -45,30 +48,13 @@ public class Interaction {
 
 
     public static void print(Map map) {
-        int print_char = 0;
-        int print_obj = 0;
+        print_char = 0;
+        print_obj = 0;
 
         for (int i = 0; i < map.getN_lines(); i++) {
             for (int j = 0; j < map.getColumns(); j++) {
 
-                for (dkeep.logic.Character charac : map.getChars()) {
-                    if(i==charac.getLine() && j==charac.getColumn()) {
-                        System.out.print(charac.getChar() + " ");
-                        print_char++;
-                        break;
-                    }
-                }
-
-                for(Object obj : map.getObjs()) {
-                    if(i==obj.getLine() && j==obj.getColumn()) {
-                        if(obj.isVisible()) {
-                            if(print_char>0) j++;
-                            System.out.print(obj.getChar() + " ");
-                            print_obj++;
-                            break;
-                        }
-                    }
-                }
+                printCharacters(map, i,j);
 
                 if(print_char==0 && print_obj==0) System.out.print(map.getMap()[i][j] + " ");
 
@@ -80,34 +66,37 @@ public class Interaction {
         }
     }
 
+    public static void printCharacters(Map map, int i, int j){
+        for (dkeep.logic.Character charac : map.getChars()) {
+            if(i==charac.getLine() && j==charac.getColumn()) {
+                System.out.print(charac.getChar() + " ");
+                print_char++;
+                break;
+            }
+        }
+
+        for(Object obj : map.getObjs()) {
+            if(i==obj.getLine() && j==obj.getColumn()) {
+                if(obj.isVisible()) {
+                    if(print_char>0) j++;
+                    System.out.print(obj.getChar() + " ");
+                    print_obj++;
+                    break;
+                }
+            }
+        }
+    }
+
+
     public static char[][] printToString(Map map) {
     	char[][] mapstr = new char[map.getMap().length][map.getMap()[0].length];
-        int print_char = 0;
-        int print_obj = 0;
+        print_char = 0;
+         print_obj = 0;
 
         for (int i = 0; i < map.getN_lines(); i++) {
             for (int j = 0; j < map.getColumns(); j++) {
 
-                for (dkeep.logic.Character charac : map.getChars()) {
-                    if(i==charac.getLine() && j==charac.getColumn()) {
-                        if(charac instanceof Hero && charac.getChar()=='K')
-                            mapstr[i][j] = 'A';
-                        else mapstr[i][j] = charac.getChar();
-                        print_char++;
-                        break;
-                    }
-                }
-
-                for(Object obj : map.getObjs()) {
-                    if(i==obj.getLine() && j==obj.getColumn()) {
-                        if(obj.isVisible()) {
-                            if(print_char>0) j++;
-                            mapstr[i][j] =  obj.getChar();
-                            print_obj++;
-                            break;
-                        }
-                    }
-                }
+                printGameElementsToString(map, mapstr, i, j);
 
                 if(print_char==0 && print_obj==0) mapstr[i][j] =  map.getMap()[i][j];
 
@@ -118,6 +107,29 @@ public class Interaction {
         }
         
         return mapstr;
+    }
+
+    public static void printGameElementsToString(Map map, char[][] mapstr, int i, int j){
+        for (dkeep.logic.Character charac : map.getChars()) {
+            if(i==charac.getLine() && j==charac.getColumn()) {
+                if(charac instanceof Hero && charac.getChar()=='K')
+                    mapstr[i][j] = 'A';
+                else mapstr[i][j] = charac.getChar();
+                print_char++;
+                break;
+            }
+        }
+
+        for(Object obj : map.getObjs()) {
+            if(i==obj.getLine() && j==obj.getColumn()) {
+                if(obj.isVisible()) {
+                    if(print_char>0) j++;
+                    mapstr[i][j] =  obj.getChar();
+                    print_obj++;
+                    break;
+                }
+            }
+        }
     }
     
 	
@@ -147,24 +159,30 @@ public class Interaction {
         GameState game = new GameState(map);
         game.getMap().remChar(game.getGuard());
         game.setNrOgres(nrOgres);
-        
-        switch(this.guardType) {
-        case 0:
-        	game.setGuard(new Rookie(1, 8, 'G'));
-        	break;
-        case 1:
-        	game.setGuard(new Drunken(1, 8, 'G'));
-        	break;
-        case 2:
-        	game.setGuard(new Suspicious(1, 8, 'G'));
-        	break;
-        }
-        game.getMap().addChar(game.getGuard());
+
+        setGuard(game);
+
 		print(game.getMap());
 		
 		
 		return game;
     }
+
+    public void setGuard(GameState game){
+        switch(this.guardType) {
+            case 0:
+                game.setGuard(new Rookie(1, 8, 'G'));
+                break;
+            case 1:
+                game.setGuard(new Drunken(1, 8, 'G'));
+                break;
+            case 2:
+                game.setGuard(new Suspicious(1, 8, 'G'));
+                break;
+        }
+        game.getMap().addChar(game.getGuard());
+    }
+
 	
 	public static void main(String args[]) {
 
