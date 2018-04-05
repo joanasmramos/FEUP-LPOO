@@ -32,22 +32,22 @@ public class TestDungeonGameLogic {
         game.getHero().setCoordinates(2,2);
 
         game.getClub().setCoordinates(3,2);
-        assertTrue(game.getHero().catchClub(game.getClub(),'s'));
+        assertTrue(game.getHero().checkIfCatchClub(game.getClub(),'s'));
 
         game.getHero().setClub(false);
 
         game.getClub().setCoordinates(1,2);
-        assertTrue(game.getHero().catchClub(game.getClub(),'w'));
+        assertTrue(game.getHero().checkIfCatchClub(game.getClub(),'w'));
 
         game.getHero().setClub(false);
 
         game.getClub().setCoordinates(2,3);
-        assertTrue(game.getHero().catchClub(game.getClub(),'d'));
+        assertTrue(game.getHero().checkIfCatchClub(game.getClub(),'d'));
 
         game.getHero().setClub(false);
 
         game.getClub().setCoordinates(2,1);
-        assertTrue(game.getHero().catchClub(game.getClub(),'a'));
+        assertTrue(game.getHero().checkIfCatchClub(game.getClub(),'a'));
     }
 
     @Test

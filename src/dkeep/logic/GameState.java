@@ -103,13 +103,15 @@ import java.util.ArrayList;
         public States getCurrent_state(){return current_state;}
 
 
-        public void checkEvents() {
+        public void checkCaughtByGuard(){
             if (guard != null) {
                 if (hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
                     current_state = States.GAME_OVER;
                 }
             }
+        }
 
+        public void checkCaughtByOgres() {
             if (ogres != null) {
 
                 for (Ogre o : ogres) {
@@ -123,9 +125,18 @@ import java.util.ArrayList;
                     }
                 }
             }
+        }
 
-            if(level==levels.size()){
-                if(current_state == States.MAP_DONE)
+
+
+        public void checkEvents() {
+
+            checkCaughtByGuard();
+            checkCaughtByOgres();
+
+
+            if (level == levels.size()) {
+                if (current_state == States.MAP_DONE)
                     current_state = States.DONE;
             }
         }
@@ -199,7 +210,7 @@ import java.util.ArrayList;
 
                     if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
-                        if (hero.catchClub(club, dir)) {
+                        if (hero.checkIfCatchClub(club, dir)) {
                             map.remObj(club);
                         }
 
@@ -281,8 +292,6 @@ import java.util.ArrayList;
 
 
         public void levelup(){
-            switch (this.level){
-                case 1:
                     addLevel(map2, false, true);
                     hero.setCoordinates(8 ,1);
                     club.setVisible(true);
@@ -297,9 +306,6 @@ import java.util.ArrayList;
                     generateOgres();
 
                     current_state = States.PLAYING;
-                    break;
-            }
-
         }
 
         public boolean isGameOver(){

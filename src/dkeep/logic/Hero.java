@@ -31,32 +31,26 @@ public class Hero extends Character{
     }
 
 
-    public boolean catchClub(Club club, char dir) {
+    public boolean checkIfCatchClub(Club club, char dir) {
         switch (dir){
             case 'w':
-                if(this.getLine()==club.getLine()+1 && this.getColumn()==club.getColumn()) {
-                	this.club=true;
-                }
+                catchClub(club.getLine()+1,club.getColumn());
                 break;
             case 's':
-                if(this.getLine()==club.getLine()-1 && this.getColumn()==club.getColumn()) {
-                	this.club=true;
-                }
+                catchClub(club.getLine()-1, club.getColumn());
                 break;
             case 'd':
-                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()-1) {
-                	this.club=true;
-                }
+                catchClub(club.getLine(), club.getColumn()-1);
                 break;
             case 'a':
-                if(this.getLine()==club.getLine() && this.getColumn()==club.getColumn()+1) { 
-                	this.club=true;
-                }
+                catchClub(club.getLine(), club.getColumn()+1);
                 break;
+        }return this.club;
+    }
 
-
-        }
-        return this.club;
+    public void catchClub(int line, int column){
+        if(this.getLine()==line && this.getColumn()==column) {
+            this.club=true; }
     }
 
     public boolean HasCub(){

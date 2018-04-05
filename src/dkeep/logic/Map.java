@@ -93,18 +93,15 @@
         			if(found1 == true) {
         				line[0] = 'S';
         				map[index][0] ='S';
-        				continue;
-        			}
+        				continue; }
         			else {
         				found1 = true;
         				index = n;
-        				continue;
-        			}
+        				continue; }
         		found1=false;
         		n++;
         	}
-
-            this.opendoors=true;
+        	this.opendoors=true;
         }
         
         public void openAllDoors() {
