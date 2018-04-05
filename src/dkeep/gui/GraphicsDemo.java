@@ -29,7 +29,7 @@ import dkeep.logic.*;
         map = null;
         graphics =  new GraphicsBank();
         addKeyListener(this);
-         inicializeButtons();
+        inicializeButtons();
     }
 
     @Override

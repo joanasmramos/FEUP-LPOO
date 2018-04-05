@@ -29,13 +29,16 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	private JButton btnReturn;
 	
 	CustomizeMap() throws IOException {
-		setLayout(new GridLayout(0, 2, 0, 0));
-		
+        map = null;
+        graphics =  new GraphicsBank();
+
 		mapPanel = new JPanel();
 		add(mapPanel);
 		
 		btnsPanel = new JPanel();
-		add(btnsPanel);
+		btnsPanel.setLayout(new BorderLayout());
+		btnsPanel.setBounds(300,50,200,400);
+		add(btnsPanel);               
 		
 		initializeButtons();
 		
@@ -107,7 +110,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createDoor();
-			}
+                repaint();
+            }
 		});
 		btnsPanel.add(btnDoor);
 	}
@@ -117,7 +121,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createOgre();
-			}
+                repaint();
+            }
 		});
 		btnsPanel.add(btnOgre);
 	}
@@ -127,7 +132,9 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createHero();
-			}
+                repaint();
+
+            }
 		});
 		btnsPanel.add(btnHero);
 	}
@@ -137,7 +144,9 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createWall();
-			}
+                repaint();
+
+            }
 
 		});
 		btnsPanel.setLayout(new GridLayout(0, 2, 0, 0));
@@ -186,6 +195,10 @@ public class CustomizeMap extends JPanel implements MouseListener {
         int height = 30;
         int x = 30;
         int y = 80;
+
+
+        g.drawImage(graphics.getFloor(), x, y, width, height, this);
+
         if(map==null) return;
 
 
