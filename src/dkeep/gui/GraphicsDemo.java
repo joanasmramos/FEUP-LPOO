@@ -34,6 +34,7 @@ import dkeep.logic.*;
 
     @Override
     public void paintComponent(Graphics g) {
+    	super.paintComponent(g);
         int width = 30;
         int height = 30;
         int x = 30;
@@ -98,7 +99,6 @@ import dkeep.logic.*;
     }
 
     public void setMaze(Map map){
-
         this.map = Interaction.printToString(map);
         repaint();
     }
@@ -116,7 +116,8 @@ import dkeep.logic.*;
 
 
          if(DungeonKeep.getGame().getCurrent_state()== GameState.States.DONE){
-             DungeonKeep.getStatusMsg().setText("YOU WIN");}
+             DungeonKeep.getStatusMsg().setText("YOU WIN");
+         }
          if(DungeonKeep.getGame().getCurrent_state()== GameState.States.GAME_OVER){
              DungeonKeep.getStatusMsg().setText("GAME OVER");
          }
@@ -286,4 +287,5 @@ import dkeep.logic.*;
          moveup.setEnabled(value);
          movedown.setEnabled(value);
      }
+
 }
