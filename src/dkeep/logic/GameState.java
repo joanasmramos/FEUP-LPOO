@@ -194,6 +194,7 @@ import java.util.ArrayList;
         }
 
         public int moveHero(char dir) {
+
             if(checkHeroExit(dir)) current_state = States.MAP_DONE;
 
                     if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
@@ -205,8 +206,9 @@ import java.util.ArrayList;
 
                         if(map.isLever()) {
                             if (checkObstacle(hero, lever, dir)) {
-                                map.openDoors();
-                                lever.setUp(false);
+
+                                if(lever.isUp()) {lever.setUp(false); map.openDoors();}
+                                else {lever.setUp(true); map.resetMap();}
                                 return 0;
                             }
                         }
@@ -227,7 +229,6 @@ import java.util.ArrayList;
 
         public boolean checkHeroExit(char dir ){
             if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
-                //map.openAllDoors();
                 hero.moveChar(dir);
                 current_state = States.MAP_DONE;
                 map.setMap(map2);
@@ -261,17 +262,7 @@ import java.util.ArrayList;
 
             if(ogre.getStunned()) {
             	
-            	moveClub(ogre);
-            	
-                if(ogre.getTurns() != 0) {
-                    ogre.setTurns(ogre.getTurns()-1);
-                    
-                    return;
-                }
-                else {
-                    ogre.setStunned(false);
-                    ogre.setTurns(2);
-                }
+            	if(ogre.manageTurns()==1) return;
             }
 
             //move Ogre
@@ -294,7 +285,6 @@ import java.util.ArrayList;
                 case 1:
                     addLevel(map2, false, true);
                     hero.setCoordinates(8 ,1);
-                    hero.setKey(false);
                     club.setVisible(true);
                     map.addObj(club);
                     map.addObj(key);
@@ -304,19 +294,9 @@ import java.util.ArrayList;
                     map.setLever(false);
                     map.setKey(true);
 
-
-                    for(int i=0; i<this.nrOgres ; i++) {
-                        Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
-                                Ogre.generateNr(1, 8), 'O');
-                        ogres.add(anotherOgre);
-                        map.addChar(anotherOgre);
-                        map.addObj(anotherOgre.getOgre_club());
-                    }
+                    generateOgres();
 
                     current_state = States.PLAYING;
-
-                    break;
-                case 2:
                     break;
             }
 
@@ -325,5 +305,16 @@ import java.util.ArrayList;
         public boolean isGameOver(){
             checkEvents();
             return (current_state==States.GAME_OVER);
+        }
+
+
+        public void generateOgres(){
+            for(int i=0; i<this.nrOgres ; i++) {
+                Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
+                        Ogre.generateNr(1, 8), 'O');
+                ogres.add(anotherOgre);
+                map.addChar(anotherOgre);
+                map.addObj(anotherOgre.getOgre_club());
+            }
         }
     }

@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 public class Lever extends Object{
-    boolean up;
+    private boolean up;
 
     Lever(int line, int column){
         super(line, column, 'K');
@@ -11,6 +11,8 @@ public class Lever extends Object{
     public void setUp(boolean up) {
         this.up = up;
     }
+
+    public boolean isUp(){return up;}
 
     @Override
     public char getChar() {

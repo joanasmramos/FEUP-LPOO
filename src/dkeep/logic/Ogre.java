@@ -96,5 +96,18 @@ public class Ogre extends Character {
 
         this.getOgre_club().setCoordinates(this.line, this.column);
     }
-    
+
+
+    public int manageTurns(){
+
+            if(getTurns() != 0) {
+                setTurns(getTurns()-1);
+                return 1;
+            }
+            else {
+                setStunned(false);
+                setTurns(2);
+            }
+            return 0;
+    }
 }
