@@ -76,6 +76,7 @@ public class DungeonKeep{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() throws IOException {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
