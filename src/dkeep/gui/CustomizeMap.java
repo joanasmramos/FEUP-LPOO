@@ -23,14 +23,17 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	private static JTextField heightTxtField;
 	private static JTextField widthTxtField;
 	
-	private static char[][] map;
+	private static char[][] map= null;
 	private int lines, columns;
 	private static char elementToAdd;
 	private JButton btnReturn;
 	
 	CustomizeMap() throws IOException {
 		setLayout(new GridLayout(0, 2, 0, 0));
-		
+
+        graphics = new GraphicsBank();
+        graphics.loadGraphics();
+
 		mapPanel = new JPanel();
 		add(mapPanel);
 		
@@ -40,10 +43,10 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		initializeButtons();
 		
 		initDimensionsPanel();
-		
-        graphics = new GraphicsBank();
-        graphics.loadGraphics();
 
+		initMap();
+
+        this.repaint();
     }
 	
     private void initDimensionsPanel() {
@@ -81,6 +84,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
     	initBtnKey();
     	
     	initBtnReturn();
+
+    	repaint();
     }
 
 	private void initBtnReturn() {
@@ -97,6 +102,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createKey();
+				repaint();
 			}
 		});
 		btnsPanel.add(btnKey);
@@ -144,17 +150,20 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnsPanel.add(btnWall);
 		
 	}
+
 	
-	private void initMap() {
+	public void initMap() {
 		int height, width;
-		
-	    try {
+		height = 10;
+		width = 10;
+
+	    /*try {
             height = Integer.parseInt(heightTxtField.getText());
         }catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Enter a valid number.");
             return;
         }
-	    
+
 	    try {
             width = Integer.parseInt(heightTxtField.getText());
         }catch(NumberFormatException e) {
@@ -165,8 +174,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	    if(height < 1 || width < 1) {
 	    	JOptionPane.showMessageDialog(null, "Enter a valid width/height. ");
 	    	return;
-	    }
-	    
+	    }*/
+
 	    map = new char[height][width];
 	    
 		for(int i = 0; i < map.length; i++){
@@ -186,13 +195,18 @@ public class CustomizeMap extends JPanel implements MouseListener {
         int height = 30;
         int x = 30;
         int y = 80;
+
+        g.setColor(Color.BLUE);
+        g.fillRect(5,5,10,10);
+
+        g.drawImage(graphics.getFloor(), x, y, width, height, this);
+
         if(map==null) return;
 
 
         for (int i = 0; i<lines;i++) {
             for (int j = 0; j<columns; j++){
                 g.drawImage(graphics.getFloor(), x, y, width, height, this);
-
 
                 switch (map[i][j]){
                     case 'X':
@@ -258,10 +272,6 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		
 		map[x][y] = elementToAdd;
 		
-	}
-	
-	public char[][] getMap() {
-		return map;
 	}
 
 	

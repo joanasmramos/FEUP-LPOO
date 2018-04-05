@@ -45,6 +45,18 @@ public class Menu extends JPanel {
         });
         this.add(btnExit);
 
+        JButton btnDesignMap = new JButton("Design Map");
+        btnDesignMap.setBounds(600/2-50,500/2+100, 110, 45);
+        btnDesignMap.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                DungeonKeep.designMenuPressed();
+                requestFocusInWindow();
+
+            }
+        });
+        this.add(btnDesignMap);
+
+
     }
 
 }
