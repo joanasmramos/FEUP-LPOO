@@ -65,15 +65,6 @@
         public void remChar(Character charac) {
         	this.chars.remove(charac);
         }
-
-        public boolean hasChar(Character charac){
-            for (Character c:chars){
-                if(c.getClass() ==  charac.getClass())
-                    return true;
-            }
-            return false;
-        }
-
         
         public void setObjs(ArrayList<Object> objs) {
         	this.objects = objs;

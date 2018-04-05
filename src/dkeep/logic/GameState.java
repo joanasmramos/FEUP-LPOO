@@ -65,6 +65,9 @@ import java.util.ArrayList;
             map.addObj(o.getOgre_club());
         }
 
+        public HashSet<Ogre> getOgres() {
+            return ogres;
+        }
 
         public Object getKey() {
             return key;

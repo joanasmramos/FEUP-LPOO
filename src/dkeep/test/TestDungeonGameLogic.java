@@ -14,10 +14,40 @@ public class TestDungeonGameLogic {
 
 
     @Test
-    public void testHeroChar(){
+    public void testHerChar(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         assertTrue('H' == game.getHero().getChar());
+
+        game.getClub().setCoordinates(2,1);
+        game.getHero().setCoordinates(1,1);
+        game.moveHero('s');
+        assertEquals('A', game.getHero().getChar());
+    }
+
+    @Test
+    public void testHeroCatchClub(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+        game.getHero().setCoordinates(2,2);
+
+        game.getClub().setCoordinates(3,2);
+        assertTrue(game.getHero().catchClub(game.getClub(),'s'));
+
+        game.getHero().setClub(false);
+
+        game.getClub().setCoordinates(1,2);
+        assertTrue(game.getHero().catchClub(game.getClub(),'w'));
+
+        game.getHero().setClub(false);
+
+        game.getClub().setCoordinates(2,3);
+        assertTrue(game.getHero().catchClub(game.getClub(),'d'));
+
+        game.getHero().setClub(false);
+
+        game.getClub().setCoordinates(2,1);
+        assertTrue(game.getHero().catchClub(game.getClub(),'a'));
     }
 
     @Test
@@ -28,12 +58,41 @@ public class TestDungeonGameLogic {
     }
 
     @Test
+    public void testLeverChar(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+        assertTrue('K' == game.getLever().getChar());
+    }
+
+
+    @Test
     public void testKeyChar(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         assertTrue('k' == game.getKey().getChar()|| '$' == game.getKey().getChar());
         game.getKey().setVisible(false);
         assertTrue(' ' == game.getKey().getChar());
+    }
+
+    @Test
+    public void testGuardAsleep(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+        game.getGuard().setCoordinates(1,3);
+        game.moveHero('d');
+
+        int pos_old[] = new int[2];
+        int pos_new[] = new int[2];
+        pos_old[0] = game.getGuard().getLine();
+        pos_old[1] = game.getGuard().getColumn();
+
+        game.moveHero('d');
+
+        pos_new[0] = game.getGuard().getLine();
+        pos_new[1] = game.getGuard().getColumn();
+
+        assertNotEquals(pos_new, pos_old);
+
     }
 
     @Test
@@ -150,6 +209,8 @@ public class TestDungeonGameLogic {
         GameState game = new GameState(map);
         game.setGuard( new Suspicious(1,3,'G'));
 
+        assertFalse(game.getGuard().isReverse());
+
         boolean reverse = false;
         boolean normal = false;
 
@@ -174,5 +235,41 @@ public class TestDungeonGameLogic {
 
         game.checkEvents();
         assertTrue(GameState.States.PLAYING == game.getCurrent_state());
+    }
+
+    @Test
+    public void openDoors(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+        game.getMap().openAllDoors();
+
+        boolean closed = false;
+
+        for (int i = 0; i < game.getMap().getN_lines();i++){
+            for(int j = 0; j<game.getMap().getColumns();j++){
+                if(game.getMap().getMap()[i][j] == 'I')
+                    closed = true;
+            }
+        }
+
+        assertFalse(closed);
+    }
+
+    @Test
+    public void closedDoors(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+        game.getMap().resetMap();
+
+        boolean open = false;
+
+        for (int i = 0; i < game.getMap().getN_lines();i++){
+            for(int j = 0; j<game.getMap().getColumns();j++){
+                if(game.getMap().getMap()[i][j] == 'S')
+                    open = true;
+            }
+        }
+
+        assertFalse(open);
     }
 }

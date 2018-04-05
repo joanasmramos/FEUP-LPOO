@@ -120,7 +120,7 @@ public class DungeonKeep{
 							.addComponent(options, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
 							.addGap(0, 40, Short.MAX_VALUE))
 						.addComponent(display, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
+			 			.addGroup(groupLayout.createSequentialGroup()
 							.addGap(153)
 							.addComponent(statusMsg)))
 					.addPreferredGap(ComponentPlacement.RELATED)

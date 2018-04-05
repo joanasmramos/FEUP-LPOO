@@ -37,6 +37,31 @@ public class TestOgreLogic {
     }
 
     @Test
+    public void testClubInKeyPos(){
+        Map map = new Map(map1, false, true);
+        GameState game = new GameState(map);
+        game.levelup();
+        Ogre ogre = new Ogre(1,3,'O');
+        ogre.getOgre_club().setCoordinates(1,1);
+        game.addOgre(ogre);
+        assertTrue(ogre.getOgre_club().isInKeyPos(1,1));
+    }
+
+
+    @Test
+    public void testAddOgre(){
+        Map map = new Map(map1, false, true);
+        GameState game = new GameState(map);
+        game.levelup();
+        Ogre ogre = new Ogre(1,3,'O');
+        game.addOgre(ogre);
+        assertEquals(game.getOgres().size(),1);
+        Ogre ogre2 = new Ogre(1,1,'O');
+        game.addOgre(ogre2);
+        assertEquals(game.getOgres().size(),2);
+    }
+
+    @Test
     public void testHeroIsCapturedByOgre(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
@@ -62,6 +87,8 @@ public class TestOgreLogic {
         game.addOgre(ogre);
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
+
+        assertTrue(game.getMap().isKey());
 
         game.moveHero('s');
         game.moveHero('s');
@@ -147,5 +174,6 @@ public class TestOgreLogic {
         game.checkEvents();
         assertEquals('8', ogre.getChar());
     }
+
 
 }

@@ -39,11 +39,6 @@ public class Ogre extends Character {
         return turnsLeft;
     }
 
-    public boolean generateBool() {
-        if(rand.nextInt(1) == 0)
-            return true;
-        else return false;
-    }
 
     public char getChar() {
         if(stunned)
@@ -51,9 +46,6 @@ public class Ogre extends Character {
         else return 'O';
     }
 
-    public Random getRand() {
-        return rand;
-    }
 
     public char getDir() {
         return dir;

@@ -67,6 +67,10 @@ public class Hero extends Character{
         return this.key;
     }
 
+    public void setClub(boolean club) {
+        this.club = club;
+    }
+
     public void moveChar(char dir) {
         switch (dir) {
             case 'w':
@@ -97,15 +101,5 @@ public class Hero extends Character{
 
         return false;
     }
-
-
-	public boolean hasMovedOntoDoor() {
-		return movedOntoDoor;
-	}
-
-
-	public void movedOntoDoor(boolean movedOntoDoor) {
-		this.movedOntoDoor = movedOntoDoor;
-	}
 
 }
