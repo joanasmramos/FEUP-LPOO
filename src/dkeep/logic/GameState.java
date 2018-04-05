@@ -224,7 +224,7 @@ import java.util.ArrayList;
 
         public boolean checkHeroExit(char dir ){
             if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
-                map.openAllDoors();
+                //map.openAllDoors();
                 hero.moveChar(dir);
                 current_state = States.MAP_DONE;
                 map.setMap(map2);

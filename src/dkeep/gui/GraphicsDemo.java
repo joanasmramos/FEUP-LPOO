@@ -2,10 +2,11 @@ package dkeep.gui;
 
 import dkeep.cli.Interaction;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -17,24 +18,30 @@ import dkeep.logic.*;
 
     private GraphicsBank graphics;
     private char[][] map;
+     private  JTextField ogresnr;
+     private static JComboBox<String> guard;
+     private static JButton moveleft, moveright, moveup, movedown, start;
 
 
-    GraphicsDemo() throws IOException{
+
+
+     GraphicsDemo() throws IOException{
         map = null;
         graphics =  new GraphicsBank();
         addKeyListener(this);
+         inicializeButtons();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         int width = 30;
         int height = 30;
-        int x = 20;
-        int y = 20;
+        int x = 30;
+        int y = 80;
         if(map==null) return;
 
 
-        for (int i = 0; i<10;i++){
+        for (int i = 0; i<10;i++) {
             for (int j = 0; j<10; j++){
                 g.drawImage(graphics.getFloor(), x, y, width, height, this);
 
@@ -85,7 +92,7 @@ import dkeep.logic.*;
                 }
                 x+=width;
             }
-            x=20;
+            x=30;
             y+=height;
         }
     }
@@ -104,7 +111,7 @@ import dkeep.logic.*;
 
              this.setMaze(DungeonKeep.getGame().getMap());
          }else{
-             DungeonKeep.enableMoveKeys(false);
+             enableMoveKeys(false);
          }
 
 
@@ -147,4 +154,136 @@ import dkeep.logic.*;
     public void keyReleased(KeyEvent e) {
 
     }
+
+     public void startGame(){
+
+         try {
+             Integer.parseInt(ogresnr.getText());
+         }catch(NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, "Enter a valid number.");
+             return;
+         }
+
+         if(Integer.parseInt(ogresnr.getText())>5) {
+             JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
+             return;
+         }
+
+         DungeonKeep.newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
+         DungeonKeep.game = DungeonKeep.newGame.Dungeon();
+         DungeonKeep.game.getMap().resetMap();
+
+
+         this.setMaze(DungeonKeep.game.getMap());
+         DungeonKeep.setStatusMsg("You can play now");
+         enableMoveKeys(true);
+     }
+
+     public void inicializeButtons() {
+
+
+         moveup = new JButton("Up");
+         moveup.setBounds(440,100, 80, 30);
+         moveup.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent e) {
+                 buttonsHandler('w');
+                 requestFocusInWindow();
+
+
+             }
+         });
+         moveup.setEnabled(false);
+         add(moveup);
+
+         moveleft = new JButton("Left");
+         moveleft.setEnabled(false);
+         moveleft.setBounds(393,135, 80, 30);
+
+         moveleft.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 buttonsHandler('a');
+                 requestFocusInWindow();
+             }
+         });
+
+
+         this.add(moveleft);
+
+         moveright = new JButton("Right");
+         moveright.setEnabled(false);
+         moveright.setBounds(483,135, 80, 30);
+
+         moveright.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 buttonsHandler('d');
+                 requestFocusInWindow();
+
+             }
+         });
+         this.add(moveright);
+
+
+
+         movedown = new JButton("Down");
+         movedown.setEnabled(false);
+         movedown.setBounds(440,170, 80, 30);
+         movedown.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 buttonsHandler('s');
+                 requestFocusInWindow();
+
+             }
+         });
+         this.add(movedown);
+
+         start = new JButton("Start");
+         start.setBounds(440,50, 80, 30);
+         start.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 startGame();
+                 requestFocusInWindow();
+
+             }
+         });
+         this.add(start);
+
+
+         JButton btnExit = new JButton("Exit");
+         btnExit.setBounds(440,230, 80, 30);
+         btnExit.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 System.exit(0);
+                 requestFocusInWindow();
+
+             }
+         });
+         this.add(btnExit);
+
+
+         JLabel lblnrofogres = new JLabel("Number of Ogres");
+         lblnrofogres.setBounds(25,5,150,50);
+         add(lblnrofogres);
+
+         ogresnr = new JTextField();
+         ogresnr.setBounds(180 ,15,80,30);
+         add(ogresnr);
+         ogresnr.setColumns(10);
+
+         JLabel lblguard = new JLabel("Guard Personality");
+         lblguard.setBounds(25,30,180,50);
+         add(lblguard);
+
+         guard = new JComboBox<>();
+         guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+         guard.setBounds(180,30,180,50);
+         add(guard);
+     }
+
+
+     public void enableMoveKeys(boolean value) {
+         moveleft.setEnabled(value);
+         moveright.setEnabled(value);
+         moveup.setEnabled(value);
+         movedown.setEnabled(value);
+     }
 }

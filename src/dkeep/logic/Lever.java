@@ -14,7 +14,6 @@ public class Lever extends Object{
 
     @Override
     public char getChar() {
-        if(up) return super.getChar();
-        else return 'L';
+        return super.getChar();
     }
 }

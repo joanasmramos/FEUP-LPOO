@@ -17,31 +17,22 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-import dkeep.gui.*;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 
 public class DungeonKeep{
 
-	private JFrame frame;
-	private static JTextField ogresnr;
-	private static JComboBox<String> guard;
-	private static JButton moveleft, moveright, moveup, movedown;
+	private static JFrame frame;
 	private static JLabel statusMsg;
     static Interaction newGame = null;
 	static GameState game = null;
 
-	GraphicsDemo graphicsPanel;
-
+	static GraphicsDemo graphicsPanel;
+	static Menu menu;
 
 	/**
 	 * Launch the application.
@@ -61,16 +52,19 @@ public class DungeonKeep{
 
 
 
-
-    public static GameState getGame() {
+	public static GameState getGame() {
         return game;
     }
 
     public static JLabel getStatusMsg(){
 	    return statusMsg;
     }
-	
-	/**
+
+    public static void setStatusMsg(String statusMsg) {
+        DungeonKeep.statusMsg.setText(statusMsg);
+    }
+
+    /**
 	 * Create the application.
 	 */
 	public DungeonKeep() throws IOException{
@@ -83,16 +77,39 @@ public class DungeonKeep{
 	 */
 	private void initialize() throws IOException {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel options = new JPanel();
-		
-		JPanel display = new JPanel();
+		frame.getContentPane().setLayout(null);
+
+
+
+
+        JPanel display = new JPanel();
+        display.setLayout(new BorderLayout(0, 0));
+
+        menu = new Menu();
+        menu.setLayout(new BorderLayout(0,0));
+        menu.setBounds(0,0,600,500);
+        menu.setVisible(true);
+        frame.getContentPane().add(menu);
+
+
+        graphicsPanel = new GraphicsDemo();
+        graphicsPanel.setLayout(new BorderLayout(0,0));
+        graphicsPanel.setBounds(0,0,600,500);
+        graphicsPanel.setVisible(false);
+        frame.getContentPane().add(graphicsPanel);
+
+
+        JPanel options = new JPanel();
+
 		
 		JPanel controls = new JPanel();
-		
-		statusMsg = new JLabel("You can start a new game.");
+        controls.setLayout(new GridLayout(3, 0, 0, 0));
+
+        statusMsg = new JLabel("You can start a new game.");
+        statusMsg.setLayout(new BorderLayout());
+        statusMsg.setBounds(150,450,200,30);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -121,139 +138,21 @@ public class DungeonKeep{
 					.addGap(18))
 				.addComponent(controls, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
 		);
-        display.setLayout(new BorderLayout(0, 0));
-
-        graphicsPanel = new GraphicsDemo();
-        graphicsPanel.setBounds(20,20,300,300);
-
-		display.add(graphicsPanel);
-		controls.setLayout(new GridLayout(3, 0, 0, 0));
-		
-		JPanel pnlnewgame = new JPanel();
-		controls.add(pnlnewgame);
-
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				newGamePressed();
-				graphicsPanel.requestFocusInWindow();
-			}
-		});
-		pnlnewgame.add(btnNewGame);
-		
-		JPanel controlspnl = new JPanel();
-		controls.add(controlspnl);
-		controlspnl.setLayout(new GridLayout(3, 0, 0, 0));
-		
-		moveup = new JButton("Up");
-		moveup.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				graphicsPanel.buttonsHandler('w');
-                graphicsPanel.requestFocusInWindow();
 
 
-            }
-		});
-		moveup.setEnabled(false);
-		controlspnl.add(moveup);
-		
-		JPanel leftrightpnl = new JPanel();   
-		controlspnl.add(leftrightpnl);
-		leftrightpnl.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		moveleft = new JButton("Left");
-		moveleft.setEnabled(false);
-		moveleft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-                graphicsPanel.buttonsHandler('a');
-                graphicsPanel.requestFocusInWindow();
-            }
-		});
-		leftrightpnl.add(moveleft);
-		
-		moveright = new JButton("Right");
-		moveright.setEnabled(false);
-		moveright.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-                graphicsPanel.buttonsHandler('d');
-                graphicsPanel.requestFocusInWindow();
-
-            }
-		});
-		leftrightpnl.add(moveright);
-		
-		movedown = new JButton("Down");
-		movedown.setEnabled(false);
-		movedown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-                graphicsPanel.buttonsHandler('s');
-                graphicsPanel.requestFocusInWindow();
-
-            }
-		});
-		controlspnl.add(movedown);
-		
-		JPanel exitpnl = new JPanel();
-		controls.add(exitpnl);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-                graphicsPanel.requestFocusInWindow();
-
-            }
-		});
-		exitpnl.add(btnExit);
-		options.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		JLabel lblnrofogres = new JLabel("Number of Ogres");
-		options.add(lblnrofogres);
-		
-		ogresnr = new JTextField();
-		options.add(ogresnr);
-		ogresnr.setColumns(10);
-		
-		JLabel lblguard = new JLabel("Guard Personality");
-		options.add(lblguard);
-		
-		guard = new JComboBox<>();
-		guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		options.add(guard);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
 	
-	public void newGamePressed() {
+	public static void newGamePressed() {
 
-        try {
-            Integer.parseInt(ogresnr.getText());
-        }catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Enter a valid number.");
-            return;
-        }
-
-        if(Integer.parseInt(ogresnr.getText())>5) {
-            JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
-            return;
-        }
-
-        newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
-        game = newGame.Dungeon();
-        game.getMap().resetMap();
+        menu.setVisible(false);
+        graphicsPanel.setVisible(true);
+    }
 
 
-        graphicsPanel.setMaze(game.getMap());
-        statusMsg.setText("You can play now");
-		enableMoveKeys(true);
-	}
 
-	public static void enableMoveKeys(boolean value) {
-		moveleft.setEnabled(value);
-		moveright.setEnabled(value);
-		moveup.setEnabled(value);
-		movedown.setEnabled(value);
-	}
+
 
 
 

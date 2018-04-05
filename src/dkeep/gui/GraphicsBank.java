@@ -22,7 +22,7 @@ public class GraphicsBank {
     private BufferedImage floor;
     private BufferedImage guardAsleep;
     private BufferedImage ogreStunned;
-
+    private BufferedImage menu;
 
 
     GraphicsBank() throws IOException{
@@ -45,6 +45,7 @@ public class GraphicsBank {
         floor =  ImageIO.read(new File("../graphics/floor.png"));
         guardAsleep =  ImageIO.read(new File("../graphics/guardasleep.png"));
         ogreStunned =  ImageIO.read(new File("../graphics/ogrestunned.png"));
+        menu =  ImageIO.read(new File("../graphics/menu.jpg"));
 
     }
 
@@ -106,5 +107,9 @@ public class GraphicsBank {
 
     public BufferedImage getGuardAsleep() {
         return guardAsleep;
+    }
+
+    public BufferedImage getMenu() {
+        return menu;
     }
 }
