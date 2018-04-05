@@ -42,8 +42,8 @@ import dkeep.logic.*;
         if(map==null) return;
 
 
-        for (int i = 0; i<10;i++) {
-            for (int j = 0; j<10; j++){
+        for (int i = 0; i<map.length;i++) {
+            for (int j = 0; j<map[i].length; j++){
                 g.drawImage(graphics.getFloor(), x, y, width, height, this);
 
 
