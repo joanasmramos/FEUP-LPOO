@@ -31,19 +31,17 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	CustomizeMap() throws IOException {
         map = null;
         graphics =  new GraphicsBank();
-
-		mapPanel = new JPanel();
-		add(mapPanel);
 		
 		btnsPanel = new JPanel();
 		btnsPanel.setLayout(new BorderLayout());
-		btnsPanel.setBounds(300,50,200,400);
-		add(btnsPanel);               
+		btnsPanel.setBounds(380,50,200,200);
+		add(btnsPanel);
 		
 		initializeButtons();
 		
 		initDimensionsPanel();
-		
+
+        initMap();
         graphics = new GraphicsBank();
         graphics.loadGraphics();
 
@@ -105,6 +103,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnsPanel.add(btnKey);
 	}
 
+
 	private void initBtnDoor() {
 		btnDoor = new JButton("Door");
 		btnDoor.addActionListener(new ActionListener() {
@@ -156,8 +155,11 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	
 	private void initMap() {
 		int height, width;
+
+		height = 10;
+		width = 10;
 		
-	    try {
+	    /*try {
             height = Integer.parseInt(heightTxtField.getText());
         }catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Enter a valid number.");
@@ -174,7 +176,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	    if(height < 1 || width < 1) {
 	    	JOptionPane.showMessageDialog(null, "Enter a valid width/height. ");
 	    	return;
-	    }
+	    }*/
 	    
 	    map = new char[height][width];
 	    

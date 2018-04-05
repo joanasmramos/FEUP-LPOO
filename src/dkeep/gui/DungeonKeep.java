@@ -89,9 +89,10 @@ public class DungeonKeep {
         custom_frame.getContentPane().setLayout(null);
 
         designMenu = new CustomizeMap();
+        designMenu.setLayout(new BorderLayout());
         designMenu.setBounds(0, 0, 600, 500);
         designMenu.setVisible(false);
-        custom_frame.getContentPane().add(designMenu);
+        custom_frame.add(designMenu);
 
 
         JPanel display = new JPanel();

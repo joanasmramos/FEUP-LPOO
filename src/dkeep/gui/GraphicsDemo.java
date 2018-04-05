@@ -18,9 +18,9 @@ import dkeep.logic.*;
 
     private GraphicsBank graphics;
     private char[][] map;
-     private  JTextField ogresnr;
-     private static JComboBox<String> guard;
-     private static JButton moveleft, moveright, moveup, movedown, start;
+    private  JTextField ogresnr;
+    private static JComboBox<String> guard;
+    private static JButton moveleft, moveright, moveup, movedown, start;
 
 
 
