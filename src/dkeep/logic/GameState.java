@@ -108,9 +108,7 @@ import java.util.ArrayList;
                                 o.setTurns(2);
                             }else current_state = States.GAME_OVER;
                         }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
-                            if (!hero.HasCub()) {
                                 current_state = States.GAME_OVER;
-                            }
                         }
                     }
 
@@ -224,14 +222,14 @@ import java.util.ArrayList;
                         hero.moveChar(dir);
 
                     }else if (checkObstacle(hero, 'I', dir) && hero.HasKey()) {
-                    		if(hero.hasMovedOntoDoor()) {
+                    		//if(hero.hasMovedOntoDoor()) {
                     			map.openAllDoors();
                     			hero.moveChar(dir);
                     			current_state = States.MAP_DONE;
-                    		}
+                    		/*}
                     		else
                     			hero.movedOntoDoor(true);
-                   
+*/
 
                     } else
                         return 1;

@@ -44,11 +44,9 @@ import dkeep.logic.*;
                         g.drawImage(graphics.getWall(), x, y, width, height, this);
                         break;
                     case 'I':
-                        g.drawImage(graphics.getWall(), x, y, width, height, this);
                         g.drawImage(graphics.getClosedDoor(), x, y, width, height, this);
                         break;
                     case 'S':
-                        g.drawImage(graphics.getWall(), x, y, width, height, this);
                         g.drawImage(graphics.getOpenDoor(), x, y, width, height, this);
                         break;
                     case 'H':
@@ -57,8 +55,14 @@ import dkeep.logic.*;
                     case 'G':
                         g.drawImage(graphics.getGuard(), x, y, width, height, this);
                         break;
+                    case 'g':
+                        g.drawImage(graphics.getGuardAsleep(), x, y, width, height, this);
+                        break;
                     case 'O':
                         g.drawImage(graphics.getOgre(), x, y, width, height, this);
+                        break;
+                    case '8':
+                        g.drawImage(graphics.getOgreStunned(), x, y, width, height, this);
                         break;
                     case 'k':
                         g.drawImage(graphics.getKey(), x, y, width, height, this);

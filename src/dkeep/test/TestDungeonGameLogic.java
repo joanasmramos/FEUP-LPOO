@@ -6,8 +6,8 @@ import dkeep.logic.*;
 
 public class TestDungeonGameLogic {
     char map1[][] = {{ 'X', 'I', 'X', 'X', 'X' },
-    { 'X', ' ', ' ', ' ', 'X' },
-    { 'X', ' ', ' ', ' ', 'X' },
+    { 'I', ' ', ' ', ' ', 'X' },
+    { 'I', ' ', ' ', ' ', 'X' },
     { 'X', ' ', ' ', ' ', 'X' },
     { 'X', 'X', 'X', 'X', 'X' } };
 
@@ -113,8 +113,7 @@ public class TestDungeonGameLogic {
         game.moveHero('s');
 
         game.moveHero('w');
-        game.moveHero('w');
-        game.moveHero('w');
+        game.moveHero('a');
 
         game.checkEvents();
 

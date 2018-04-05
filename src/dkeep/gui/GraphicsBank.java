@@ -20,6 +20,8 @@ public class GraphicsBank {
     private BufferedImage leverUp;
     private BufferedImage leverDown;
     private BufferedImage floor;
+    private BufferedImage guardAsleep;
+    private BufferedImage ogreStunned;
 
 
 
@@ -37,10 +39,12 @@ public class GraphicsBank {
         ogre =  ImageIO.read(new File("../graphics/ogre.png"));
         ring =  ImageIO.read(new File("../graphics/ring.png"));
         potion =  ImageIO.read(new File("../graphics/potion.png"));
-        clocked_hero =  ImageIO.read(new File("../graphics/heroclocked.jpg"));
-        leverUp =  ImageIO.read(new File("../graphics/leverup.jpg"));
-        leverDown =  ImageIO.read(new File("../graphics/leverdown.jpg"));
+        clocked_hero =  ImageIO.read(new File("../graphics/heroclocked.png"));
+        leverUp =  ImageIO.read(new File("../graphics/leverup.png"));
+        leverDown =  ImageIO.read(new File("../graphics/leverdown.png"));
         floor =  ImageIO.read(new File("../graphics/floor.png"));
+        guardAsleep =  ImageIO.read(new File("../graphics/guardasleep.png"));
+        ogreStunned =  ImageIO.read(new File("../graphics/ogrestunned.png"));
 
     }
 
@@ -94,5 +98,13 @@ public class GraphicsBank {
 
     public BufferedImage getFloor() {
         return floor;
+    }
+
+    public BufferedImage getOgreStunned() {
+        return ogreStunned;
+    }
+
+    public BufferedImage getGuardAsleep() {
+        return guardAsleep;
     }
 }

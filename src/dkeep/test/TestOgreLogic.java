@@ -9,8 +9,8 @@ public class TestOgreLogic {
     char[][] map1 = {
 
             { 'X', 'I', 'X', 'X', 'X' },
-            { 'X', ' ', ' ', ' ', 'X' },
-            { 'X', ' ', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', 'X' },
+            { 'I', ' ', ' ', ' ', 'X' },
             { 'X', ' ', ' ', ' ', 'X' },
             { 'X', 'X', 'X', 'X', 'X' }
     };
@@ -101,10 +101,8 @@ public class TestOgreLogic {
 
         //go to door
         game.moveHero('w');
-        game.moveHero('w');
-        game.moveHero('w');
+        game.moveHero('a');
 
-        game.checkEvents();
 
         assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
     }
@@ -125,8 +123,7 @@ public class TestOgreLogic {
 
         //go to door
         game.moveHero('w');
-        game.moveHero('w');
-        game.moveHero('w');
+        game.moveHero('a');
 
         game.checkEvents();
         assertEquals(GameState.States.DONE, game.getCurrent_state());
