@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+
 import dkeep.logic.*;
 
 
@@ -20,8 +21,6 @@ import dkeep.logic.*;
      private  JTextField ogresnr;
      private static JComboBox<String> guard;
      private static JButton moveleft, moveright, moveup, movedown, start;
-     private JButton btnDesignMap;
-     private CustomizeMap designMenu;
 
 
 
@@ -159,7 +158,17 @@ import dkeep.logic.*;
 
      public void startGame(){
 
+         try {
+             Integer.parseInt(ogresnr.getText());
+         }catch(NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, "Enter a valid number.");
+             return;
+         }
 
+         if(Integer.parseInt(ogresnr.getText())>5) {
+             JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
+             return;
+         }
 
          DungeonKeep.newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
          DungeonKeep.game = DungeonKeep.newGame.Dungeon();
@@ -232,19 +241,6 @@ import dkeep.logic.*;
          start.setBounds(440,50, 80, 30);
          start.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
-
-                 try {
-                     Integer.parseInt(ogresnr.getText());
-                 }catch(NumberFormatException e) {
-                     JOptionPane.showMessageDialog(null, "Enter a valid number.");
-                     return;
-                 }
-
-                 if(Integer.parseInt(ogresnr.getText())>5) {
-                     JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
-                     return;
-                 }
-
                  startGame();
                  requestFocusInWindow();
 
@@ -263,19 +259,6 @@ import dkeep.logic.*;
              }
          });
          this.add(btnExit);
-         
-         btnDesignMap = new JButton("Design Map");
-         btnDesignMap.setBounds(415, 300, 130, 30);
-         btnDesignMap.addActionListener(new ActionListener() {
-         	public void actionPerformed(ActionEvent e) {
-         		try {
-					designMap();
-				} catch (IOException e1) {
-					return;
-				}
-         	}
-         });
-         add(btnDesignMap);
 
 
          JLabel lblnrofogres = new JLabel("Number of Ogres");
@@ -295,11 +278,10 @@ import dkeep.logic.*;
          guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
          guard.setBounds(180,30,180,50);
          add(guard);
-        
      }
 
 
-	public void enableMoveKeys(boolean value) {
+     public void enableMoveKeys(boolean value) {
          moveleft.setEnabled(value);
          moveright.setEnabled(value);
          moveup.setEnabled(value);

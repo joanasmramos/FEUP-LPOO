@@ -27,14 +27,12 @@ import java.io.IOException;
 public class DungeonKeep{
 
 	private static JFrame frame;
-    private static JFrame custom_frame;
 	private static JLabel statusMsg;
     static Interaction newGame = null;
 	static GameState game = null;
 
 	static GraphicsDemo graphicsPanel;
 	static Menu menu;
-	static CustomizeMap designMenu;
 
 	/**
 	 * Launch the application.
@@ -45,7 +43,6 @@ public class DungeonKeep{
 				try {
 					DungeonKeep window = new DungeonKeep();
 					window.frame.setVisible(true);
-					window.custom_frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -85,15 +82,7 @@ public class DungeonKeep{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-        custom_frame = new JFrame();
-        custom_frame.setVisible(false);
-        custom_frame.setBounds(100, 100, 600, 500);
-        custom_frame.getContentPane().setLayout(null);
 
-        designMenu = new CustomizeMap();
-        designMenu.setBounds(0,0,600,500);
-        designMenu.setVisible(false);
-        custom_frame.getContentPane().add(designMenu);
 
 
         JPanel display = new JPanel();
@@ -104,6 +93,7 @@ public class DungeonKeep{
         menu.setBounds(0,0,600,500);
         menu.setVisible(true);
         frame.getContentPane().add(menu);
+
 
         graphicsPanel = new GraphicsDemo();
         graphicsPanel.setLayout(new BorderLayout(0,0));
@@ -162,12 +152,7 @@ public class DungeonKeep{
     }
 
 
-    public static void designMenuPressed(){
-	    menu.setVisible(true);
-	    graphicsPanel.setVisible(false);
-        custom_frame.setVisible(true);
-	    designMenu.setVisible(true);
-    }
+
 
 
 
