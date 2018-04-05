@@ -94,7 +94,6 @@ public class DungeonKeep{
         menu.setVisible(true);
         frame.getContentPane().add(menu);
 
-
         graphicsPanel = new GraphicsDemo();
         graphicsPanel.setLayout(new BorderLayout(0,0));
         graphicsPanel.setBounds(0,0,600,500);
