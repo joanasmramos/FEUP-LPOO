@@ -1,4 +1,6 @@
     package dkeep.logic;
+    import org.hamcrest.core.IsInstanceOf;
+
     import java.util.ArrayList;
 
     public class Map {
@@ -7,16 +9,36 @@
         private int n_lines;
         private int n_columns;
         private boolean opendoors;
+        boolean lever = false;
+        boolean key = false;
         
         ArrayList<Character> chars;
         ArrayList<Object> objects;
 
 
-        public  Map(char[][] newmap) {
+        public  Map(char[][] newmap, boolean lever, boolean key) {
             this.map = newmap;
             this.n_lines = newmap.length;
             this.n_columns = newmap[0].length;
             this.opendoors = false;
+            this.lever = lever;
+            this.key = key;
+        }
+
+        public boolean isLever() {
+            return lever;
+        }
+
+        public boolean isKey() {
+            return key;
+        }
+
+        public void setLever(boolean lever) {
+            this.lever = lever;
+        }
+
+        public void setKey(boolean key) {
+            this.key = key;
         }
 
         public char[][] getMap() {
@@ -42,6 +64,14 @@
         
         public void remChar(Character charac) {
         	this.chars.remove(charac);
+        }
+
+        public boolean hasChar(Character charac){
+            for (Character c:chars){
+                if(c.getClass() ==  charac.getClass())
+                    return true;
+            }
+            return false;
         }
 
         

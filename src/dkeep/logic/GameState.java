@@ -7,46 +7,17 @@ import java.util.ArrayList;
 
     public class GameState {
         private Map map;
+        
         private Hero hero = new Hero(1,1, 'H');
         private Guard guard = new Rookie(1, 8, 'G');
         private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
         private Object key = new Object(1,8,'k');
         private Club club = new Club(8, 2, 'C');
         private Lever lever = new Lever(8,7);
-        private int nrOgres; 
-        
-        public Guard getGuard() {
-			return guard;
-		}
+        private int nrOgres;
+        private ArrayList<Map> levels = new ArrayList<>();
+        private int level = 1;
 
-		public void setGuard(Guard guard) {
-			this.guard = guard;
-		}
-
-
-		public void addOgre(Ogre o){
-			ogres.add(o);
-			map.addChar(o);
-            map.addObj(o.getOgre_club());
-		}
-
-
-		public Object getKey() {
-			return key;
-		}
-
-		public void setNrOgres(int nrOgres) {
-			this.nrOgres = nrOgres;
-		}
-
-        public Lever getLever() {
-            return lever;
-        }
-
-
-        public Club getClub() {
-            return club;
-        }
 
         public static char map2[][] = {
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -61,7 +32,6 @@ import java.util.ArrayList;
                 {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
         };
 
-        private int level;
 
         public enum States { DONE, GAME_OVER, PLAYING, MAP_DONE}
 
@@ -70,8 +40,9 @@ import java.util.ArrayList;
         public GameState(Map map) {
             ArrayList<Character> chars = new ArrayList<>();
             ArrayList<Object> objects = new ArrayList<>();
-            level = 1;
             this.map = map;
+            level = 1;
+            levels.add(map);
             chars.add(hero);
             chars.add(guard);
             objects.add(lever);
@@ -79,58 +50,88 @@ import java.util.ArrayList;
             map.setObjs(objects);
         }
 
+        public Guard getGuard() {
+            return guard;
+        }
+
+        public void setGuard(Guard guard) {
+            this.guard = guard;
+        }
+
+
+        public void addOgre(Ogre o){
+            ogres.add(o);
+            map.addChar(o);
+            map.addObj(o.getOgre_club());
+        }
+
+
+        public Object getKey() {
+            return key;
+        }
+
+        public void setNrOgres(int nrOgres) {
+            this.nrOgres = nrOgres;
+        }
+
+        public Lever getLever() {
+            return lever;
+        }
+
+        public void addLevel(char[][] map, boolean key, boolean lever){
+            levels.add(new Map(map, key, lever));
+            level++;
+        }
+
+
+        public Club getClub() {
+            return club;
+        }
+
         public Hero getHero() {
             return hero;
         }
 
         public Map getMap(){
-        	return map;
+            return map;
         	}
 
 
         public States getCurrent_state(){return current_state;}
 
 
-        public void checkEvents(){
-            switch(level){
-                case 1:
-                    if(hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
+        public void checkEvents() {
+            if (guard != null) {
+                if (hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
+                    current_state = States.GAME_OVER;
+                }
+            }
+
+            if (ogres != null) {
+
+                for (Ogre o : ogres) {
+                    if (hero.checkIfCaught(o.getLine(), o.getColumn())) {
+                        if (hero.HasCub()) {
+                            o.setStunned(true);
+                            o.setTurns(2);
+                        } else current_state = States.GAME_OVER;
+                    } else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
                         current_state = States.GAME_OVER;
                     }
-                    break;
+                }
+            }
 
-                case 2:
-
-                    for (Ogre o : ogres) {
-                        if (hero.checkIfCaught(o.getLine(), o.getColumn())) {
-                            if (hero.HasCub()) {
-                                o.setStunned(true);
-                                o.setTurns(2);
-                            }else current_state = States.GAME_OVER;
-                        }else if (hero.checkIfCaught(o.getOgre_club().getLine(), o.getOgre_club().getColumn())) {
-                                current_state = States.GAME_OVER;
-                        }
-                    }
-
-                    if(current_state == States.MAP_DONE){ current_state = States.DONE; }
-                    break;
+            if(level==levels.size()){
+                if(current_state == States.MAP_DONE)
+                    current_state = States.DONE;
             }
         }
 
 
 
         public void game(char user_input){
-            switch (level){
-                case 1:
-                    updatePos(user_input);
-                    if(current_state == States.MAP_DONE) levelup();
-                    break;
-                case 2:
-                    updatePos(user_input);
-                    if(current_state == States.MAP_DONE) levelup();
-                    break;
-
-            }
+            updatePos(user_input);
+            if(current_state == States.MAP_DONE) levelup();
         }
 
 
@@ -143,13 +144,13 @@ import java.util.ArrayList;
                 case 's':
                     if(character.getLine()+1 < this.getMap().getN_lines())
                         return (map.getMap()[character.getLine()+1][character.getColumn()] == obstacle);
-                    else return false;
+                   else return false;
                 case 'd':
                     if(character.getColumn()+1 < this.getMap().getColumns())
                     return (map.getMap()[character.getLine()][character.getColumn()+1] == obstacle);
                     else return false;
                 case 'a':
-                    if(character.getLine()-1 >= 0)
+                    if(character.getColumn()-1 >= 0)
                     return (map.getMap()[character.getLine()][character.getColumn()-1] == obstacle);
                     else return false;
 
@@ -177,72 +178,61 @@ import java.util.ArrayList;
 
 
         public  void updatePos(char dir) {
-            switch (this.level) {
-                case 1:
-                    if (moveHero(dir) != 1) {
+                if (moveHero(dir) != 1) {
+                    if(guard!=null)
                         guard.moveChar();
-                    }
-                    break;
-
-                case 2:
-                    if (moveHero(dir) != 1) {
+                    if(ogres!=null){
                         for (Ogre o : ogres) {
                             moveOgre(o);
                         }
-                    }
-                    break;
+                }
             }
 
         }
 
         public int moveHero(char dir) {
-            switch (this.level) {
-                case 1:
+            if(checkHeroExit(dir)) current_state = States.MAP_DONE;
+
                     if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)){
 
-                        if(checkObstacle(hero, 'S', dir))
-                        {current_state = States.MAP_DONE; map.setMap(map2);}
-
-                        else {
-                            if (checkObstacle(hero, lever, dir)) {
-                                map.openDoors();
-                                lever.setUp(false);
-                            }else hero.moveChar(dir);
-                        }
-                    }else return 1;
-
-                    break;
-
-                case 2:
-                    if(!checkObstacle(hero, 'I',dir) && !checkObstacle(hero, 'X',dir)) {
                         if (hero.catchClub(club, dir)) {
                             map.remObj(club);
                         }
 
-                        hero.moveChar(dir);
 
-                    }else if (checkObstacle(hero, 'I', dir) && hero.HasKey()) {
-                    		//if(hero.hasMovedOntoDoor()) {
-                    			map.openAllDoors();
-                    			hero.moveChar(dir);
-                    			current_state = States.MAP_DONE;
-                    		/*}
-                    		else
-                    			hero.movedOntoDoor(true);
-*/
+                        if(map.isLever()) {
+                            if (checkObstacle(hero, lever, dir)) {
+                                map.openDoors();
+                                lever.setUp(false);
+                                return 0;
+                            }
+                        }
 
-                    } else
-                        return 1;
+                         hero.moveChar(dir);
 
-                    if(key.getLine() == hero.getLine() && key.getColumn() == hero.getColumn()) {
-                        hero.setKey(true);
-                        hero.setChar('K');
-                        key.visible = false;
+                        if(hero.getLine()==key.getLine() && key.getColumn()==hero.getColumn()) {
+                            hero.setKey(true);
+                            hero.setChar('K');
+                            key.visible = false;
+                        }
+
                     }
+                    else return 1;
 
-                    break;
-            }
             return 0;
+        }
+
+        public boolean checkHeroExit(char dir ){
+            if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
+                map.openAllDoors();
+                hero.moveChar(dir);
+                current_state = States.MAP_DONE;
+                map.setMap(map2);
+                map.setLever(false);
+                map.setKey(true);
+                return true;
+            }
+            return false;
         }
         
         public void moveClub(Ogre ogre) {
@@ -299,14 +289,18 @@ import java.util.ArrayList;
         public void levelup(){
             switch (this.level){
                 case 1:
-                    level++;
+                    addLevel(map2, false, true);
                     hero.setCoordinates(8 ,1);
                     hero.setKey(false);
                     club.setVisible(true);
                     map.addObj(club);
                     map.addObj(key);
                     map.remChar(guard);
+                    guard = null;
                     map.remObj(lever);
+                    map.setLever(false);
+                    map.setKey(true);
+
 
                     for(int i=0; i<this.nrOgres ; i++) {
                         Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),

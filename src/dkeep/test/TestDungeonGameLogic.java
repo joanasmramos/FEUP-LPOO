@@ -15,21 +15,21 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroChar(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         assertTrue('H' == game.getHero().getChar());
     }
 
     @Test
     public void testGuardChar(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         assertTrue('G' == game.getGuard().getChar()|| 'g' == game.getGuard().getChar());
     }
 
     @Test
     public void testKeyChar(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         assertTrue('k' == game.getKey().getChar()|| '$' == game.getKey().getChar());
         game.getKey().setVisible(false);
@@ -38,7 +38,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testMoveHeroIntoFreeCell(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
 
@@ -51,7 +51,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroMovesIntoWall(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
 
@@ -67,7 +67,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroIsCapturedByGuard(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
 
@@ -78,7 +78,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroLeavesClosedDoor(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
 
@@ -91,7 +91,7 @@ public class TestDungeonGameLogic {
 
    @Test
     public void testHeroOpensDoor(){
-        Map map = new Map(map1);
+       Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getLever().setCoordinates(3,1);
         game.getGuard().setCoordinates(1,1);
@@ -104,7 +104,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroGoThroughDoor(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
         game.getLever().setCoordinates(3,1);
@@ -115,7 +115,6 @@ public class TestDungeonGameLogic {
         game.moveHero('w');
         game.moveHero('a');
 
-        game.checkEvents();
 
         assertTrue(game.getCurrent_state()== GameState.States.MAP_DONE);
 
@@ -123,7 +122,7 @@ public class TestDungeonGameLogic {
 
     @Test(timeout = 1000)
     public void testDrunkenGuardisAsleep(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.setGuard(new Drunken(1,3,'G'));
 
@@ -147,7 +146,7 @@ public class TestDungeonGameLogic {
 
     @Test(timeout = 1000)
     public void testSuspiciousGuardisReverse(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.setGuard( new Suspicious(1,3,'G'));
 
@@ -165,7 +164,7 @@ public class TestDungeonGameLogic {
 
     @Test
     public void testHeroLosesWithGuardAsleep(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.setGuard(new Drunken(1,3,'G'));
 

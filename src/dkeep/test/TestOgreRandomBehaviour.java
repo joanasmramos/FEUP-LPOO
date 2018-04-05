@@ -17,7 +17,7 @@ public class TestOgreRandomBehaviour {
 
     @Test (timeout = 1000)
     public void testRandomBehaviour(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);

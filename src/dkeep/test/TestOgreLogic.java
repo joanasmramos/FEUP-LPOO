@@ -19,7 +19,7 @@ public class TestOgreLogic {
 
     @Test
     public void testClubNotVisable(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
@@ -28,7 +28,7 @@ public class TestOgreLogic {
 
     @Test
     public void testOgreChar(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
@@ -38,7 +38,7 @@ public class TestOgreLogic {
 
     @Test
     public void testHeroIsCapturedByOgre(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
@@ -55,7 +55,7 @@ public class TestOgreLogic {
 
     @Test
     public void testHeroCapturesKey(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
@@ -71,7 +71,7 @@ public class TestOgreLogic {
 
     @Test
     public void testHeroFailExit(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
@@ -87,7 +87,7 @@ public class TestOgreLogic {
 
     @Test
     public void testHeroExit(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
@@ -109,7 +109,7 @@ public class TestOgreLogic {
 
     @Test
     public void testHeroVictory(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
@@ -125,13 +125,12 @@ public class TestOgreLogic {
         game.moveHero('w');
         game.moveHero('a');
 
-        game.checkEvents();
-        assertEquals(GameState.States.DONE, game.getCurrent_state());
+        assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
     }
 
     @Test
     public void testOgreStunned(){
-        Map map = new Map(map1);
+        Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
         game.levelup();
         Ogre ogre = new Ogre(1,2,'O');

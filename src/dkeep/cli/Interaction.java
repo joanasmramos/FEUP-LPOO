@@ -143,7 +143,7 @@ public class Interaction {
     }
     
     public GameState Dungeon() {
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getMap().remChar(game.getGuard());
         game.setNrOgres(nrOgres);
@@ -170,7 +170,7 @@ public class Interaction {
 
 		char cmd;
 
-        Map map = new Map(map1);
+        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.setNrOgres(rand.nextInt(4)+1);
 
