@@ -25,7 +25,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	private static JButton btnOgre;
 	private static JButton btnDoor;
 	private static JButton btnKey;
-    private static JButton btncustom;
+    private static JButton btnRestore;
 	private JButton btnReturn;
 	private static JPanel dimensionsPanel;
 	private static JLabel lblWidth;
@@ -139,6 +139,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
     	initBtnApply();
 
         initBtnReturn();
+
+        initBtnReset();
     }
 
 	private void initBtnApply() {
@@ -155,6 +157,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnReturn = new JButton("Save");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DungeonKeep.game = game;
                 DungeonKeep.returnMainMenu();
 			}
 		});
@@ -221,7 +224,23 @@ public class CustomizeMap extends JPanel implements MouseListener {
 
 	}
 
+    private void initBtnReset() {
+        btnRestore = new JButton("Reset");
+        btnRestore.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                game.removeAllWalls();
+                game.setHero(null);
+                game.setOgres(null);
+                game.setKey(null);
+                game.setExitDoor(null);
+                initMap();
+                repaint();
+            }
 
+        });
+        btnsPanel.add(btnRestore);
+
+    }
 
 	private void initMap() {
 		//game.removeAllWalls();
