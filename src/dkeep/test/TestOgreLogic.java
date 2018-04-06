@@ -1,4 +1,5 @@
 package dkeep.test;
+import dkeep.logic.Object;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,7 +25,9 @@ public class TestOgreLogic {
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
         assertFalse(ogre.getOgre_club().isVisible());
+
     }
+
 
     @Test
     public void testOgreChar(){
@@ -46,9 +49,15 @@ public class TestOgreLogic {
 
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
+        ogre.getOgre_club().setVisible(true);
         ogre.getOgre_club().setCoordinates(1,1);
         game.addOgre(ogre);
         assertTrue(ogre.getOgre_club().isInKeyPos(1,1));
+        assertEquals(ogre.getOgre_club().getChar(),'$');
+
+        ogre.getOgre_club().setCoordinates(2,1);
+        assertFalse(ogre.getOgre_club().isInKeyPos(1,1));
+        assertEquals(ogre.getOgre_club().getChar(),'*');
     }
 
 
@@ -61,10 +70,14 @@ public class TestOgreLogic {
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
+
         assertEquals(game.getOgres().size(),1);
         Ogre ogre2 = new Ogre(1,1,'O');
         game.addOgre(ogre2);
         assertEquals(game.getOgres().size(),2);
+
+        game.removeAllOgres();
+        assertEquals(game.getOgres().size(),0);
     }
 
     @Test
@@ -84,6 +97,19 @@ public class TestOgreLogic {
         game.moveHero('d');
 
         assertTrue(game.isGameOver());
+    }
+
+    @Test
+    public void testAddWalls(){
+        Map map = new Map(map1, false, true);
+        GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
+        game.addWall(new Object());
+        assertEquals(game.getWalls().size(),1);
+game.removeAllWalls();
+        assertEquals(game.getWalls().size(),0);
+
     }
 
     @Test
@@ -147,6 +173,9 @@ public class TestOgreLogic {
         assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
     }
 
+
+
+
     @Test
     public void testHeroVictory(){
         Map map = new Map(map1, false, true);
@@ -156,6 +185,9 @@ public class TestOgreLogic {
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
+
+
+
         game.getHero().setCoordinates(1,1);
         game.getKey().setCoordinates(3,1);
 

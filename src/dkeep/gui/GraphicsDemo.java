@@ -9,7 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.lang.Object;
 
 import dkeep.logic.*;
 
@@ -262,7 +266,7 @@ import dkeep.logic.*;
          this.add(start);
 
          custom = new JButton("Custom Level");
-         custom.setBounds(380,230, 150, 30);
+         custom.setBounds(440-75/2,230, 150, 30);
          custom.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
                  requestFocusInWindow();
@@ -297,5 +301,6 @@ import dkeep.logic.*;
          moveup.setEnabled(value);
          movedown.setEnabled(value);
      }
+
 
 }

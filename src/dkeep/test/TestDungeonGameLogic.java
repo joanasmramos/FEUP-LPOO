@@ -283,6 +283,7 @@ public class TestDungeonGameLogic {
     public void closedDoors(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.getMap().openAllDoors();
         game.getMap().resetMap();
 
         boolean open = false;

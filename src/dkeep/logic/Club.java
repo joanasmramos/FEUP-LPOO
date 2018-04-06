@@ -18,7 +18,6 @@ public class Club extends Object{
      */
     public Club(char type){
         super(1, 1, type);
-        this.setVisible(true);
     }
 
     /**

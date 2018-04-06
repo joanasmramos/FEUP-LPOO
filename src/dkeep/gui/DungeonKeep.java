@@ -20,7 +20,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-import java.io.IOException;
+import java.io.*;
 
 
 public class DungeonKeep {
@@ -202,4 +202,28 @@ public class DungeonKeep {
         else JOptionPane.showMessageDialog(null, "No map saved.");
     }
 
+    public static void saveGame(String filename, GameState game) {
+        try{
+            FileOutputStream fileOut = new FileOutputStream("../savedGames/" + filename + ".txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(game);
+            out.close();
+            fileOut.close();
+        }catch (IOException i){
+            i.printStackTrace();
+        }
+    }
+
+    public static GameState loadGame(String filename) throws IOException, ClassNotFoundException {
+        GameState game = null;
+
+        FileInputStream fileIn = new FileInputStream("../savedGames/" + filename + ".txt");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        game = (GameState) in.readObject();
+        in.close();
+        fileIn.close();
+
+        return game;
+
+    }
 }
