@@ -254,8 +254,6 @@ import dkeep.logic.*;
          start.setBounds(440,50, 80, 30);
          start.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
-                 DungeonKeep.newGame = new Interaction("2", 0);
-                 DungeonKeep.game = DungeonKeep.newGame.Dungeon();                 DungeonKeep.game.setHero(new Hero(1,1,'H'));
                  startGame();
                  requestFocusInWindow();
 
