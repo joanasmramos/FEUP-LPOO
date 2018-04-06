@@ -6,4 +6,6 @@ Authors:
 Beatriz Soares Mendes, up201604253
 Joana Sofia Mendes Ramos, up201605017
 
-Documentation: https://web.fe.up.pt/~up201605017/
+[Documentation](https://web.fe.up.pt/~up201605017/)
+
+![EclEmma coverage](submission_images/EclEmma_coverage.png?raw=true "EclEmma coverage")
