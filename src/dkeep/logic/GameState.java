@@ -42,6 +42,8 @@ import java.util.ArrayList;
         public GameState(Map map) {
             ArrayList<Character> chars = new ArrayList<>();
             ArrayList<Object> objects = new ArrayList<>();
+            walls = new ArrayList<Object>();
+            ogres = new HashSet<Ogre>(7);
             this.map = map;
             level = 1;
             levels.add(map);
@@ -52,6 +54,10 @@ import java.util.ArrayList;
             map.setObjs(objects);
         }
 
+        public void removeAllWalls() {
+        	walls.clear();
+        }
+        
         public void addWall(Object wall) {
         	walls.add(wall);
         }
@@ -64,7 +70,10 @@ import java.util.ArrayList;
             this.guard = guard;
         }
 
-
+        public void removeAllOgres() {
+        	ogres.clear();
+        }
+        
         public void addOgre(Ogre o){
             ogres.add(o);
             map.addChar(o);

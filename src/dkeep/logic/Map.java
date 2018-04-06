@@ -23,8 +23,18 @@
             this.opendoors = false;
             this.lever = lever;
             this.key = key;
+            this.chars = new ArrayList<Character>();
+            this.objects = new ArrayList<Object>();
         }
 
+        public void removeAllChars() {
+        	chars.clear();
+        }
+        
+        public void removeAllObjs() {
+        	objects.clear();
+        }
+        
         public boolean isLever() {
             return lever;
         }

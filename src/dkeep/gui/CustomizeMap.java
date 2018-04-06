@@ -71,14 +71,16 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		
 		map = new char[10][10];
 		
-		for(int i = 0; i < map.length; i++){
-			for(int j = 0; j < map[i].length; j++) {
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++) {
 				map[i][j] = ' ';
 			}
 		}
 		
 		mapObject = new Map(map, false, false);
 		game = new GameState(mapObject);
+		objectToAdd = new dkeep.logic.Object();
+		
 		repaint();
 		
 	}
@@ -228,6 +230,15 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	}
 	
 	private void initMap() {
+		//game.removeAllWalls();
+		//game.setHero(null);
+		//game.setOgres(null);
+		//game.setKey(null);
+		//game.setExitDoor(null);
+		//game.removeAllOgres();
+		//mapObject.removeAllChars();
+		//mapObject.removeAllObjs();
+		
 		int height = 10, width = 10;
 		
 		height = readHeight();
@@ -305,45 +316,45 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	public void createKey() {
 		elementToAdd = 'k';
 		
-		//dkeep.logic.Object key = new dkeep.logic.Object();
-		//key.setChar(elementToAdd);
-		//mapObject.setKey(true);
-		//game.setKey(key);
-		//mapObject.addObj(key);
+		dkeep.logic.Object key = new dkeep.logic.Object();
+		key.setChar(elementToAdd);
+		mapObject.setKey(true);
+		game.setKey(key);
+		mapObject.addObj(key);
 	}
 
 	public void createDoor() {
 		elementToAdd = 'I';	
 		
-		//dkeep.logic.Object door = new dkeep.logic.Object();
-		//door.setChar('I');
-		//game.setExitDoor(door);
-		//mapObject.addObj(door);
+		dkeep.logic.Object door = new dkeep.logic.Object();
+		door.setChar('I');
+		game.setExitDoor(door);
+		mapObject.addObj(door);
 	}
 
 	public void createOgre() {
 		elementToAdd = 'O';
 		
-		//dkeep.logic.Ogre ogre = new Ogre(elementToAdd);
-		//game.addOgre(ogre);
-		//mapObject.addChar(ogre);
+		dkeep.logic.Ogre ogre = new Ogre(elementToAdd);
+		game.addOgre(ogre);
+		mapObject.addChar(ogre);
 	}
 
 	public void createHero() {
 		elementToAdd = 'H';
 		
-		//dkeep.logic.Hero hero = new Hero(elementToAdd);
-		//game.setHero(hero);
-		//mapObject.addChar(hero);
+		dkeep.logic.Hero hero = new Hero(elementToAdd);
+		game.setHero(hero);
+		mapObject.addChar(hero);
 	}
 
 	public void createWall() {
 		elementToAdd = 'X';
 		
-		//dkeep.logic.Object wall = new dkeep.logic.Object();
-		//wall.setChar('X');
-		//game.addWall(wall);
-		//mapObject.addObj(wall);
+		dkeep.logic.Object wall = new dkeep.logic.Object();
+		wall.setChar('X');
+		game.addWall(wall);
+		mapObject.addObj(wall);
 	}
     
 	public void mouseClicked(MouseEvent e) {
@@ -355,7 +366,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		x = (X-30) / 30;
 		y = (Y-80) / 30;
 
-		//objectToAdd.setCoordinates(y, x);
+		objectToAdd.setCoordinates(y, x);
 		
 		map[y][x] = elementToAdd;
 		
@@ -365,7 +376,6 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	public char[][] getMap() {
 		return map;
 	}
-
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {
