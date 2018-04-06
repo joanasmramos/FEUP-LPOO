@@ -198,6 +198,7 @@ public class DungeonKeep {
 
     public static void startCustomLevel(){
         game = custom;
+        game.setLevel(2);
         if(game!=null)  graphicsPanel.setMaze(custom.getMap());
         else JOptionPane.showMessageDialog(null, "No map saved.");
     }
