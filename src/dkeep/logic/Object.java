@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Object implements GameElement{
+public class Object implements GameElement, java.io.Serializable{
     protected int line;
     protected int column;
     protected char charo;

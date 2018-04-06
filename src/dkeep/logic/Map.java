@@ -3,7 +3,7 @@
 
     import java.util.ArrayList;
 
-    public class Map {
+    public class Map implements java.io.Serializable{
 
         private char map[][];
         private int n_lines;

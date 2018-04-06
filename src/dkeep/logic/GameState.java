@@ -5,7 +5,7 @@ import dkeep.logic.GameState.States;
 
 import java.util.ArrayList;
 
-    public class GameState {
+    public class GameState implements java.io.Serializable{
         private Map map;
         
         private Hero hero;

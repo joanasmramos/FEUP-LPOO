@@ -2,8 +2,7 @@ package dkeep.logic;
 import java.util.Random;
 import java.lang.String;
 
-
-public class Character implements GameElement{
+public class Character implements GameElement, java.io.Serializable{
 
     protected int line;
     protected int column;
