@@ -23,7 +23,8 @@ import dkeep.logic.*;
     private GraphicsBank graphics;
     private char[][] map;
     private  JTextField ogresnr;
-    private static JComboBox<String> guard;
+     private  JTextField filename;
+     private static JComboBox<String> guard;
     private static JButton moveleft, moveright, moveup, movedown, start, custom;
     GameState game;
 
@@ -133,22 +134,29 @@ import dkeep.logic.*;
 
 
      public void buttonsHandler(char button){
+
+
          if(DungeonKeep.getGame().getCurrent_state()!= GameState.States.DONE && DungeonKeep.getGame().getCurrent_state()!= GameState.States.GAME_OVER){
              DungeonKeep.getGame().game(button);
              DungeonKeep.getGame().checkEvents();
 
              this.setMaze(DungeonKeep.getGame().getMap());
-         }else{
+
+             if (DungeonKeep.getGame().getCurrent_state() == GameState.States.DONE) {
+                 JOptionPane.showMessageDialog(null, "YOU WIN");
+             }
+             if (DungeonKeep.getGame().getCurrent_state() == GameState.States.GAME_OVER) {
+                 JOptionPane.showMessageDialog(null, "GAME OVER");
+             }
+
+
+         }else {
+
              enableMoveKeys(false);
          }
 
 
-         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.DONE){
-             JOptionPane.showMessageDialog(null, "YOU WIN");
-         }
-         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.GAME_OVER){
-             JOptionPane.showMessageDialog(null, "GAME OVER");
-         }
+
      }
 
 

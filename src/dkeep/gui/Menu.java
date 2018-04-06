@@ -9,22 +9,25 @@ import java.io.IOException;
 public class Menu extends JPanel {
 
     private GraphicsBank graphics;
+    private JOptionPane gameFilesPane;
 
     Menu() throws IOException {
         graphics = new GraphicsBank();
         graphics.loadGraphics();
         inicializeButtons();
 
+        JTextField filename = new JTextField();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(graphics.getMenu(), 0, 0, this.getWidth(), this.getHeight(), this);
+        gameFilesPane = new JOptionPane();
     }
 
     public void inicializeButtons() throws IOException{
 
-        JButton btnNewGame = new JButton("New Game");
+        JButton btnNewGame = new JButton("Play");
         btnNewGame.setBounds(600/2-50,500/2-45, 110, 45);
         btnNewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -51,12 +54,14 @@ public class Menu extends JPanel {
         loadGame.setBounds(600/2-50,500/2+50, 110, 45);
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                try{DungeonKeep.game = DungeonKeep.loadGame("savedGame");
+
+                try{DungeonKeep.game = DungeonKeep.loadGame(JOptionPane.showInputDialog("Insert name for file:"));
                     DungeonKeep.graphicsPanel.buttonsHandler('d');
                     DungeonKeep.graphicsPanel.repaint();
                 }
                 catch (ClassNotFoundException e){}
                 catch ( IOException e) {}
+
 
             }
         });
@@ -66,7 +71,11 @@ public class Menu extends JPanel {
         saveGame.setBounds(600/2-50,500/2+5, 110, 45);
         saveGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                DungeonKeep.saveGame("savedGame", DungeonKeep.getGame());
+                if(DungeonKeep.getGame() == null) {
+                    JOptionPane.showMessageDialog(null, "No game was started.");
+                return;
+                }
+                DungeonKeep.saveGame(JOptionPane.showInputDialog("Insert name for file:"), DungeonKeep.getGame());
             }
         });
         this.add(saveGame);

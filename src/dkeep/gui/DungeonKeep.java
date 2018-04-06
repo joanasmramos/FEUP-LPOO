@@ -196,13 +196,13 @@ public class DungeonKeep {
     }
 
     public static void startCustomLevel(){
-        newGame = custom_i;
         game = custom;
         if(game!=null)  graphicsPanel.setMaze(custom.getMap());
         else JOptionPane.showMessageDialog(null, "No map saved.");
     }
 
     public static void saveGame(String filename, GameState game) {
+
         try{
             FileOutputStream fileOut = new FileOutputStream("../savedGames/" + filename + ".txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
