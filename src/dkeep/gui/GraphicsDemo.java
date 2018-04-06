@@ -9,11 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.lang.Object;
 
 import dkeep.logic.*;
 
@@ -23,8 +19,7 @@ import dkeep.logic.*;
     private GraphicsBank graphics;
     private char[][] map;
     private  JTextField ogresnr;
-     private  JTextField filename;
-     private static JComboBox<String> guard;
+    private static JComboBox<String> guard;
     private static JButton moveleft, moveright, moveup, movedown, start, custom;
     GameState game;
 
@@ -134,29 +129,22 @@ import dkeep.logic.*;
 
 
      public void buttonsHandler(char button){
-
-
          if(DungeonKeep.getGame().getCurrent_state()!= GameState.States.DONE && DungeonKeep.getGame().getCurrent_state()!= GameState.States.GAME_OVER){
              DungeonKeep.getGame().game(button);
              DungeonKeep.getGame().checkEvents();
 
              this.setMaze(DungeonKeep.getGame().getMap());
-
-             if (DungeonKeep.getGame().getCurrent_state() == GameState.States.DONE) {
-                 JOptionPane.showMessageDialog(null, "YOU WIN");
-             }
-             if (DungeonKeep.getGame().getCurrent_state() == GameState.States.GAME_OVER) {
-                 JOptionPane.showMessageDialog(null, "GAME OVER");
-             }
-
-
-         }else {
-
+         }else{
              enableMoveKeys(false);
          }
 
 
-
+         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.DONE){
+             JOptionPane.showMessageDialog(null, "YOU WIN");
+         }
+         if(DungeonKeep.getGame().getCurrent_state()== GameState.States.GAME_OVER){
+             JOptionPane.showMessageDialog(null, "GAME OVER");
+         }
      }
 
 
@@ -309,6 +297,5 @@ import dkeep.logic.*;
          moveup.setEnabled(value);
          movedown.setEnabled(value);
      }
-
 
 }

@@ -182,34 +182,48 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnsPanel.add(applyMapDim);
 	}
 
-	private void saveCharacters(){
+	private boolean saveHero(){
         int coord[] = findCoords('H');
+        if(game.getHero() !=null)
             game.getHero().setCoordinates(coord[0], coord[1]);
+        else {
+            JOptionPane.showMessageDialog(null,"Place Hero!");
+            return false;
+        }
 
-            coord = findCoords('C');
-            game.getClub().setCoordinates(coord[0], coord[1]);
-
-            coord = findCoords('k');
-            game.getKey().setCoordinates(coord[0], coord[1]);
-
-        saveOgres();
-
-        removeFromMap('H');
-        removeFromMap('k');
-        removeFromMap('C');
-        removeFromMap('O');
+        return true;
     }
 
 	private boolean save(){
         int coord[] = findCoords('C');
 
-        if(game.getHero()==null || game.getClub()== null ||  game.getKey()== null||game.getExitDoor()== null){
-            JOptionPane.showMessageDialog(null,"Level must contain 1 hero, 1 key, 1 ring, 1 door!");
+        if(!saveHero()) return false;
+
+        findCoords('C');
+        if(game.getClub()!= null) {
+            game.getClub().setCoordinates(coord[0], coord[1]);
+        }else {
+            JOptionPane.showMessageDialog(null,"Place Ring!");
             return false;
         }
 
-        saveCharacters();
+        coord = findCoords('k');
+        if(game.getKey()!=null) {
+            game.getKey().setCoordinates(coord[0], coord[1]);
+        }else {
+            JOptionPane.showMessageDialog(null,"Place Key!");
+            return false;
+        }
 
+        if(game.getExitDoor()== null){
+            JOptionPane.showMessageDialog(null,"Place Door!");
+            return false;
+        }
+        removeFromMap('H');
+        removeFromMap('k');
+        removeFromMap('C');
+
+        saveOgres();
        return true;
     }
 
@@ -221,6 +235,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         if( ! game.getOgres().isEmpty())
             do{
                 game.getOgres().iterator().next().setCoordinates(coord[0], coord[1]);
+                removeFromMap('O');
                 it.next();
             }
             while (it.hasNext())
@@ -232,7 +247,6 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    if(save()) {
-
                     DungeonKeep.custom = game;
                     game.getClub().setVisible(true);
                     DungeonKeep.returnMainMenu();
@@ -279,7 +293,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnHero = new JButton("Hero");
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			     o = Objects.HERO;
+			    if(game.getHero()==null) o = Objects.HERO;
                 repaint();
 
             }
@@ -590,8 +604,6 @@ public void restore(){
                 break;
             case DOOR:
                 createDoor();
-                break;
-            default:
                 break;
         }
         return r;

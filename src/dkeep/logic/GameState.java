@@ -356,7 +356,8 @@ import java.util.ArrayList;
          */
         public boolean checkHeroExit(char dir ){
             if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
-                hero.moveChar(dir);
+                if(checkObstacle(hero, 'I', dir) && hero.HasKey()) map.openAllDoors();
+                else hero.moveChar(dir);
                 current_state = States.MAP_DONE;
                 if(level ==1) map.setMap(map2);
                 map.setLever(false);
