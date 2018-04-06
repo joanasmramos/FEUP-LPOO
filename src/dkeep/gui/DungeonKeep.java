@@ -1,6 +1,7 @@
 package dkeep.gui;
 
-import java.awt.EventQueue;
+import java.awt.*;
+
 import dkeep.cli.Interaction;
 
 import javax.swing.JFrame;
@@ -8,7 +9,6 @@ import javax.swing.JLabel;
 import dkeep.logic.GameState;
 
 
-import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,7 +20,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
 import java.io.IOException;
 
 
@@ -101,7 +100,7 @@ public class DungeonKeep {
 
         custom_frame = new JFrame();
         custom_frame.setVisible(false);
-        custom_frame.setBounds(100, 100, 600, 500);
+        custom_frame.setBounds(120, 120, 560, 460);
         custom_frame.getContentPane().setLayout(null);
     }
 
@@ -114,14 +113,14 @@ public class DungeonKeep {
 
         graphicsPanel = new GraphicsDemo();
         graphicsPanel.setLayout(new BorderLayout(0, 0));
-        graphicsPanel.setBounds(0, 0, 600, 500);
+        graphicsPanel.setBounds(0, 0, 560, 460);
         graphicsPanel.setVisible(false);
         frame.getContentPane().add(graphicsPanel);
 
 
         designMenu = new CustomizeMap();
         designMenu.setLayout(new BorderLayout());
-        designMenu.setBounds(0, 0, 600, 500);
+        designMenu.setBounds(0, 0, 540, 440);
         designMenu.setVisible(false);
         custom_frame.add(designMenu);
     }

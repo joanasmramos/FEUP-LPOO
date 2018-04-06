@@ -10,7 +10,11 @@ public class Club extends Object{
      */
     public Club(int line, int column, char charo){
         super(line, column, charo);
-        this.setVisible(false);
+    }
+    
+    public Club(char type){
+        super(1, 1, type);
+        this.setVisible(true);
     }
 
     /**
