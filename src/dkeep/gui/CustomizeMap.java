@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.lang.Object;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.sun.istack.internal.localization.NullLocalizable;
 import dkeep.cli.Interaction;
 import dkeep.logic.*;
+import jdk.nashorn.internal.scripts.JO;
 
 public class CustomizeMap extends JPanel implements MouseListener, ChangeListener {
 	
@@ -44,6 +46,12 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 	private JLabel label;
 	private JButton applyMapDim;
 
+    private enum Objects {
+        WALL, HERO, OGRE, RING,
+        KEY, DOOR
+    }
+
+    Objects o;
 
 	private char[][] map;
 	private int lines, columns;
@@ -82,6 +90,11 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         graphics = new GraphicsBank();
         graphics.loadGraphics();
 
+		mapObject = new Map(map, false, false);
+		game = new GameState(mapObject);
+		game.levelup();
+		game.setClub(null);
+		game.setKey(null);
     }
 
     private void initMapPanel() {
@@ -96,9 +109,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 			}
 		}
 
-		mapObject = new Map(map, false, false);
-		game = new GameState(mapObject);
-		game.levelup();
+
 		objectToAdd = new dkeep.logic.Object();
 
 		repaint();
@@ -164,7 +175,8 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		applyMapDim = new JButton("Apply");
 		applyMapDim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				initMap();
+
+			    initMap();
 			}
 		});
 		btnsPanel.add(applyMapDim);
@@ -178,7 +190,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
             JOptionPane.showMessageDialog(null,"Place Hero!");
             return false;
         }
-        removeFromMap('H');
+
         return true;
     }
 
@@ -188,17 +200,30 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         if(!saveHero()) return false;
 
         findCoords('C');
-        if(game.getClub()!= null)
+        if(game.getClub()!= null) {
             game.getClub().setCoordinates(coord[0], coord[1]);
-        removeFromMap('C');
+        }else {
+            JOptionPane.showMessageDialog(null,"Place Ring!");
+            return false;
+        }
 
         coord = findCoords('k');
-        if(game.getKey()!=null)
+        if(game.getKey()!=null) {
             game.getKey().setCoordinates(coord[0], coord[1]);
+        }else {
+            JOptionPane.showMessageDialog(null,"Place Key!");
+            return false;
+        }
+
+        if(game.getExitDoor()== null){
+            JOptionPane.showMessageDialog(null,"Place Door!");
+            return false;
+        }
+        removeFromMap('H');
         removeFromMap('k');
+        removeFromMap('C');
 
-       saveOgres();
-
+        saveOgres();
        return true;
     }
 
@@ -235,7 +260,8 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnKey = new JButton("Key");
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createKey();
+			   o = Objects.KEY;
+			   repaint();
 			}
 		});
 		btnsPanel.add(btnKey);
@@ -245,7 +271,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnDoor = new JButton("Door");
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createDoor();
+                o = Objects.DOOR;
                 repaint();
             }
 		});
@@ -256,7 +282,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createOgre();
+                o = Objects.OGRE;
                 repaint();
             }
 		});
@@ -267,7 +293,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnHero = new JButton("Hero");
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createHero();
+			    if(game.getHero()==null) o = Objects.HERO;
                 repaint();
 
             }
@@ -280,7 +306,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnWall = new JButton("Wall");
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createWall();
+                o = Objects.WALL;
                 repaint();
 
             }
@@ -296,7 +322,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         btnRing = new JButton("Ring");
         btnRing.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createRing();
+                o = Objects.RING;
                 repaint();
 
             }
@@ -317,6 +343,8 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
                 map = new char[heightSlider.getValue()][widthSlider.getValue()];
                 mapObject.setMap(map);
                 game = new GameState(mapObject);
+                game.setKey(null);
+                game.setClub(null);
                 repaint();
             }
         });
@@ -325,33 +353,32 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 
 
 
+
 	private void initMap() {
-		//game.removeAllWalls();
-		//game.setHero(null);
-		//game.setOgres(null);
-		//game.setKey(null);
-		//game.setExitDoor(null);
 		if(game != null ) {
 		    game.removeAllOgres();
             mapObject.removeAllChars();
             game.setGuard(null);
             mapObject.removeAllObjs();
         }
-		//mapObject.removeAllChars();
-		//mapObject.removeAllObjs();
+
 
 		int height = 10, width = 10;
 
 		height = heightSlider.getValue();
 		width = widthSlider.getValue();
 
-	    map = new char[height][width];
+	    char[][] m = new char[height][width];
 
-		for(int i = 0; i < map.length; i++){
-			for(int j = 0; j < map[i].length; j++) {
-				map[i][j] = ' ';
-			}
+		for(int i = 0; i < m.length; i++){
+			for(int j = 0; j < m[i].length; j++) {
+			    if(i < map.length && j<map[0].length)
+				m[i][j] = map[i][j];
+			    else m[i][j] = ' ';
+            }
 		}
+
+		map = m;
 
 		lines = height;
 		columns = width;
@@ -417,15 +444,27 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         }
     }
 
-	public void createKey() {
+	public boolean createKey() {
 		elementToAdd = 'k';
 
-		dkeep.logic.Object key = new dkeep.logic.Object();
-		key.setChar(elementToAdd);
-		mapObject.setKey(true);
-		game.setKey(key);
-		mapObject.addObj(key);
+		dkeep.logic.Object key;
+
+        if(game.getKey() == null) {
+            key = new dkeep.logic.Object();
+            key.setChar(elementToAdd);
+            mapObject.setKey(true);
+            game.setKey(key);
+            mapObject.addObj(key);
+            return true;
+        }
+        else JOptionPane.showMessageDialog(null, "Key Already Placed");
+        return false;
 	}
+
+    public void deleteKey() {
+	    mapObject.remObj(game.getKey());
+	    game.setKey(null);
+    }
 
 	public void createDoor() {
 		elementToAdd = 'I';
@@ -436,6 +475,11 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		mapObject.addObj(door);
 	}
 
+	public void deleteDoor(){
+        mapObject.remObj(game.getExitDoor());
+        game.setExitDoor(null);
+    }
+
 	public void createOgre() {
 		elementToAdd = 'O';
 
@@ -444,12 +488,17 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		mapObject.addChar(ogre);
 	}
 
-	public void createHero() {
+	public boolean createHero() {
 		elementToAdd = 'H';
+        Hero hero ;
 
-		dkeep.logic.Hero hero = new Hero(elementToAdd);
-		game.setHero(hero);
-	//}
+        if(game.getHero() == null) {
+            hero = new Hero(elementToAdd);
+            game.setHero(hero);
+            return true;
+        }
+        else JOptionPane.showMessageDialog(null, "Hero Already Placed");
+        return false;
 	}
 
 	public void createWall() {
@@ -461,13 +510,20 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		mapObject.addObj(wall);
 	}
 
-    public void createRing() {
+    public boolean createRing() {
         elementToAdd = 'C';
-        dkeep.logic.Club ring = new dkeep.logic.Club('C');
-        ring.setChar('C');
-        ring.setVisible(true);
-        game.setClub(ring);
-        mapObject.addObj(ring);
+        dkeep.logic.Club ring;
+
+        if(game.getClub() == null) {
+            ring = new dkeep.logic.Club('C');
+            ring.setVisible(true);
+            game.setClub(ring);
+            mapObject.addObj(ring);
+            return true;
+        }
+        else JOptionPane.showMessageDialog(null, "Ring Already Placed");
+
+        return false;
     }
 
 	public int[] getCoord(int X, int Y){
@@ -485,19 +541,70 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 	public void mouseClicked(MouseEvent e) {
 		int X = e.getX(), Y = e.getY(), x, y;
 
-		if( X < 30 || X > (lines * 30 + 30) || Y < 80 || Y > (columns * 30 + 80) )
+		if( X < 30 || X > (columns * 30 + 30) || Y < 80 || Y > (lines * 30 + 80) )
 			return;
 
 		x = getCoord(X,Y)[0];
         y = getCoord(X,Y)[1];
 
+        if(createGameElement()) {
 
-        objectToAdd.setCoordinates(y, x);
+            objectToAdd.setCoordinates(y, x);
 
-		map[y][x] = elementToAdd;
+            /*if(map[y][x] == elementToAdd) {
+                map[y][x] = ' ';
+                deleteGameElement();
+            }
+            else*/ map[y][x] = elementToAdd;
+        }
 
 		repaint();
 	}
+
+	public void deleteGameElement(){
+        switch(o) {
+            case KEY:
+                deleteKey();
+                break;
+            case HERO:
+                 createHero();
+            case RING:
+                createRing();
+                break;
+            case WALL:
+                createWall();
+                break;
+            case OGRE:
+                createOgre();
+                break;
+            case DOOR:
+                deleteDoor();
+                break;
+        }
+
+    }
+
+	public boolean createGameElement(){
+	    boolean r = true;
+        switch(o) {
+            case KEY:
+                return createKey();
+            case HERO:
+                return createHero();
+            case RING:
+                return createRing();
+            case WALL:
+                createWall();
+                break;
+            case OGRE:
+                createOgre();
+                break;
+            case DOOR:
+                createDoor();
+                break;
+        }
+        return r;
+    }
 
 	public int[] findCoords(char c){
 	    int coord[] = {-1,-1};
