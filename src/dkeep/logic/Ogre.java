@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import java.util.Random;
+import dkeep.logic.*;
 
 import dkeep.logic.GameState.States;
 
