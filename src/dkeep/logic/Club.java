@@ -12,6 +12,10 @@ public class Club extends Object{
         super(line, column, charo);
     }
     
+    /**
+     * Constructs a club represented by the given char
+     * @param type: representative char
+     */
     public Club(char type){
         super(1, 1, type);
         this.setVisible(true);
