@@ -5,10 +5,6 @@ import dkeep.logic.*;
 
 import dkeep.logic.GameState.States;
 
-/**
- * @author Joana
- *
- */
 public class Ogre extends Character {
     private boolean stunned = false;
     private int turnsLeft = 2;
