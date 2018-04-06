@@ -79,11 +79,31 @@ public class DungeonKeep {
      */
     private void initialize() throws IOException {
 
+        initFrames();
+
+        initPannels();
+
+        statusMsg = new JLabel("You can start a new game.");
+        statusMsg.setLayout(new BorderLayout());
+        statusMsg.setBounds(150, 450, 200, 30);
+        
+        initGroupLayout();
+
+    }
+
+    public void initFrames(){
         frame = new JFrame();
         frame.setBounds(100, 100, 600, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
+        custom_frame = new JFrame();
+        custom_frame.setVisible(false);
+        custom_frame.setBounds(100, 100, 600, 500);
+        custom_frame.getContentPane().setLayout(null);
+    }
+
+    public void initPannels() throws IOException{
         menu = new Menu();
         menu.setLayout(new BorderLayout(0, 0));
         menu.setBounds(0, 0, 600, 500);
@@ -96,34 +116,24 @@ public class DungeonKeep {
         graphicsPanel.setVisible(false);
         frame.getContentPane().add(graphicsPanel);
 
-        custom_frame = new JFrame();
-        custom_frame.setVisible(false);
-        custom_frame.setBounds(100, 100, 600, 500);
-        custom_frame.getContentPane().setLayout(null);
-
 
         designMenu = new CustomizeMap();
         designMenu.setLayout(new BorderLayout());
         designMenu.setBounds(0, 0, 600, 500);
         designMenu.setVisible(false);
         custom_frame.add(designMenu);
+    }
 
-
-        JPanel display = new JPanel();
-        display.setLayout(new BorderLayout(0, 0));
-
-
-
+    public void initGroupLayout(){
 
         JPanel options = new JPanel();
-
+        JPanel display = new JPanel();
+        display.setLayout(new BorderLayout(0, 0));
 
         JPanel controls = new JPanel();
         controls.setLayout(new GridLayout(3, 0, 0, 0));
 
-        statusMsg = new JLabel("You can start a new game.");
-        statusMsg.setLayout(new BorderLayout());
-        statusMsg.setBounds(150, 450, 200, 30);
+
         GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -155,7 +165,6 @@ public class DungeonKeep {
 
 
         frame.getContentPane().setLayout(groupLayout);
-
     }
 
     public static void newGamePressed() {
