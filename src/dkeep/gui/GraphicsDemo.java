@@ -20,7 +20,7 @@ import dkeep.logic.*;
     private char[][] map;
     private  JTextField ogresnr;
     private static JComboBox<String> guard;
-    private static JButton moveleft, moveright, moveup, movedown, start;
+    private static JButton moveleft, moveright, moveup, movedown, start, custom;
     GameState game;
 
 
@@ -240,7 +240,7 @@ import dkeep.logic.*;
          this.add(movedown);
 
          JButton btnExit = new JButton("Return");
-         btnExit.setBounds(440,230, 80, 30);
+         btnExit.setBounds(440,300, 80, 30);
          btnExit.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
                 DungeonKeep.returnMainMenu();
@@ -260,6 +260,16 @@ import dkeep.logic.*;
              }
          });
          this.add(start);
+
+         custom = new JButton("Custom Level");
+         custom.setBounds(380,230, 200, 30);
+         custom.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 requestFocusInWindow();
+                 DungeonKeep.startCustomLevel();
+             }
+         });
+         this.add(custom);
 
          JLabel lblnrofogres = new JLabel("Number of Ogres");
          lblnrofogres.setBounds(25,5,150,50);

@@ -28,7 +28,9 @@ public class DungeonKeep {
 
     private static JFrame frame;
     private static JFrame custom_frame;
-    private static JFrame settings_frame;
+     static GameState custom;
+     static Interaction custom_i;
+
     private static JLabel statusMsg;
     static Interaction newGame = null;
     static GameState game = null;
@@ -192,6 +194,13 @@ public class DungeonKeep {
         graphicsPanel.setVisible(false);
         custom_frame.setVisible(false);
         designMenu.setVisible(false);
+    }
+
+    public static void startCustomLevel(){
+        newGame = custom_i;
+        game = custom;
+        if(game!=null)  graphicsPanel.setMaze(custom.getMap());
+        else JOptionPane.showMessageDialog(null, "No map saved.");
     }
 
 }

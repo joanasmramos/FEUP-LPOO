@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+
+import dkeep.cli.Interaction;
 import dkeep.logic.*;
 
 public class CustomizeMap extends JPanel implements MouseListener {
@@ -155,6 +157,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnReturn = new JButton("Save");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			    DungeonKeep.custom_i = new Interaction("0",0);
+                DungeonKeep.custom = game;
                 DungeonKeep.returnMainMenu();
 			}
 		});
@@ -229,7 +233,12 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		//game.setOgres(null);
 		//game.setKey(null);
 		//game.setExitDoor(null);
-		//game.removeAllOgres();
+		if(game != null ) {
+		    game.removeAllOgres();
+            mapObject.removeAllChars();
+            game.setGuard(null);
+            mapObject.removeAllObjs();
+        }
 		//mapObject.removeAllChars();
 		//mapObject.removeAllObjs();
 
