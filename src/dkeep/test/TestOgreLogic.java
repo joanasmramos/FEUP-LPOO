@@ -171,7 +171,7 @@ game.removeAllWalls();
         game.moveHero('a');
 
 
-        assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
+        assertEquals(GameState.States.DONE, game.getCurrent_state());
     }
 
 
@@ -200,7 +200,7 @@ game.removeAllWalls();
         game.moveHero('w');
         game.moveHero('a');
 
-        assertEquals(GameState.States.MAP_DONE, game.getCurrent_state());
+        assertEquals(GameState.States.DONE, game.getCurrent_state());
     }
 
     @Test
