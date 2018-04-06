@@ -5,6 +5,9 @@ import dkeep.logic.GameState.States;
 
 import java.util.ArrayList;
 
+    /**
+     * Game Loop
+     */
     public class GameState {
         private Map map;
         
@@ -39,6 +42,10 @@ import java.util.ArrayList;
 
         private States current_state = States.PLAYING;
 
+        /**
+         * Constructor for game
+         * @param map map to use in game
+         */
         public GameState(Map map) {
             ArrayList<Character> chars = new ArrayList<>();
             ArrayList<Object> objects = new ArrayList<>();
@@ -54,70 +61,110 @@ import java.util.ArrayList;
             map.setObjs(objects);
         }
 
-        public void removeAllWalls() {
-        	walls.clear();
-        }
-        
-        public void addWall(Object wall) {
-        	walls.add(wall);
-        }
-        
         public Guard getGuard() {
             return guard;
         }
 
+        public void removeAllWalls() {
+            walls.clear();
+        }
+
+        public void addWall(Object wall) {
+            walls.add(wall);
+        }
+
+
+        /**
+         *
+         * @param guard game guard
+         */
         public void setGuard(Guard guard) {
             this.guard = guard;
         }
 
-        public void removeAllOgres() {
-        	ogres.clear();
-        }
-        
+
         public void addOgre(Ogre o){
             ogres.add(o);
             map.addChar(o);
             map.addObj(o.getOgre_club());
         }
 
+        /**
+         *
+         * @return HashSet of ogres in the level
+         */
         public HashSet<Ogre> getOgres() {
             return ogres;
         }
 
+        /**
+         *
+         * @return key in the level
+         */
         public Object getKey() {
             return key;
         }
 
+        /**
+         * Sets number of ogres in level
+         * @param nrOgres number of ogres
+         */
         public void setNrOgres(int nrOgres) {
             this.nrOgres = nrOgres;
         }
 
+        /**
+         *
+         * @return lever in level
+         */
         public Lever getLever() {
             return lever;
         }
 
+        /**
+         * Add level to game
+         * @param map
+         * @param key
+         * @param lever
+         */
         public void addLevel(char[][] map, boolean key, boolean lever){
             levels.add(new Map(map, key, lever));
             level++;
         }
 
-
+        /**
+         *
+         * @return club in level
+         */
         public Club getClub() {
             return club;
         }
 
+        /**
+         *
+         * @return hero in game
+         */
         public Hero getHero() {
             return hero;
         }
 
+        /**
+         *
+         * @return map used in level
+         */
         public Map getMap(){
             return map;
         	}
 
-
+        /**
+         *
+         * @return current game state
+         */
         public States getCurrent_state(){return current_state;}
 
-
+        /**
+         * Check if hero has been caught by the guard
+         */
         public void checkCaughtByGuard(){
             if (guard != null) {
                 if (hero.checkIfCaught(guard.getLine(), guard.getColumn()) && !guard.isAsleep()) {
@@ -126,6 +173,9 @@ import java.util.ArrayList;
             }
         }
 
+        /**
+         * Check if hero has been caught by an ogre
+         */
         public void checkCaughtByOgres() {
             if (ogres != null) {
 
@@ -143,7 +193,9 @@ import java.util.ArrayList;
         }
 
 
-
+        /**
+         * Updates game state
+         */
         public void checkEvents() {
 
             checkCaughtByGuard();
@@ -157,13 +209,23 @@ import java.util.ArrayList;
         }
 
 
-
+        /**
+         * Updates game states and elements
+         * @param user_input direction of hero's movement
+         */
         public void game(char user_input){
             updatePos(user_input);
             if(current_state == States.MAP_DONE) levelup();
         }
 
 
+        /**
+         * Checks if a game element collides with an obstacle
+         * @param character game element
+         * @param obstacle char of obstacle in map
+         * @param dir direction of game element's movement
+         * @return true if character collides, false if else
+         */
         public boolean checkObstacle(GameElement character, char obstacle, char dir) {
             switch (dir) {
                 case 'w':
@@ -187,6 +249,13 @@ import java.util.ArrayList;
             }
         }
 
+        /**
+         * Checks if a game element collides with an obstacle
+         * @param object game element
+         * @param obstacle character game element
+         * @param dir direction of game element's movement
+         * @return true if character collides, false if else
+         */
         public boolean checkObstacle(GameElement object, GameElement obstacle, char dir) {
             switch (dir) {
                 case 'w':
@@ -203,9 +272,10 @@ import java.util.ArrayList;
         }
 
 
-
-
-
+        /**
+         * Updates game elements
+         * @param dir direction of hero's movement
+         */
         public  void updatePos(char dir) {
                 if (moveHero(dir) != 1) {
                     if(guard!=null)
@@ -219,6 +289,11 @@ import java.util.ArrayList;
 
         }
 
+        /**
+         * Moves hero
+         * @param dir direction of hero's movement
+         * @return 0 if movement is successful, 1 if else
+         */
         public int moveHero(char dir) {
 
             if(checkHeroExit(dir)) current_state = States.MAP_DONE;
@@ -253,6 +328,11 @@ import java.util.ArrayList;
             return 0;
         }
 
+        /**
+         * Checks if hero went through any door
+         * @param dir direction of hero's movement
+         * @return true if hero exited a door, false if else
+         */
         public boolean checkHeroExit(char dir ){
             if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
                 hero.moveChar(dir);
@@ -264,7 +344,11 @@ import java.util.ArrayList;
             }
             return false;
         }
-        
+
+        /**
+         * Moves club
+         * @param ogre ogre which club belongs to
+         */
         public void moveClub(Ogre ogre) {
             ogre.getOgre_club().setDir(ogre.generateDir());
 
@@ -284,6 +368,10 @@ import java.util.ArrayList;
                 ogre.throwClub(ogre.getOgre_club().getDir());
         }
 
+        /**
+         * Moves Ogre
+         * @param ogre
+         */
         public void moveOgre(Ogre ogre){
 
             if(ogre.getStunned()) {
@@ -306,6 +394,9 @@ import java.util.ArrayList;
         }
 
 
+        /**
+         * Level Up
+         */
         public void levelup(){
                     addLevel(map2, false, true);
                     hero.setCoordinates(8 ,1);
@@ -323,12 +414,18 @@ import java.util.ArrayList;
                     current_state = States.PLAYING;
         }
 
+        /**
+         * Checks if game is over
+         * @return true if game is over, false if else
+         */
         public boolean isGameOver(){
             checkEvents();
             return (current_state==States.GAME_OVER);
         }
 
-
+        /**
+         * Generates random ogres and adds them to level
+         */
         public void generateOgres(){
             for(int i=0; i<this.nrOgres ; i++) {
                 Ogre anotherOgre = new Ogre(Ogre.generateNr(1, 5),
