@@ -6,7 +6,9 @@ public class Object implements GameElement{
     protected char type;
     protected boolean visible;
 
-    public Object(){this.visible=true;}
+    public Object(){
+    	this.visible=true;
+    	}
 
     public Object(int line, int column, char type){
         this.line = line;
@@ -45,4 +47,5 @@ public class Object implements GameElement{
     public void setVisible(boolean visible) {
     	this.visible = visible;
     }
+
 }

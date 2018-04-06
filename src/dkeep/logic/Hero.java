@@ -14,6 +14,12 @@ public class Hero extends Character{
         key = false;
         movedOntoDoor = false;
     }
+    
+    public Hero(char charc) {
+    	super(0, 0, charc);
+    	key = false;
+    	movedOntoDoor = false;
+    }
 
 
     public char getChar() {

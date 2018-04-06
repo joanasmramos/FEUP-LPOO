@@ -14,9 +14,11 @@ import java.util.ArrayList;
         private Object key = new Object(1,8,'k');
         private Club club = new Club(8, 2, 'C');
         private Lever lever = new Lever(8,7);
+        private Object exitDoor;
         private int nrOgres;
         private ArrayList<Map> levels = new ArrayList<>();
         private int level = 1;
+        private ArrayList<Object> walls;
 
 
         public static char map2[][] = {
@@ -50,6 +52,10 @@ import java.util.ArrayList;
             map.setObjs(objects);
         }
 
+        public void addWall(Object wall) {
+        	walls.add(wall);
+        }
+        
         public Guard getGuard() {
             return guard;
         }
@@ -323,4 +329,60 @@ import java.util.ArrayList;
                 map.addObj(anotherOgre.getOgre_club());
             }
         }
+
+		public ArrayList<Map> getLevels() {
+			return levels;
+		}
+
+		public void setLevels(ArrayList<Map> levels) {
+			this.levels = levels;
+		}
+
+		public int getLevel() {
+			return level;
+		}
+
+		public void setLevel(int level) {
+			this.level = level;
+		}
+
+		public int getNrOgres() {
+			return nrOgres;
+		}
+
+		public void setMap(Map map) {
+			this.map = map;
+		}
+
+		public void setHero(Hero hero) {
+			this.hero = hero;
+		}
+
+		public void setOgres(HashSet<Ogre> ogres) {
+			this.ogres = ogres;
+		}
+
+		public void setKey(Object key) {
+			this.key = key;
+		}
+
+		public void setClub(Club club) {
+			this.club = club;
+		}
+
+		public void setLever(Lever lever) {
+			this.lever = lever;
+		}
+
+		public void setCurrent_state(States current_state) {
+			this.current_state = current_state;
+		}
+
+		public Object getExitDoor() {
+			return exitDoor;
+		}
+
+		public void setExitDoor(Object exitDoor) {
+			this.exitDoor = exitDoor;
+		}
     }

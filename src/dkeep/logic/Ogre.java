@@ -10,14 +10,20 @@ public class Ogre extends Character {
     private static Random rand = new Random();
     private char dir;
     private Club ogre_club = new Club(super.line,super.column,'*');
-
+    
     public Ogre(int line, int column, char charc) {
         super(line, column, charc);
         stunned = false;
         turnsLeft = 2;
     }
 
-    public void setStunned(boolean stun) {
+    public Ogre(char charc) {
+		super(0, 0, charc);
+		stunned = false;
+		turnsLeft = 2;
+	}
+
+	public void setStunned(boolean stun) {
         stunned = stun;
     }
 
