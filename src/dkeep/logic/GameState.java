@@ -312,20 +312,26 @@ import java.util.ArrayList;
 
 
         public void levelup(){
-                    addLevel(map2, false, true);
-                    hero.setCoordinates(8 ,1);
-                    club.setVisible(true);
-                    map.addObj(club);
-                    map.addObj(key);
-                    map.remChar(guard);
-                    guard = null;
-                    map.remObj(lever);
-                    map.setLever(false);
-                    map.setKey(true);
+            switch(this.level) {
+                case 1:
+                addLevel(map2, false, true);
+                hero.setCoordinates(8, 1);
+                club.setVisible(true);
+                map.addObj(club);
+                map.addObj(key);
+                map.remChar(guard);
+                guard = null;
+                map.remObj(lever);
+                map.setLever(false);
+                map.setKey(true);
 
-                    generateOgres();
+                generateOgres();
 
-                    current_state = States.PLAYING;
+                current_state = States.PLAYING;
+                break;
+                default:
+                    break;
+            }
         }
 
         public boolean isGameOver(){

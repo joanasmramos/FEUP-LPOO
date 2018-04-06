@@ -173,9 +173,6 @@ public class DungeonKeep {
         graphicsPanel.setVisible(true);
 
         DungeonKeep.newGame = new Interaction("2", 0);
-        DungeonKeep.game = DungeonKeep.newGame.Dungeon();
-        DungeonKeep.game.getMap().resetMap();
-        graphicsPanel.setMaze(DungeonKeep.game.getMap());
 
         setStatusMsg("You can play now");
         graphicsPanel.enableMoveKeys(true);
