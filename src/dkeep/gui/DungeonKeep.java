@@ -185,6 +185,7 @@ public class DungeonKeep {
         graphicsPanel.setVisible(false);
         custom_frame.setVisible(true);
         designMenu.setVisible(true);
+        designMenu.restore();
 
     }
 

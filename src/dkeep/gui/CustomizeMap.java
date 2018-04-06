@@ -182,48 +182,34 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnsPanel.add(applyMapDim);
 	}
 
-	private boolean saveHero(){
+	private void saveCharacters(){
         int coord[] = findCoords('H');
-        if(game.getHero() !=null)
             game.getHero().setCoordinates(coord[0], coord[1]);
-        else {
-            JOptionPane.showMessageDialog(null,"Place Hero!");
-            return false;
-        }
 
-        return true;
+            coord = findCoords('C');
+            game.getClub().setCoordinates(coord[0], coord[1]);
+
+            coord = findCoords('k');
+            game.getKey().setCoordinates(coord[0], coord[1]);
+
+        saveOgres();
+
+        removeFromMap('H');
+        removeFromMap('k');
+        removeFromMap('C');
+        removeFromMap('O');
     }
 
 	private boolean save(){
         int coord[] = findCoords('C');
 
-        if(!saveHero()) return false;
-
-        findCoords('C');
-        if(game.getClub()!= null) {
-            game.getClub().setCoordinates(coord[0], coord[1]);
-        }else {
-            JOptionPane.showMessageDialog(null,"Place Ring!");
+        if(game.getHero()==null || game.getClub()== null ||  game.getKey()== null||game.getExitDoor()== null){
+            JOptionPane.showMessageDialog(null,"Level must contain 1 hero, 1 key, 1 ring, 1 door!");
             return false;
         }
 
-        coord = findCoords('k');
-        if(game.getKey()!=null) {
-            game.getKey().setCoordinates(coord[0], coord[1]);
-        }else {
-            JOptionPane.showMessageDialog(null,"Place Key!");
-            return false;
-        }
+        saveCharacters();
 
-        if(game.getExitDoor()== null){
-            JOptionPane.showMessageDialog(null,"Place Door!");
-            return false;
-        }
-        removeFromMap('H');
-        removeFromMap('k');
-        removeFromMap('C');
-
-        saveOgres();
        return true;
     }
 
@@ -235,7 +221,6 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         if( ! game.getOgres().isEmpty())
             do{
                 game.getOgres().iterator().next().setCoordinates(coord[0], coord[1]);
-                removeFromMap('O');
                 it.next();
             }
             while (it.hasNext())
@@ -247,6 +232,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    if(save()) {
+
                     DungeonKeep.custom = game;
                     game.getClub().setVisible(true);
                     DungeonKeep.returnMainMenu();
@@ -293,7 +279,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnHero = new JButton("Hero");
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    if(game.getHero()==null) o = Objects.HERO;
+			     o = Objects.HERO;
                 repaint();
 
             }
@@ -338,12 +324,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         restore.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                mapObject.removeAllChars();
-                mapObject.removeAllChars();
-                map = new char[heightSlider.getValue()][widthSlider.getValue()];
-                mapObject.setMap(map);
-                game = new GameState(mapObject);
-                game.setKey(null);
+                restore();
                 game.setClub(null);
                 repaint();
             }
@@ -351,7 +332,15 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
         btnsPanel.add(restore);
     }
 
-
+public void restore(){
+    mapObject.removeAllChars();
+    mapObject.removeAllChars();
+    map = new char[heightSlider.getValue()][widthSlider.getValue()];
+    mapObject.setMap(map);
+    game = new GameState(mapObject);
+    game.setKey(null);
+    game.setClub(null);
+}
 
 
 	private void initMap() {
@@ -601,6 +590,8 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
                 break;
             case DOOR:
                 createDoor();
+                break;
+            default:
                 break;
         }
         return r;
