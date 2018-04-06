@@ -30,6 +30,8 @@ public class TestOgreLogic {
     public void testOgreChar(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
@@ -40,6 +42,8 @@ public class TestOgreLogic {
     public void testClubInKeyPos(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         ogre.getOgre_club().setCoordinates(1,1);
@@ -52,6 +56,8 @@ public class TestOgreLogic {
     public void testAddOgre(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
@@ -65,6 +71,8 @@ public class TestOgreLogic {
     public void testHeroIsCapturedByOgre(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
         game.addOgre(ogre);
@@ -82,6 +90,7 @@ public class TestOgreLogic {
     public void testHeroCapturesKey(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
         game.addOgre(ogre);
@@ -100,6 +109,8 @@ public class TestOgreLogic {
     public void testHeroFailExit(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
         game.addOgre(ogre);
@@ -116,6 +127,8 @@ public class TestOgreLogic {
     public void testHeroExit(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,4,'O');
         game.addOgre(ogre);
@@ -138,6 +151,8 @@ public class TestOgreLogic {
     public void testHeroVictory(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
@@ -159,6 +174,8 @@ public class TestOgreLogic {
     public void testOgreStunned(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.levelup();
         Ogre ogre = new Ogre(1,2,'O');
         game.addOgre(ogre);

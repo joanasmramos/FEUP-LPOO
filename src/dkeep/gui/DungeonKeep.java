@@ -86,7 +86,7 @@ public class DungeonKeep {
         statusMsg = new JLabel("You can start a new game.");
         statusMsg.setLayout(new BorderLayout());
         statusMsg.setBounds(150, 450, 200, 30);
-        
+
         initGroupLayout();
 
     }

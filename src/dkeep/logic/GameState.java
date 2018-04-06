@@ -55,6 +55,10 @@ import java.util.ArrayList;
             map.setObjs(objects);
         }
 
+        public ArrayList<Object> getWalls() {
+            return walls;
+        }
+
         public void removeAllWalls() {
         	walls.clear();
         }

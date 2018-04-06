@@ -19,6 +19,8 @@ public class TestOgreRandomBehaviour {
     public void testRandomBehaviour(){
         Map map = new Map(map1, false, true);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
         game.levelup();

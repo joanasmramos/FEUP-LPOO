@@ -1,4 +1,5 @@
 package dkeep.test;
+import dkeep.logic.Object;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,6 +18,9 @@ public class TestDungeonGameLogic {
     public void testHerChar(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+
+        game.setHero(new Hero(1,1,'H'));
+
         assertTrue('H' == game.getHero().getChar());
 
         game.getClub().setCoordinates(2,1);
@@ -29,6 +33,9 @@ public class TestDungeonGameLogic {
     public void testHeroCatchClub(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+
+        game.setHero(new Hero(1,1,'H'));
+
         game.getHero().setCoordinates(2,2);
 
         game.getClub().setCoordinates(3,2);
@@ -78,6 +85,9 @@ public class TestDungeonGameLogic {
     public void testGuardAsleep(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+
+        game.setHero(new Hero(1,1,'H'));
+
         game.getGuard().setCoordinates(1,3);
         game.moveHero('d');
 
@@ -100,6 +110,7 @@ public class TestDungeonGameLogic {
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.getGuard().setCoordinates(1,3);
+        game.setHero(new Hero(1,1,'H'));
 
         assertEquals(1, game.getHero().getLine());
         assertEquals(1, game.getHero().getColumn());
@@ -112,6 +123,8 @@ public class TestDungeonGameLogic {
     public void testHeroMovesIntoWall(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.getGuard().setCoordinates(1,3);
 
         game.moveHero('a');
@@ -128,6 +141,9 @@ public class TestDungeonGameLogic {
     public void testHeroIsCapturedByGuard(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+
+        game.setHero(new Hero(1,1,'H'));
+
         game.getGuard().setCoordinates(1,3);
 
         assertFalse(game.isGameOver());
@@ -139,6 +155,8 @@ public class TestDungeonGameLogic {
     public void testHeroLeavesClosedDoor(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.getGuard().setCoordinates(1,3);
 
         assertEquals(1, game.getHero().getLine());
@@ -152,7 +170,9 @@ public class TestDungeonGameLogic {
     public void testHeroOpensDoor(){
        Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
-        game.getLever().setCoordinates(3,1);
+       game.setHero(new Hero(1,1,'H'));
+
+       game.getLever().setCoordinates(3,1);
         game.getGuard().setCoordinates(1,1);
 
         game.moveHero('s');
@@ -165,6 +185,8 @@ public class TestDungeonGameLogic {
     public void testHeroGoThroughDoor(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.getGuard().setCoordinates(1,3);
         game.getLever().setCoordinates(3,1);
 
@@ -227,6 +249,8 @@ public class TestDungeonGameLogic {
     public void testHeroLosesWithGuardAsleep(){
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
+
         game.setGuard(new Drunken(1,3,'G'));
 
         game.getGuard().setAsleep(true);
@@ -272,4 +296,34 @@ public class TestDungeonGameLogic {
 
         assertFalse(open);
     }
+
+    @Test
+    public void removeElements(){
+        Map map = new Map(map1, true, false);
+        GameState game = new GameState(map);
+
+
+        game.removeAllWalls();
+
+        assertTrue(game.getWalls().isEmpty());
+
+        game.addWall(new Object(1,1,'o'));
+
+        assertFalse(game.getWalls().isEmpty());
+
+        game.removeAllOgres();
+        assertTrue(game.getOgres().isEmpty());
+
+        game.addOgre(new Ogre(1,1,'i'));
+        assertFalse(game.getOgres().isEmpty());
+
+        game.getMap().removeAllChars();
+        assertTrue(game.getMap().getChars().isEmpty());
+
+        game.getMap().removeAllObjs();
+
+        assertTrue(game.getMap().getObjs().isEmpty());
+    }
+
+
 }
