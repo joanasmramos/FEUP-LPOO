@@ -8,7 +8,7 @@ import java.util.ArrayList;
     public class GameState {
         private Map map;
         
-        private Hero hero = new Hero(1,1, 'H');
+        private Hero hero;
         private Guard guard = new Rookie(1, 8, 'G');
         private HashSet<Ogre> ogres = new HashSet<Ogre>(7);
         private Object key = new Object(1,8,'k');
@@ -40,6 +40,7 @@ import java.util.ArrayList;
         private States current_state = States.PLAYING;
 
         public GameState(Map map) {
+            hero = null;
             ArrayList<Character> chars = new ArrayList<>();
             ArrayList<Object> objects = new ArrayList<>();
             walls = new ArrayList<Object>();
@@ -364,7 +365,9 @@ import java.util.ArrayList;
 		}
 
 		public void setHero(Hero hero) {
+            map.remChar(this.hero);
 			this.hero = hero;
+			map.addChar(hero);
 		}
 
 		public void setOgres(HashSet<Ogre> ogres) {

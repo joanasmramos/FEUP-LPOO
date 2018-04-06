@@ -21,7 +21,7 @@ import dkeep.logic.*;
     private  JTextField ogresnr;
     private static JComboBox<String> guard;
     private static JButton moveleft, moveright, moveup, movedown, start;
-
+    GameState game;
 
 
 
@@ -85,10 +85,10 @@ import dkeep.logic.*;
                         g.drawImage(graphics.getClocked_hero(), x, y, width, height, this);
                         break;
                     case 'K':
+                        if(DungeonKeep.game.getLever().isUp())
                         g.drawImage(graphics.getLeverUp(), x, y, width, height, this);
-                        break;
-                    case 'L':
-                        g.drawImage(graphics.getLeverDown(), x, y, width, height, this);
+                        else  g.drawImage(graphics.getLeverDown(), x, y, width, height, this);
+
                         break;
                 }
                 x+=width;
@@ -156,29 +156,7 @@ import dkeep.logic.*;
 
     }
 
-     public void startGame(){
 
-         try {
-             Integer.parseInt(ogresnr.getText());
-         }catch(NumberFormatException e) {
-             JOptionPane.showMessageDialog(null, "Enter a valid number.");
-             return;
-         }
-
-         if(Integer.parseInt(ogresnr.getText())>5) {
-             JOptionPane.showMessageDialog(null, "Enter a number between 0-5.");
-             return;
-         }
-
-         DungeonKeep.newGame = new Interaction(ogresnr.getText(), guard.getSelectedIndex());
-         DungeonKeep.game = DungeonKeep.newGame.Dungeon();
-         DungeonKeep.game.getMap().resetMap();
-
-
-         this.setMaze(DungeonKeep.game.getMap());
-         DungeonKeep.setStatusMsg("You can play now");
-         enableMoveKeys(true);
-     }
 
      public void inicializeButtons() {
 
@@ -237,23 +215,11 @@ import dkeep.logic.*;
          });
          this.add(movedown);
 
-         start = new JButton("Start");
-         start.setBounds(440,50, 80, 30);
-         start.addActionListener(new ActionListener() {
-             public void actionPerformed(ActionEvent arg0) {
-                 startGame();
-                 requestFocusInWindow();
-
-             }
-         });
-         this.add(start);
-
-
-         JButton btnExit = new JButton("Exit");
+         JButton btnExit = new JButton("Return");
          btnExit.setBounds(440,230, 80, 30);
          btnExit.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
-                 System.exit(0);
+                DungeonKeep.returnMainMenu();
                  requestFocusInWindow();
 
              }
@@ -261,7 +227,7 @@ import dkeep.logic.*;
          this.add(btnExit);
 
 
-         JLabel lblnrofogres = new JLabel("Number of Ogres");
+         /*JLabel lblnrofogres = new JLabel("Number of Ogres");
          lblnrofogres.setBounds(25,5,150,50);
          add(lblnrofogres);
 
@@ -277,11 +243,11 @@ import dkeep.logic.*;
          guard = new JComboBox<>();
          guard.setModel(new DefaultComboBoxModel<>(new String[] {"Rookie", "Drunken", "Suspicious"}));
          guard.setBounds(180,30,180,50);
-         add(guard);
+         add(guard);*/
      }
 
 
-     public void enableMoveKeys(boolean value) {
+     public static void enableMoveKeys(boolean value) {
          moveleft.setEnabled(value);
          moveright.setEnabled(value);
          moveup.setEnabled(value);

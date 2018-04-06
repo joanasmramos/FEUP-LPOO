@@ -68,6 +68,7 @@ public class Interaction {
 
     public static void printCharacters(Map map, int i, int j){
         for (dkeep.logic.Character charac : map.getChars()) {
+            if(charac==null)continue;
             if(i==charac.getLine() && j==charac.getColumn()) {
                 System.out.print(charac.getChar() + " ");
                 print_char++;
@@ -111,6 +112,7 @@ public class Interaction {
 
     public static void printGameElementsToString(Map map, char[][] mapstr, int i, int j){
         for (dkeep.logic.Character charac : map.getChars()) {
+            if(charac==null) continue;
             if(i==charac.getLine() && j==charac.getColumn()) {
                 if(charac instanceof Hero && charac.getChar()=='K')
                     mapstr[i][j] = 'A';
@@ -157,6 +159,7 @@ public class Interaction {
     public GameState Dungeon() {
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
+        game.setHero(new Hero(1,1,'H'));
         game.getMap().remChar(game.getGuard());
         game.setNrOgres(nrOgres);
 
@@ -191,8 +194,10 @@ public class Interaction {
         Map map = new Map(map1, true, false);
         GameState game = new GameState(map);
         game.setNrOgres(rand.nextInt(4)+1);
+        game.setHero(new Hero(1,1,'H'));
 
-		print(game.getMap());
+
+        print(game.getMap());
 
 		while(game.getCurrent_state()!= GameState.States.DONE && game.getCurrent_state()!=GameState.States.GAME_OVER){
 			cmd = askCommand();

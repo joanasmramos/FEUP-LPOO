@@ -28,6 +28,7 @@ public class DungeonKeep {
 
     private static JFrame frame;
     private static JFrame custom_frame;
+    private static JFrame settings_frame;
     private static JLabel statusMsg;
     static Interaction newGame = null;
     static GameState game = null;
@@ -83,10 +84,23 @@ public class DungeonKeep {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
+        menu = new Menu();
+        menu.setLayout(new BorderLayout(0, 0));
+        menu.setBounds(0, 0, 600, 500);
+        menu.setVisible(true);
+        frame.getContentPane().add(menu);
+
+        graphicsPanel = new GraphicsDemo();
+        graphicsPanel.setLayout(new BorderLayout(0, 0));
+        graphicsPanel.setBounds(0, 0, 600, 500);
+        graphicsPanel.setVisible(false);
+        frame.getContentPane().add(graphicsPanel);
+
         custom_frame = new JFrame();
         custom_frame.setVisible(false);
         custom_frame.setBounds(100, 100, 600, 500);
         custom_frame.getContentPane().setLayout(null);
+
 
         designMenu = new CustomizeMap();
         designMenu.setLayout(new BorderLayout());
@@ -98,18 +112,7 @@ public class DungeonKeep {
         JPanel display = new JPanel();
         display.setLayout(new BorderLayout(0, 0));
 
-        menu = new Menu();
-        menu.setLayout(new BorderLayout(0, 0));
-        menu.setBounds(0, 0, 600, 500);
-        menu.setVisible(true);
-        frame.getContentPane().add(menu);
 
-
-        graphicsPanel = new GraphicsDemo();
-        graphicsPanel.setLayout(new BorderLayout(0, 0));
-        graphicsPanel.setBounds(0, 0, 600, 500);
-        graphicsPanel.setVisible(false);
-        frame.getContentPane().add(graphicsPanel);
 
 
         JPanel options = new JPanel();
@@ -156,9 +159,17 @@ public class DungeonKeep {
     }
 
     public static void newGamePressed() {
-
+        frame.setVisible(true);
         menu.setVisible(false);
         graphicsPanel.setVisible(true);
+
+        DungeonKeep.newGame = new Interaction("2", 0);
+        DungeonKeep.game = DungeonKeep.newGame.Dungeon();
+        DungeonKeep.game.getMap().resetMap();
+        graphicsPanel.setMaze(DungeonKeep.game.getMap());
+
+        setStatusMsg("You can play now");
+        graphicsPanel.enableMoveKeys(true);
     }
 
 
@@ -167,6 +178,14 @@ public class DungeonKeep {
         graphicsPanel.setVisible(false);
         custom_frame.setVisible(true);
         designMenu.setVisible(true);
+
+    }
+
+    public  static void returnMainMenu(){
+        menu.setVisible(true);
+        graphicsPanel.setVisible(false);
+        custom_frame.setVisible(false);
+        designMenu.setVisible(false);
     }
 
 }

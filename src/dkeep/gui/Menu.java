@@ -35,7 +35,7 @@ public class Menu extends JPanel {
         this.add(btnNewGame);
 
         JButton btnExit = new JButton("Exit");
-        btnExit.setBounds(600/2-50,500/2+50, 110, 45);
+        btnExit.setBounds(600/2-50,500/2+40, 110, 45);
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.exit(0);

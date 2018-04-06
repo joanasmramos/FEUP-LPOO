@@ -19,88 +19,106 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	private static GraphicsBank graphics;
 	private static JPanel mapPanel;
 	private static JPanel btnsPanel;
+    private static JPanel slidersPanel;
 	private static JButton btnWall;
 	private static JButton btnHero;
 	private static JButton btnOgre;
 	private static JButton btnDoor;
 	private static JButton btnKey;
+    private static JButton btncustom;
 	private JButton btnReturn;
 	private static JPanel dimensionsPanel;
 	private static JLabel lblWidth;
 	private static JLabel lblHeight;
-	private static JTextField heightTxtField;
-	private static JTextField widthTxtField;
+	private static JSlider heightSlider;
+	private static JSlider widthSlider;
 	private JLabel label;
 	private JButton applyMapDim;
 
-	
+
 	private char[][] map;
 	private int lines, columns;
 	private static char elementToAdd;
 	private Map mapObject;
 	private GameElement objectToAdd;
 	private GameState game;
-	
+
 	CustomizeMap() throws IOException {
-        map = null;
+
         graphics =  new GraphicsBank();
-        
+
 		setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		addMouseListener(this);
-		
+
 		initMapPanel();
-		
+
 		btnsPanel = new JPanel();
 		btnsPanel.setLayout(new BorderLayout());
 		btnsPanel.setBounds(380,50,200,200);
 		add(btnsPanel);
-		
-		initializeButtons();
-		
+
+		slidersPanel = new JPanel();
+        slidersPanel.setLayout(new BorderLayout());
+        slidersPanel.setBounds(380,300,180,110);
+        add(slidersPanel);
+
+        initializeButtons();
+
 		initDimensionsPanel();
 
         graphics = new GraphicsBank();
         graphics.loadGraphics();
 
     }
-	
+
     private void initMapPanel() {
     	mapPanel = new JPanel();
 		add(mapPanel);
-		
+
 		map = new char[10][10];
-		
+
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++) {
 				map[i][j] = ' ';
 			}
 		}
-		
+
 		mapObject = new Map(map, false, false);
 		game = new GameState(mapObject);
 		objectToAdd = new dkeep.logic.Object();
-		
+
 		repaint();
-		
+
 	}
 
 	private void initDimensionsPanel() {
 		dimensionsPanel = new JPanel();
-		btnsPanel.add(dimensionsPanel);
+        slidersPanel.add(dimensionsPanel);
 		dimensionsPanel.setLayout(new GridLayout(2, 0, 0, 0));
-		
+
 		lblHeight = new JLabel("Height");
 		dimensionsPanel.add(lblHeight);
-		
-		heightTxtField = new JTextField();
-		dimensionsPanel.add(heightTxtField);
-		
+
+		heightSlider = new JSlider(4,10,10);
+		heightSlider.setSnapToTicks(true);
+        heightSlider.setPaintLabels(true);
+        heightSlider.setPaintTicks(true);
+        heightSlider.setMinorTickSpacing(1);
+        heightSlider.setMajorTickSpacing(2);
+        dimensionsPanel.add(heightSlider);
+
 		lblWidth = new JLabel("Width");
 		dimensionsPanel.add(lblWidth);
-		
-		widthTxtField = new JTextField();
-		dimensionsPanel.add(widthTxtField);
+
+		widthSlider = new JSlider(4,10,10);
+        widthSlider.setSnapToTicks(true);
+        widthSlider.setPaintLabels(true);
+        widthSlider.setPaintTicks(true);
+        widthSlider.setMinorTickSpacing(1);
+        widthSlider.setMajorTickSpacing(2);
+        widthSlider.setBounds(heightSlider.getX(), 0, heightSlider.getWidth(), heightSlider.getHeight());
+        dimensionsPanel.add(widthSlider);
 
 
 		label = new JLabel("");
@@ -109,22 +127,22 @@ public class CustomizeMap extends JPanel implements MouseListener {
 
 	public void initializeButtons() {
     	initBtnWall();
-		
+
     	initBtnHero();
-    	
+
     	initBtnOgre();
-		
+
     	initBtnDoor();
-    	
+
     	initBtnKey();
-    	
-    	initBtnReturn();
-    	
+
     	initBtnApply();
+
+        initBtnReturn();
     }
 
 	private void initBtnApply() {
-		applyMapDim = new JButton("Apply dimensions");
+		applyMapDim = new JButton("Apply");
 		applyMapDim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				initMap();
@@ -134,9 +152,10 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	}
 
 	private void initBtnReturn() {
-		btnReturn = new JButton("Return");
+		btnReturn = new JButton("Save");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                DungeonKeep.returnMainMenu();
 			}
 		});
 		btnsPanel.add(btnReturn);
@@ -186,6 +205,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		btnsPanel.add(btnHero);
 	}
 
+
 	private void initBtnWall() {
 		btnWall = new JButton("Wall");
 		btnWall.addActionListener(new ActionListener() {
@@ -198,37 +218,11 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		});
 		btnsPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		btnsPanel.add(btnWall);
-		
+
 	}
-	
-    private int readHeight() {
-    	int height;
-    	
-		try { 
-			height = Integer.parseInt(heightTxtField.getText()); 
-		}
-		catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Enter a valid number.");
-            return 1;
-        }
-		
-		return height;
-	}
-    
-	private int readWidth() {
-		int width;
-		
-		try {
-		width = Integer.parseInt(widthTxtField.getText());
-		}
-		catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Enter a valid number.");
-            return 1;
-        }
-		
-		return width;
-	}
-	
+
+
+
 	private void initMap() {
 		//game.removeAllWalls();
 		//game.setHero(null);
@@ -238,26 +232,26 @@ public class CustomizeMap extends JPanel implements MouseListener {
 		//game.removeAllOgres();
 		//mapObject.removeAllChars();
 		//mapObject.removeAllObjs();
-		
+
 		int height = 10, width = 10;
-		
-		height = readHeight();
-		width = readWidth();
-	    
+
+		height = heightSlider.getValue();
+		width = widthSlider.getValue();
+
 	    map = new char[height][width];
-	    
+
 		for(int i = 0; i < map.length; i++){
 			for(int j = 0; j < map[i].length; j++) {
 				map[i][j] = ' ';
 			}
 		}
-		
+
 		lines = height;
 		columns = width;
-		
+
 		mapObject = new Map(map, false, false);
 		game.setMap(mapObject);
-		
+
 		this.repaint();
 	}
 
@@ -312,10 +306,10 @@ public class CustomizeMap extends JPanel implements MouseListener {
             y+=height;
         }
     }
-	
+
 	public void createKey() {
 		elementToAdd = 'k';
-		
+
 		dkeep.logic.Object key = new dkeep.logic.Object();
 		key.setChar(elementToAdd);
 		mapObject.setKey(true);
@@ -324,8 +318,8 @@ public class CustomizeMap extends JPanel implements MouseListener {
 	}
 
 	public void createDoor() {
-		elementToAdd = 'I';	
-		
+		elementToAdd = 'I';
+
 		dkeep.logic.Object door = new dkeep.logic.Object();
 		door.setChar('I');
 		game.setExitDoor(door);
@@ -334,7 +328,7 @@ public class CustomizeMap extends JPanel implements MouseListener {
 
 	public void createOgre() {
 		elementToAdd = 'O';
-		
+
 		dkeep.logic.Ogre ogre = new Ogre(elementToAdd);
 		game.addOgre(ogre);
 		mapObject.addChar(ogre);
@@ -342,36 +336,42 @@ public class CustomizeMap extends JPanel implements MouseListener {
 
 	public void createHero() {
 		elementToAdd = 'H';
-		
+
 		dkeep.logic.Hero hero = new Hero(elementToAdd);
-		game.setHero(hero);
+		if(game.getHero()!=null){
+		    JOptionPane.showMessageDialog(null, "Hero already added.");
+		}
+		else {
 		mapObject.addChar(hero);
+            game.setHero(hero);
+	}
 	}
 
 	public void createWall() {
 		elementToAdd = 'X';
-		
+
 		dkeep.logic.Object wall = new dkeep.logic.Object();
 		wall.setChar('X');
 		game.addWall(wall);
 		mapObject.addObj(wall);
 	}
-    
+
 	public void mouseClicked(MouseEvent e) {
 		int X = e.getX(), Y = e.getY(), x, y;
-		
+
 		if( X < 30 || X > (lines * 30 + 30) || Y < 80 || Y > (columns * 30 + 80) )
 			return;
-		
+
 		x = (X-30) / 30;
 		y = (Y-80) / 30;
 
 		objectToAdd.setCoordinates(y, x);
-		
+
 		map[y][x] = elementToAdd;
-		
+
 		repaint();
 	}
+
 	
 	public char[][] getMap() {
 		return map;
