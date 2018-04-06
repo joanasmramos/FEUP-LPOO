@@ -2,9 +2,6 @@ package dkeep.logic;
 
 import dkeep.cli.Interaction;
 
-/**
- *
- */
 public class Hero extends Character{
 
     private boolean key;
@@ -12,12 +9,6 @@ public class Hero extends Character{
     private boolean club;
     private boolean movedOntoDoor;
 
-    /**
-     * Constructor for class hero
-     * @param line line index of character in map
-     * @param column column index of character in map
-     * @param charc char of character in map
-     */
     public Hero(int line, int column, char charc) {
         super(line, column, charc);
         key = false;
@@ -30,39 +21,22 @@ public class Hero extends Character{
     	movedOntoDoor = false;
     }
 
-    /**
-     *
-     * @return char of character in map
-     */
-    @Override
+
     public char getChar() {
         if(key) return 'K';
         else if(club) return 'A';
         else return 'H';
     }
 
-    /**
-     *
-     * @param symbol char of character in map
-     */
     public void setChar(char symbol) {
         this.charc = symbol;
     }
 
-    /**
-     *
-     * @param key
-     */
     public void setKey(boolean key){
         this.key = key;
     }
 
-    /**
-     *
-     * @param club
-     * @param dir
-     * @return
-     */
+
     public boolean checkIfCatchClub(Club club, char dir) {
         switch (dir){
             case 'w':
