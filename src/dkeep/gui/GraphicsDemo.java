@@ -262,7 +262,7 @@ import dkeep.logic.*;
          this.add(start);
 
          custom = new JButton("Custom Level");
-         custom.setBounds(380,230, 200, 30);
+         custom.setBounds(380,230, 150, 30);
          custom.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent arg0) {
                  requestFocusInWindow();

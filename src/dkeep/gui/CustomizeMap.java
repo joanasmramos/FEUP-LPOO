@@ -10,7 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
 
+import com.sun.istack.internal.localization.NullLocalizable;
 import dkeep.cli.Interaction;
 import dkeep.logic.*;
 
@@ -30,6 +33,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 	private static JButton btnOgre;
 	private static JButton btnDoor;
 	private static JButton btnKey;
+    private static JButton btnRing;
     private static JButton restore;
 	private JButton btnReturn;
 	private static JPanel dimensionsPanel;
@@ -52,6 +56,9 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 
         graphics =  new GraphicsBank();
 
+        lines = 4;
+        columns=4;
+
 		setLayout(new GridLayout(0, 2, 0, 0));
 
 		addMouseListener(this);
@@ -60,12 +67,12 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 
 		btnsPanel = new JPanel();
 		btnsPanel.setLayout(new BorderLayout());
-		btnsPanel.setBounds(380,50,200,200);
+		btnsPanel.setBounds(350,80,180,200);
 		add(btnsPanel);
 
 		slidersPanel = new JPanel();
         slidersPanel.setLayout(new BorderLayout());
-        slidersPanel.setBounds(380,300,180,110);
+        slidersPanel.setBounds(350,280,180,110);
         add(slidersPanel);
 
         initializeButtons();
@@ -106,7 +113,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		lblHeight = new JLabel("Height");
 		dimensionsPanel.add(lblHeight);
 
-		heightSlider = new JSlider(4,10,10);
+		heightSlider = new JSlider(4,10,4);
 		heightSlider.setSnapToTicks(true);
         heightSlider.setPaintLabels(true);
         heightSlider.setPaintTicks(true);
@@ -119,7 +126,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		lblWidth = new JLabel("Width");
 		dimensionsPanel.add(lblWidth);
 
-		widthSlider = new JSlider(4,10,10);
+		widthSlider = new JSlider(4,10,4);
         widthSlider.setSnapToTicks(true);
         widthSlider.setPaintLabels(true);
         widthSlider.setPaintTicks(true);
@@ -144,6 +151,8 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 
     	initBtnKey();
 
+    	initBtnRing();
+
     	initBtnApply();
 
         initBtnReturn();
@@ -161,29 +170,62 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnsPanel.add(applyMapDim);
 	}
 
+	private boolean saveHero(){
+        int coord[] = findCoords('H');
+        if(game.getHero() !=null)
+            game.getHero().setCoordinates(coord[0], coord[1]);
+        else {
+            JOptionPane.showMessageDialog(null,"Place Hero!");
+            return false;
+        }
+        removeFromMap('H');
+        return true;
+    }
+
+	private boolean save(){
+        int coord[] = findCoords('C');
+
+        if(!saveHero()) return false;
+
+        findCoords('C');
+        if(game.getClub()!= null)
+            game.getClub().setCoordinates(coord[0], coord[1]);
+        removeFromMap('C');
+
+        coord = findCoords('k');
+        if(game.getKey()!=null)
+            game.getKey().setCoordinates(coord[0], coord[1]);
+        removeFromMap('k');
+
+       saveOgres();
+
+       return true;
+    }
+
+    private void saveOgres(){
+        int coord[] = findCoords('O');
+
+        Iterator<Ogre> it = game.getOgres().iterator();
+
+        if( ! game.getOgres().isEmpty())
+            do{
+                game.getOgres().iterator().next().setCoordinates(coord[0], coord[1]);
+                removeFromMap('O');
+                it.next();
+            }
+            while (it.hasNext())
+       ;
+    }
+
 	private void initBtnReturn() {
 		btnReturn = new JButton("Save");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    int coord[] = findCoords('H');
-			    if(game.getHero() !=null)
-			    game.getHero().setCoordinates(coord[0], coord[1]);
-                removeFromMap('H');
-
-
-                coord = findCoords('k');
-                if(game.getKey()!=null){
-                    game.getKey().setCoordinates(coord[0], coord[1]);
-                    removeFromMap('k');
+			    if(save()) {
+                    DungeonKeep.custom = game;
+                    game.getClub().setVisible(true);
+                    DungeonKeep.returnMainMenu();
                 }
-
-                coord = findCoords('O');
-                if( ! game.getOgres().isEmpty())
-                    game.getOgres().iterator().next().setCoordinates(coord[0], coord[1]);
-                removeFromMap('0');
-                DungeonKeep.custom_i = new Interaction("0",0);
-                DungeonKeep.custom = game;
-                DungeonKeep.returnMainMenu();
 			}
 		});
 		btnsPanel.add(btnReturn);
@@ -248,6 +290,22 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		btnsPanel.add(btnWall);
 
 	}
+
+
+    private void initBtnRing() {
+        btnRing = new JButton("Ring");
+        btnRing.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createRing();
+                repaint();
+
+            }
+
+        });
+        btnsPanel.add(btnRing);
+
+    }
+
 
     private void initBtnRestore() {
         restore = new JButton("Restore");
@@ -348,6 +406,9 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
                     case 'A':
                         g.drawImage(graphics.getClocked_hero(), x, y, width, height, this);
                         break;
+                    case 'C':
+                        g.drawImage(graphics.getRing(), x, y, width, height, this);
+                        break;
                 }
                 x+=width;
             }
@@ -378,7 +439,7 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 	public void createOgre() {
 		elementToAdd = 'O';
 
-		dkeep.logic.Ogre ogre = new Ogre(elementToAdd);
+		Ogre ogre = new Ogre(elementToAdd);
 		game.addOgre(ogre);
 		mapObject.addChar(ogre);
 	}
@@ -387,11 +448,6 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		elementToAdd = 'H';
 
 		dkeep.logic.Hero hero = new Hero(elementToAdd);
-        /*if(game.getHero()!=null){
-		    JOptionPane.showMessageDialog(null, "Hero already added.");
-		}
-		else {*/
-		//mapObject.addChar(hero);
 		game.setHero(hero);
 	//}
 	}
@@ -404,6 +460,15 @@ public class CustomizeMap extends JPanel implements MouseListener, ChangeListene
 		game.addWall(wall);
 		mapObject.addObj(wall);
 	}
+
+    public void createRing() {
+        elementToAdd = 'C';
+        dkeep.logic.Club ring = new dkeep.logic.Club('C');
+        ring.setChar('C');
+        ring.setVisible(true);
+        game.setClub(ring);
+        mapObject.addObj(ring);
+    }
 
 	public int[] getCoord(int X, int Y){
 	    int[] c = new int[2];

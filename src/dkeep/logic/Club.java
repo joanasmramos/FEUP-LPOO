@@ -3,6 +3,11 @@ package dkeep.logic;
 public class Club extends Object{
     private char dir;
 
+    public Club(char type){
+        super(1, 1, type);
+        this.setVisible(true);
+    }
+
     public Club(int line, int column, char type){
         super(line, column, type);
         this.setVisible(false);

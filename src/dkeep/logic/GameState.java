@@ -262,7 +262,7 @@ import java.util.ArrayList;
             if(checkObstacle(hero, 'S', dir) || (checkObstacle(hero, 'I', dir) && hero.HasKey())) {
                 hero.moveChar(dir);
                 current_state = States.MAP_DONE;
-                map.setMap(map2);
+                if(level ==1) map.setMap(map2);
                 map.setLever(false);
                 map.setKey(true);
                 return true;
