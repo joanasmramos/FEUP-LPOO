@@ -24,6 +24,7 @@ public class TestOgreLogic {
         GameState game = new GameState(map);
         Ogre ogre = new Ogre(1,3,'O');
         game.addOgre(ogre);
+        ogre.getOgre_club().setVisible(false);
         assertFalse(ogre.getOgre_club().isVisible());
 
     }
