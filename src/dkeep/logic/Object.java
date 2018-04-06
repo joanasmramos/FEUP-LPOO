@@ -3,17 +3,17 @@ package dkeep.logic;
 public class Object implements GameElement{
     protected int line;
     protected int column;
-    protected char type;
+    protected char charo;
     protected boolean visible;
 
     public Object(){
     	this.visible=true;
     	}
 
-    public Object(int line, int column, char type){
+    public Object(int line, int column, char charo){
         this.line = line;
         this.column = column;
-        this.type = type;
+        this.charo = charo;
         this.visible = true;
     }
 
@@ -36,12 +36,12 @@ public class Object implements GameElement{
 
     public char getChar(){
     	if(visible)
-    		return type;
+    		return charo;
     	else return ' ';
     }
 
     public void setChar(char c){
-        this.type = c;
+        this.charo = c;
     }
     
     public void setVisible(boolean visible) {

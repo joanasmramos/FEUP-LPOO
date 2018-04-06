@@ -2,9 +2,20 @@ package dkeep.logic;
 
 public interface GameElement {
 
-     int getLine();
-
-     int getColumn();
+     /**
+     * @return returns the line number where the GameElement stands
+     */
+    int getLine();
+    
+     /**
+     * @return returns the column number where the GameElement stands
+     */
+    int getColumn();
      
-     void setCoordinates(int line, int column);
+     /**
+      * Sets the map coordinates of the GameElement
+     * @param line: map line
+     * @param column: map column
+     */
+    void setCoordinates(int line, int column);
 }
