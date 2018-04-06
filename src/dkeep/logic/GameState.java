@@ -76,7 +76,7 @@ import java.util.ArrayList;
         }
 
         public void removeAllOgres() {
-        	ogres.clear();
+        	if(ogres!=null) ogres.clear();
         }
         
         public void addOgre(Ogre o){
@@ -315,7 +315,7 @@ import java.util.ArrayList;
             switch(this.level) {
                 case 1:
                 addLevel(map2, false, true);
-                hero.setCoordinates(8, 1);
+                if(hero!=null) hero.setCoordinates(8, 1);
                 club.setVisible(true);
                 map.addObj(club);
                 map.addObj(key);

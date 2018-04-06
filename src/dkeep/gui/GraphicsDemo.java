@@ -140,10 +140,10 @@ import dkeep.logic.*;
 
 
          if(DungeonKeep.getGame().getCurrent_state()== GameState.States.DONE){
-             DungeonKeep.getStatusMsg().setText("YOU WIN");
+             JOptionPane.showMessageDialog(null, "YOU WIN");
          }
          if(DungeonKeep.getGame().getCurrent_state()== GameState.States.GAME_OVER){
-             DungeonKeep.getStatusMsg().setText("GAME OVER");
+             JOptionPane.showMessageDialog(null, "GAME OVER");
          }
      }
 

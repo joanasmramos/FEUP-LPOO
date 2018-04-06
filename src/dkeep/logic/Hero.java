@@ -16,7 +16,7 @@ public class Hero extends Character{
     }
     
     public Hero(char charc) {
-    	super(0, 0, charc);
+    	super(1, 1, charc);
     	key = false;
     	movedOntoDoor = false;
     }

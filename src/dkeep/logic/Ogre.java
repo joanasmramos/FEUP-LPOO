@@ -19,7 +19,7 @@ public class Ogre extends Character {
     }
 
     public Ogre(char charc) {
-		super(0, 0, charc);
+		super(1, 3, charc);
 		stunned = false;
 		turnsLeft = 2;
 	}
