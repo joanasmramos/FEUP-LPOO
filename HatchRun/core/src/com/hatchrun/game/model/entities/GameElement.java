@@ -1,4 +1,4 @@
-package com.hatchrun.game.model;
+package com.hatchrun.game.model.entities;
 
 /**
  * A model representing a game element which has a certain lane

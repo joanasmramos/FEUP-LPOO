@@ -3,7 +3,7 @@ package com.hatchrun.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hatchrun.game.view.GameScreen;
+import com.hatchrun.game.view.GameView;
 
 public class HatchRun extends Game {
 	private SpriteBatch batch;
@@ -14,7 +14,8 @@ public class HatchRun extends Game {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
 
-		setScreen(new GameScreen(this));
+		setScreen(new GameView(this));
+
 	}
 
 	@Override

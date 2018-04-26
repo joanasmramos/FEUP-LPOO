@@ -1,4 +1,6 @@
-package com.hatchrun.game.model;
+package com.hatchrun.game.model.entities;
+
+import com.hatchrun.game.model.entities.GameElement;
 
 /**
  * A model representing a hatch (the only game element user-controlled)
