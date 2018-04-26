@@ -4,9 +4,9 @@ package com.hatchrun.game.model.entities;
  * A model representing a game element which has a certain lane
  */
 public class GameElement {
-    public enum ElementLane {LEFT, CENTER, RIGHT};
+    public enum ElementLane {LEFT, MIDDLE, RIGHT};
 
-    private ElementLane lane;
+    protected ElementLane lane;
 
     /**
      * Constructs a game element
