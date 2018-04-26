@@ -28,7 +28,7 @@ public class Hatch extends GameElement {
      * Constructs the default hatch: purple, with no coins, zero score, not shielded
      */
     Hatch() {
-        super(ElementLane.CENTER);
+        super(ElementLane.MIDDLE);
         coins = 0;
         score = 0;
         shielded = false;
