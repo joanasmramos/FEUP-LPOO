@@ -100,5 +100,6 @@ public class Hatch extends GameElement {
     public void setCurrentHatch(HatchType currentHatch) {
         this.currentHatch = currentHatch;
     }
+
 }
 

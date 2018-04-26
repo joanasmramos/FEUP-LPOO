@@ -1,6 +1,9 @@
-package com.hatchrun.game.model;
+package com.hatchrun.game.model.entities;
 
-public class Coin  extends GameObject {
+/**
+ * A model representing a game coin
+ */
+public class Coin  extends GameElement {
 
     int pointsWorth; // necessario?
 
@@ -38,4 +41,5 @@ public class Coin  extends GameObject {
     public void setPointsWorth(int pointsWorth) {
         this.pointsWorth = pointsWorth;
     }
+
 }
