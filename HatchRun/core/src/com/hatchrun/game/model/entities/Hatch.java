@@ -15,11 +15,14 @@ public class Hatch extends GameElement {
     private HatchType currentHatch;
 
     /**
-     * Constructs a hatch (default = purple) with no coins, zero score, not shielded
+     * Constructs a hatch (default = purple) in the given position
+     * with no coins, zero score, not shielded
      * @param lane The current lane of the hatch
+     * @param x X coordinate
+     * @param y Y coordinate
      */
-    Hatch(ElementLane lane) {
-        super(lane);
+    Hatch(ElementLane lane, float x, float y) {
+        super(lane, x, y);
         coins = 0;
         score = 0;
         shielded = false;
@@ -27,10 +30,13 @@ public class Hatch extends GameElement {
     }
 
     /**
-     * Constructs the default hatch: purple, with no coins, zero score, not shielded
+     * Constructs (in the given position) the default hatch:
+     * purple, with no coins, zero score, not shielded
+     * @param x X coordinate
+     * @param y Y coordinate
      */
-    Hatch() {
-        super(ElementLane.MIDDLE);
+    Hatch(float x, float y) {
+        super(ElementLane.MIDDLE, x, y);
         coins = 0;
         score = 0;
         shielded = false;
@@ -100,5 +106,6 @@ public class Hatch extends GameElement {
     public void setCurrentHatch(HatchType currentHatch) {
         this.currentHatch = currentHatch;
     }
+
 }
 
