@@ -1,9 +1,11 @@
 package com.hatchrun.game.model.entities;
 
+import java.util.ArrayList;
+
 /**
  * A model representing a game element which has a certain lane
  */
-public class GameElement {
+public class EntitieModel {
     public enum ElementLane {LEFT, MIDDLE, RIGHT};
 
     protected ElementLane lane;
@@ -16,7 +18,7 @@ public class GameElement {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    GameElement(ElementLane lane, float x, float y) {
+    EntitieModel(ElementLane lane, float x, float y) {
         this.lane = lane;
         this.x = x;
         this.y = y;

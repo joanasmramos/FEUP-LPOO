@@ -3,7 +3,7 @@ package com.hatchrun.game.model.entities;
 /**
  * A model representing a game object
  */
-public class GameObject extends GameElement {
+public class ObstacleModel extends EntitieModel {
 
     /**
      * Constructs a game element in the given position
@@ -12,7 +12,7 @@ public class GameObject extends GameElement {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    GameObject(ElementLane lane, float x, float y) {
+    ObstacleModel(ElementLane lane, float x, float y) {
         super(lane, x, y);
     }
 }

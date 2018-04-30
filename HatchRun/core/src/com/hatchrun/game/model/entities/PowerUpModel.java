@@ -3,7 +3,7 @@ package com.hatchrun.game.model.entities;
 /**
  * A model representing a power-up object
  */
-public class PowerUp extends GameObject {
+public class PowerUpModel extends ObstacleModel {
     private enum PowerUpType {DOUBLECOINS, SHIELD, CHANGECOLOR};
 
     private PowerUpType type;
@@ -15,7 +15,7 @@ public class PowerUp extends GameObject {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    PowerUp(ElementLane lane, float x, float y) {
+    PowerUpModel(ElementLane lane, float x, float y) {
         super(lane, x, y);
     }
 
@@ -27,7 +27,7 @@ public class PowerUp extends GameObject {
      * @param y Y coordinate
      * @param type Power-up's type
      */
-    PowerUp(ElementLane lane, float x, float y, PowerUpType type) {
+    PowerUpModel(ElementLane lane, float x, float y, PowerUpType type) {
         super(lane, x, y);
         this.type = type;
     }

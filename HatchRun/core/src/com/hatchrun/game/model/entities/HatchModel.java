@@ -1,12 +1,10 @@
 package com.hatchrun.game.model.entities;
 
-import com.hatchrun.game.model.entities.GameElement;
-
 /**
  * A model representing a hatch (the only game element user-controlled)
  */
 
-public class Hatch extends GameElement {
+public class HatchModel extends EntitieModel {
     private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
 
     private int coins;
@@ -21,7 +19,7 @@ public class Hatch extends GameElement {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    Hatch(ElementLane lane, float x, float y) {
+    public HatchModel(ElementLane lane, float x, float y) {
         super(lane, x, y);
         coins = 0;
         score = 0;
@@ -35,7 +33,7 @@ public class Hatch extends GameElement {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    Hatch(float x, float y) {
+    HatchModel(float x, float y) {
         super(ElementLane.MIDDLE, x, y);
         coins = 0;
         score = 0;
