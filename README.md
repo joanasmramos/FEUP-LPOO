@@ -12,4 +12,4 @@ Authors:
 ## Final Project
 [Hatch Run](https://github.com/joanasmramos/LPOO1718_T4G8/tree/master/HatchRun)
 
-[Final Project Intermediate Check-Point](https://github.com/joanasmramos/LPOO1718_T4G8/tree/master/HatchRun/Intermediate%20Check-Point)
+[Final Project Intermediate Check-Point](https://github.com/joanasmramos/LPOO1718_T4G8/blob/master/HatchRun/Intermediate%20Check-Point/Intermediate%20Check-Point.pdf)
