@@ -8,6 +8,7 @@ public class HatchModel extends EntitieModel {
     private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
 
     private int coins;
+    private int coinValue;
     private int score;
     private boolean shielded;
     private HatchType currentHatch;
