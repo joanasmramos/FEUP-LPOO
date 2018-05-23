@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * A model representing a game element which has a certain lane
  */
-public class EntitieModel {
+public class EntityModel {
     public enum ElementLane {LEFT, MIDDLE, RIGHT};
 
     protected ElementLane lane;
@@ -18,7 +18,7 @@ public class EntitieModel {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    EntitieModel(ElementLane lane, float x, float y) {
+    EntityModel(ElementLane lane, float x, float y) {
         this.lane = lane;
         this.x = x;
         this.y = y;
@@ -31,7 +31,6 @@ public class EntitieModel {
     public ElementLane getLane() {
         return lane;
     }
-
     /**
      * Sets the element's lane to the given lane
      * @param lane Given lane

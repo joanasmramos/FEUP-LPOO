@@ -1,5 +1,8 @@
 d:assets:0:application/unknown
-i:badlogic.jpg:68465:image/jpeg
+i:floor copy.png:1839986:image/png
+i:floor.png:7088565:image/png
+i:coin.png:42120:image/png
+i:bluehatch.png:51415:image/png
 t:com/badlogic/gdx/graphics/g3d/particles/particles.fragment.glsl:859:application/unknown
 t:com/badlogic/gdx/graphics/g3d/particles/particles.vertex.glsl:2996:application/unknown
 t:com/badlogic/gdx/graphics/g3d/shaders/default.fragment.glsl:5350:application/unknown

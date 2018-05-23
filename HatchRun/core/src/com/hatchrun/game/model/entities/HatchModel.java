@@ -4,9 +4,9 @@ package com.hatchrun.game.model.entities;
  * A model representing a hatch (the only game element user-controlled)
  */
 
-public class HatchModel extends EntitieModel {
-    private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
+public class HatchModel extends EntityModel {
 
+    private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
     private int coins;
     private int coinValue;
     private int score;
@@ -25,7 +25,7 @@ public class HatchModel extends EntitieModel {
         coins = 0;
         score = 0;
         shielded = false;
-        currentHatch = HatchType.PURPLE;
+        currentHatch = HatchType.BLUE;
     }
 
     /**
@@ -41,6 +41,7 @@ public class HatchModel extends EntitieModel {
         shielded = false;
         currentHatch = HatchType.PURPLE;
     }
+
 
     /**
      * Returns hatch's coins

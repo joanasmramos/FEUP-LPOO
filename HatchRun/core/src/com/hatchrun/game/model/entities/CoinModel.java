@@ -3,7 +3,7 @@ package com.hatchrun.game.model.entities;
 /**
  * A model representing a game coin
  */
-public class CoinModel extends EntitieModel {
+public class CoinModel extends EntityModel {
 
 
     /**

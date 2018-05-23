@@ -1,4 +1,4 @@
-package com.hatchrun.game.view.entities;
+package com.hatchrun.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

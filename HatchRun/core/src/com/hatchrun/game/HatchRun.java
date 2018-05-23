@@ -3,6 +3,7 @@ package com.hatchrun.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.view.GameView;
 
 public class HatchRun extends Game {
@@ -20,7 +21,9 @@ public class HatchRun extends Game {
 	}
 
     private void startGame() {
-        setScreen(new GameView(this));
+
+		setScreen(new GameView(this));
+		new GameModel();
     }
 
 

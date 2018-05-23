@@ -3,7 +3,7 @@ package com.hatchrun.game.model.entities;
 /**
  * A model representing a game object
  */
-public class ObstacleModel extends EntitieModel {
+public class ObstacleModel extends EntityModel {
 
     /**
      * Constructs a game element in the given position
