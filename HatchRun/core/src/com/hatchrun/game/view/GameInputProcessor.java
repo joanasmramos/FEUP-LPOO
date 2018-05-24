@@ -1,11 +1,8 @@
 package com.hatchrun.game.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.hatchrun.game.controller.GameController;
-import com.hatchrun.game.model.GameModel;
 
 public class GameInputProcessor implements GestureDetector.GestureListener {
     @Override

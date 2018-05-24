@@ -1,4 +1,5 @@
 d:assets:0:application/unknown
+b:.DS_Store:6148:application/unknown
 i:floor copy.png:1839986:image/png
 i:floor.png:7088565:image/png
 i:coin.png:42120:image/png

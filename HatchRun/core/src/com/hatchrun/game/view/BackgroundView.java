@@ -2,6 +2,7 @@ package com.hatchrun.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BackgroundView {
@@ -10,7 +11,7 @@ public class BackgroundView {
     public static final int GOAL_REACH_ACCELERATION = 200;
 
     Texture image;
-    float y1, y2;
+    float y1, y2, y3;
     int speed;//In pixels / second
     int goalSpeed;
     float imageScale;
@@ -21,9 +22,10 @@ public class BackgroundView {
 
         y1 = 0;
         y2 = image.getHeight();
+        y3 = image.getHeight()*2;
         speed = 0;
         goalSpeed = DEFAULT_SPEED;
-        imageScale = Gdx.graphics.getWidth() / image.getWidth();
+        imageScale = Gdx.graphics.getHeight() / image.getHeight();
         speedFixed = true;
         setSpeedFixed(false);
     }
@@ -45,17 +47,23 @@ public class BackgroundView {
 
         y1 -= speed * deltaTime;
         y2 -= speed * deltaTime;
+        y3 -= speed * deltaTime;
 
         //if image reached the bottom of screen and is not visible, put it back on top
         if (y1 + image.getHeight() * imageScale <= 0)
-            y1 = y2 + image.getHeight() * imageScale;
+            y1 = y3 + image.getHeight() * imageScale;
 
         if (y2 + image.getHeight() * imageScale <= 0)
             y2 = y1 + image.getHeight() * imageScale;
 
+        if(y3 + image.getHeight() * imageScale <= 0)
+            y3 = y2 + image.getHeight() * imageScale;
+
         //Render
+
         batch.draw(image, 0, y1,Gdx.graphics.getWidth() , image.getHeight() * imageScale);
         batch.draw(image, 0, y2, Gdx.graphics.getWidth(), image.getHeight() * imageScale);
+        batch.draw(image, 0, y3, Gdx.graphics.getWidth(), image.getHeight() * imageScale);
     }
 
 

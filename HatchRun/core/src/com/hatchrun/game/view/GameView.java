@@ -1,10 +1,9 @@
 package com.hatchrun.game.view;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.hatchrun.game.controller.GameController;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,8 +18,11 @@ public class GameView extends ScreenAdapter
     private final OrthographicCamera camera;
     private final BackgroundView background = new BackgroundView();
     private final HatchView hatchView;
-    public final static float PIXEL_TO_METER = 0.04f;
-    private static final float VIEWPORT_WIDTH = 30;
+    private static final float VIEWPORT_WIDTH = 1080;
+    private static final float VIEWPORT_HEIGHT = 1812;
+    public static final int playableWidth = (Gdx.graphics.getWidth()-(int)(2*Gdx.graphics.getWidth()*0.09));
+    public static final int startX =(int)( Gdx.graphics.getWidth()*0.09);
+
 
     public GameView(HatchRun game) {
         this.game = game;
@@ -31,11 +33,10 @@ public class GameView extends ScreenAdapter
     }
 
     public OrthographicCamera createCamara() {
-        OrthographicCamera camera = new OrthographicCamera(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
-        camera.rotate(90);
 
 
         return camera;
@@ -49,6 +50,8 @@ public class GameView extends ScreenAdapter
         //update controller
         //set camera
         camera.update();
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getBatch().begin();
         background.updateAndRender(delta, game.getBatch());
         drawEntities();
@@ -67,11 +70,5 @@ public class GameView extends ScreenAdapter
         hatchView.draw(game.getBatch());
     }
 
-    private static final int SWIPE_THRESHOLD = 40;
-
-    private long lastTapTime = System.currentTimeMillis();
-
-    private void handleInputs(float delta) {
-    }
 
 }
