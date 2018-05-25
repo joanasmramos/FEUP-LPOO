@@ -7,11 +7,14 @@ package com.hatchrun.game.model.entities;
 public class HatchModel extends EntityModel {
 
     private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
+    public enum HatchState {RUNNING, STILL};
     private int coins;
     private int coinValue;
     private int score;
     private boolean shielded;
     private HatchType currentHatch;
+    private HatchState currentState;
+
 
     /**
      * Constructs a hatch (default = purple) in the given position
@@ -26,6 +29,7 @@ public class HatchModel extends EntityModel {
         score = 0;
         shielded = false;
         currentHatch = HatchType.BLUE;
+            currentState = HatchState.STILL;
     }
 
     /**
@@ -40,6 +44,16 @@ public class HatchModel extends EntityModel {
         score = 0;
         shielded = false;
         currentHatch = HatchType.PURPLE;
+        currentState = HatchState.STILL;
+    }
+
+
+    public HatchState getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentstate(HatchState currentstate) {
+        this.currentState = currentstate;
     }
 
 

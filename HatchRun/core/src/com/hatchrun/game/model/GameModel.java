@@ -1,5 +1,6 @@
 package com.hatchrun.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
@@ -11,9 +12,11 @@ public class GameModel {
     private ArrayList<Object> obstacles;
     private ArrayList<PowerUpModel> powerUps;
     private static GameModel instance;
-    public GameModel(){
+
+
+    public GameModel(int hatchX, int hatchY){
         instance = this;
-        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE,100,100);
+        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE,hatchX,hatchY);
         obstacles = new ArrayList<Object>();
         powerUps = new ArrayList<PowerUpModel>();
     }
@@ -31,7 +34,4 @@ public class GameModel {
         this.hatch = hatch;
     }
 
-    public void update(float delta){
-
-    }
 }

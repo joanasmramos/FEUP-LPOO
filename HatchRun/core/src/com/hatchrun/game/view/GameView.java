@@ -20,8 +20,8 @@ public class GameView extends ScreenAdapter
     private final HatchView hatchView;
     private static final float VIEWPORT_WIDTH = 1080;
     private static final float VIEWPORT_HEIGHT = 1812;
-    public static final int playableWidth = (Gdx.graphics.getWidth()-(int)(2*Gdx.graphics.getWidth()*0.09));
-    public static final int startX =(int)( Gdx.graphics.getWidth()*0.09);
+
+
 
 
     public GameView(HatchRun game) {
@@ -30,6 +30,7 @@ public class GameView extends ScreenAdapter
         loadAssets();
         hatchView = new HatchView(game);
         Gdx.input.setInputProcessor(new GestureDetector(new GameInputProcessor()));
+        new GameModel(GameController.centerX,GameController.startY );
     }
 
     public OrthographicCamera createCamara() {
@@ -45,18 +46,14 @@ public class GameView extends ScreenAdapter
 
     @Override
     public void render(float delta) {
-
-        //handle inputs
-        //update controller
-        //set camera
         camera.update();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getBatch().begin();
         background.updateAndRender(delta, game.getBatch());
         drawEntities();
-        //handleInputs(delta);
         game.getBatch().end();
+
 
     }
 
@@ -72,3 +69,4 @@ public class GameView extends ScreenAdapter
 
 
 }
+

@@ -19,14 +19,7 @@ public abstract class EntityView {
 
     public abstract Sprite createSprite(HatchRun game);
 
-    public void draw(SpriteBatch batch) {
-        int i;
-        if(GameModel.getInstance().getHatch().getLane()== EntityModel.ElementLane.LEFT) i =0;
-        else if(GameModel.getInstance().getHatch().getLane()== EntityModel.ElementLane.RIGHT) i =2;
-        else i = 1;
-        sprite.setX(GameView.startX+i*(9+GameView.playableWidth/3));
-        sprite.draw(batch);
-    }
+    public abstract void draw(SpriteBatch batch);
 
     //TO DO: update
 }
