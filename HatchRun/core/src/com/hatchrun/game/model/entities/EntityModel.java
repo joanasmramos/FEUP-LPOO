@@ -1,5 +1,7 @@
 package com.hatchrun.game.model.entities;
 
+import com.hatchrun.game.model.GameModel;
+
 import java.util.ArrayList;
 
 /**
@@ -70,4 +72,5 @@ public class EntityModel {
     public void setY(float y) {
         this.y = y;
     }
+
 }

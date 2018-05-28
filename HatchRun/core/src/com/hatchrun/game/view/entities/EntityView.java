@@ -10,16 +10,17 @@ import com.hatchrun.game.view.GameView;
 
 public abstract class EntityView {
 
-    Sprite sprite;
-
+    protected Sprite sprite;
 
     public EntityView(HatchRun game){
         sprite = createSprite(game);
     }
 
+    public EntityView(){
+    }
+
     public abstract Sprite createSprite(HatchRun game);
 
-    public abstract void draw(SpriteBatch batch);
+    public abstract void draw(SpriteBatch batch, float x, float y);
 
-    //TO DO: update
 }

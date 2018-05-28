@@ -10,16 +10,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.EntityModel;
-import com.hatchrun.game.view.GameView;
+import com.hatchrun.game.model.entities.HatchModel;
 
 public class HatchView extends EntityView {
 
+    private HatchModel model;
     private TextureAtlas hatchAtlas;
     private Animation<TextureRegion> animation;
     float stateTime = 0;
 
 
-    public HatchView(HatchRun game) {
+    public HatchView(HatchRun game, HatchModel model) {
         super(game);
         hatchAtlas = new TextureAtlas(Gdx.files.internal("bluehatch.atlas"));
         animation = new Animation<TextureRegion>(1/3f, hatchAtlas.getRegions());
@@ -35,10 +36,10 @@ public class HatchView extends EntityView {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
         stateTime += Gdx.graphics.getDeltaTime();
 
-        batch.draw(animation.getKeyFrame(stateTime, true), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
+        batch.draw(animation.getKeyFrame(stateTime, true), x, y);
     }
 
 }
