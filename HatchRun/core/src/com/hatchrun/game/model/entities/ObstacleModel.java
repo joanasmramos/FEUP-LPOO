@@ -1,9 +1,15 @@
 package com.hatchrun.game.model.entities;
 
+
 /**
  * A model representing a game object
  */
 public class ObstacleModel extends EntityModel {
+
+
+
+    public enum Colour {PINK, BLUE, YELLOW}
+    private Colour colour;
 
     /**
      * Constructs a game element in the given position
@@ -12,7 +18,14 @@ public class ObstacleModel extends EntityModel {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    ObstacleModel(ElementLane lane, float x, float y) {
+    public ObstacleModel(ElementLane lane, int x, int y, Colour c) {
         super(lane, x, y);
+        this.colour = c;
+
     }
+
+    public Colour getColour() {
+        return colour;
+    }
+
 }

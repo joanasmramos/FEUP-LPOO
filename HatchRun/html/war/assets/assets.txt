@@ -1,5 +1,6 @@
 d:assets:0:application/unknown
 b:.DS_Store:6148:application/unknown
+i:pinkbush.png:6858:image/png
 t:bluehatch.atlas:288:application/unknown
 i:floor.png:7088565:image/png
 i:coin.png:42120:image/png

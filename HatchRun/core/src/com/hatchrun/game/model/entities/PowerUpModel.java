@@ -3,7 +3,7 @@ package com.hatchrun.game.model.entities;
 /**
  * A model representing a power-up object
  */
-public class PowerUpModel extends ObstacleModel {
+public class PowerUpModel extends EntityModel {
     private enum PowerUpType {DOUBLECOINS, SHIELD, CHANGECOLOR};
 
     private PowerUpType type;
