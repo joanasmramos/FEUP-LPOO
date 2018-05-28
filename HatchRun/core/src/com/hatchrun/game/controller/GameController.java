@@ -196,10 +196,10 @@ public class GameController {
             if( y0 >= GameModel.getInstance().getHatch().getY() && y0 <=  GameModel.getInstance().getHatch().getY()+305
                     || y1>= GameModel.getInstance().getHatch().getY() && y1 <= GameModel.getInstance().getHatch().getY()+305)
                 if(side){
-                    if(x >= x0)
+                    if(x >= x0 && x <= x1)
                         return false;
                 }else{
-                    if(x <= x1)
+                    if(x <= x1 && x>= x0)
                         return false;
                 }
         }
