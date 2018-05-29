@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.view.GameView;
+import com.hatchrun.game.view.MainMenuView;
 
 public class HatchRun extends Game {
 	private SpriteBatch batch;
