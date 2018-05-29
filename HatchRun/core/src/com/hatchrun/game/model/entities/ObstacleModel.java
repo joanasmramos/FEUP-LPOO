@@ -24,6 +24,7 @@ public class ObstacleModel extends EntityModel {
     public ObstacleModel(ElementLane lane, int x, int y, Colour c) {
         super(lane, x, y);
         this.colour = c;
+        super.setHeigth(239);
 
     }
 

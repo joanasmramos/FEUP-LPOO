@@ -21,12 +21,12 @@ public class GameModel {
 
     private ArrayList<PowerUpModel> powerUps;
     private static GameModel instance;
-    public final int DEFAULT_SPEED = 150;
-    public final int ACCELERATION = 50;
+    public int OBSTACLE_TIME = 2000;
+    public int COIN_TIME = 5000;
+    public final double ACCELERATION = 1.01;
     public boolean speedFixed;
-    public int goalSpeed = DEFAULT_SPEED;
-    public int speed = 0;
-    public final int GOAL_REACH_ACCELERATION = 200;
+    public int speed = 280;
+            ;
 
     Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
+import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
 
 import java.util.ArrayList;
@@ -41,15 +42,18 @@ public class GameController{
      */
     public void update(float delta){
 
-        if(System.currentTimeMillis() - lastTimeRegisteredCoins >= 9000){
+        if(System.currentTimeMillis() - lastTimeRegisteredCoins >= GameModel.getInstance().COIN_TIME){
             generateCoins();
             lastTimeRegisteredCoins = System.currentTimeMillis();
         }
 
-        if(System.currentTimeMillis() - lastTimeRegisteredObstacles >= 5000){
+        if(System.currentTimeMillis() - lastTimeRegisteredObstacles >= GameModel.getInstance().OBSTACLE_TIME){
             generateObstacle();
             lastTimeRegisteredObstacles = System.currentTimeMillis();
         }
+
+        updateSpeed(delta);
+
 
         if(System.currentTimeMillis() - lastSecondRegistered >= 1000){
             GameModel.getInstance().setScore(GameModel.getInstance().getScore()+1);
@@ -57,7 +61,6 @@ public class GameController{
         }
 
         updateObjects(delta);
-        updateSpeed(delta);
         disposeObjects();
         checkColission();
         catchCoins();
@@ -120,18 +123,13 @@ public class GameController{
      * @param delta
      */
     private void updateSpeed(float delta){
-        if (GameModel.getInstance().speed < GameModel.getInstance().goalSpeed) {
-            GameModel.getInstance().speed += GameModel.getInstance().GOAL_REACH_ACCELERATION * delta;
-            if (GameModel.getInstance().speed > GameModel.getInstance().goalSpeed)
-                GameModel.getInstance().speed = GameModel.getInstance().goalSpeed;
-        } else if (GameModel.getInstance().speed > GameModel.getInstance().goalSpeed) {
-            GameModel.getInstance().speed -= GameModel.getInstance().GOAL_REACH_ACCELERATION * delta;
-            if (GameModel.getInstance().speed < GameModel.getInstance().goalSpeed)
-                GameModel.getInstance().speed = GameModel.getInstance().goalSpeed;
+
+        if (System.currentTimeMillis() - lastSecondRegistered >= 1000) {
+            GameModel.getInstance().speed *= GameModel.getInstance().ACCELERATION;
+            GameModel.getInstance().OBSTACLE_TIME -= GameModel.getInstance().OBSTACLE_TIME * 0.01;
+            GameModel.getInstance().COIN_TIME -= GameModel.getInstance().COIN_TIME *0.01;
         }
 
-        if (!GameModel.getInstance().speedFixed)
-            GameModel.getInstance().speed += GameModel.getInstance().ACCELERATION * delta;
     }
 
 
@@ -139,27 +137,39 @@ public class GameController{
      * Generates new obstacle.
      */
     private void generateObstacle() {
-        ObstacleModel temp = null;
+        ObstacleModel tempObs = null;
+        int y;
+        int height;
+        ObstacleModel temp2;
 
         switch (rand.nextInt(3)){
             case 0:
-                temp = new ObstacleModel(EntityModel.ElementLane.LEFT,leftX,Gdx.graphics.getHeight(), generateColour());
+                tempObs = new ObstacleModel(EntityModel.ElementLane.LEFT,leftX,Gdx.graphics.getHeight(), generateColour());
                 break;
             case 1:
-                temp = new ObstacleModel(EntityModel.ElementLane.MIDDLE,centerX,Gdx.graphics.getHeight(), generateColour());
+                tempObs = new ObstacleModel(EntityModel.ElementLane.MIDDLE,centerX,Gdx.graphics.getHeight(), generateColour());
                 break;
             case 2:
-                temp = new ObstacleModel(EntityModel.ElementLane.RIGHT,rightX,Gdx.graphics.getHeight(), generateColour());
+                tempObs = new ObstacleModel(EntityModel.ElementLane.RIGHT,rightX,Gdx.graphics.getHeight(), generateColour());
                 break;
             default:
                 break;
         }
 
+        temp2 = tempObs;
+        y = (int) (tempObs.getY() - tempObs.getHeight()*0.25);
+        height = (int) (tempObs.getHeight() +tempObs.getHeight()*0.5);
+        temp2.setHeigth(height);
+
         for(CoinModel coin: GameModel.getInstance().getCoins()){
-            if(checkOverlap(temp,coin)) return;
+            if(checkOverlap(tempObs,coin)) return;
         }
 
-        GameModel.getInstance().getObstacles().add(temp);
+        for(ObstacleModel o: GameModel.getInstance().getObstacles()){
+            if(checkOverlap(temp2,o)) return;
+        }
+
+        GameModel.getInstance().getObstacles().add(tempObs);
     }
 
 
@@ -192,6 +202,8 @@ public class GameController{
      */
     private void generateCoins() {
 
+        boolean over = false;
+
         ArrayList<CoinModel> coinsToAdd = new ArrayList<CoinModel>();
         CoinModel temp = generateCoin();
         int j = 0;
@@ -205,7 +217,13 @@ public class GameController{
         }
 
         for(CoinModel c: coinsToAdd){
-            GameModel.getInstance().getCoins().add(c);
+            for(ObstacleModel o : GameModel.getInstance().getObstacles()){
+                if(checkOverlap(o,new CoinModel(c.getLane(),c.getX(),c.getY()-c.getHeight()/2))) {
+                    over = true;
+                    break;
+                }
+            }
+            if(!over) GameModel.getInstance().getCoins().add(c);
         }
     }
 
@@ -255,8 +273,8 @@ public class GameController{
         float x1;
         float y1;
 
-        y0 = entity1.getY();
-        y1 = y0 + entity1.getHeight();
+        y0 =(float)( entity1.getY()-entity1.getY()*0.05);
+        y1 = (float) (y0 + entity1.getHeight() + entity1.getY()*0.1);
         x0 = entity1.getX();
         x1 = x0 + entity1.getWidth();
 
@@ -267,6 +285,7 @@ public class GameController{
         return false;
     }
 
+
     /**
      * Moves hatch to a specific lane
      * @param side true if moving right, false if moving left
@@ -275,16 +294,16 @@ public class GameController{
         if(side) {
             switch (GameModel.getInstance().getHatch().getLane()) {
                 case LEFT:
-                    if(canMove(centerX)) {
+                  //  if(canMove(centerX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.MIDDLE);
                         GameModel.getInstance().getHatch().setX(centerX);
-                    }
+                   // }
                     break;
                 case MIDDLE:
-                    if(canMove(rightX)) {
+                    //if(canMove(rightX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.RIGHT);
                         GameModel.getInstance().getHatch().setX(rightX);
-                    }
+                   // }
                     break;
                  default:
                      break;
@@ -292,17 +311,17 @@ public class GameController{
         }else{
             switch (GameModel.getInstance().getHatch().getLane()) {
                 case RIGHT:
-                    if(canMove(centerX)) {
+                   // if(canMove(centerX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.MIDDLE);
                         GameModel.getInstance().getHatch().setX(centerX);
-                    }
+                 //   }
 
                     break;
                 case MIDDLE:
-                    if(canMove(leftX)) {
+                //    if(canMove(leftX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.LEFT);
                         GameModel.getInstance().getHatch().setX(leftX);
-                    }
+                 //   }
 
                     break;
                 default:
@@ -328,7 +347,7 @@ public class GameController{
 
         for(ObstacleModel o : obstacles){
             y0 = o.getY();
-            y1 = y0 + o.getHeight();
+            y1 = (float) (y0 + o.getHeight()*0.9);
             x0 = o.getX();
             x1 = x0 + o.getWidth();
 

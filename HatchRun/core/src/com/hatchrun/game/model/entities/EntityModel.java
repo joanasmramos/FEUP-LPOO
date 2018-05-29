@@ -95,5 +95,7 @@ public  class EntityModel {
         return heigth;
     }
 
-
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
+    }
 }
