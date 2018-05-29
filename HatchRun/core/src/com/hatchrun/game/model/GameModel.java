@@ -1,5 +1,6 @@
 package com.hatchrun.game.model;
 
+import com.badlogic.gdx.audio.Sound;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
@@ -7,6 +8,7 @@ import com.hatchrun.game.model.entities.ObstacleModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.Gdx;
 
 public class GameModel {
     private HatchModel hatch;
@@ -26,6 +28,7 @@ public class GameModel {
     public int speed = 0;
     public final int GOAL_REACH_ACCELERATION = 200;
 
+    Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("catchcoin.mp3"));
 
 
     public GameModel(int hatchX, int hatchY){
@@ -90,5 +93,9 @@ public class GameModel {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Sound getCatchCoin() {
+        return catchCoin;
     }
 }

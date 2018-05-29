@@ -1,19 +1,11 @@
 package com.hatchrun.game.controller;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
-import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
 
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -304,13 +296,14 @@ public class GameController{
         ArrayList<CoinModel> coinsToRemove= new ArrayList<CoinModel>();
 
         for(CoinModel coin : GameModel.getInstance().getCoins()){
-            tempCoin = new CoinModel(coin.getLane(), coin.getX(), coin.getY()+coin.getHeight());
+            tempCoin = new CoinModel(coin.getLane(), coin.getX(), coin.getY()+coin.getHeight()/4);
             if(checkOverlap(GameModel.getInstance().getHatch(), tempCoin))
                 coinsToRemove.add(coin);
         }
 
 
         for(CoinModel coin : coinsToRemove){
+            GameModel.getInstance().getCatchCoin().play();
                 GameModel.getInstance().getCoins().remove(coin);
             GameModel.getInstance().addCoinCatched();
 
