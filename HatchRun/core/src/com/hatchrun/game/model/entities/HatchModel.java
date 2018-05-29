@@ -28,13 +28,6 @@ public class HatchModel extends EntityModel {
 
 
 
-    public HatchState getCurrentState() {
-        return currentState;
-    }
-
-    public void setCurrentstate(HatchState currentstate) {
-        this.currentState = currentstate;
-    }
 
 
     /**

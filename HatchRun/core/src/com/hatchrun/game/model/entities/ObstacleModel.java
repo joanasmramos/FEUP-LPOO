@@ -28,6 +28,10 @@ public class ObstacleModel extends EntityModel {
     }
 
 
+    /**
+     * Returns hatch's current colour
+     * @return hatch's colour
+     */
     public Colour getColour() {
         return colour;
     }

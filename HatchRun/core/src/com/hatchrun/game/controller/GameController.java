@@ -12,7 +12,7 @@ import java.util.Random;
 public class GameController{
     private static GameController instance;
     private static final int playableWidth = (Gdx.graphics.getWidth()-(int)(2*Gdx.graphics.getWidth()*0.09));
-    public static final int startX =(int)( Gdx.graphics.getWidth()*0.09);
+    private static final int startX =(int)( Gdx.graphics.getWidth()*0.09);
     public static final int leftX = startX;
     public static final int centerX =(int)( startX+(9+playableWidth/3));
     public static final int rightX =(int)( startX+2*(9+playableWidth/3));
@@ -21,9 +21,9 @@ public class GameController{
     private long lastTimeRegisteredObstacles = 0;
     private long lastTimeRegisteredCoins = 0;
     private long lastSecondRegistered = 0;
-    Random rand;
+    private Random rand;
 
-    public GameController(){
+    private GameController(){
         rand = new Random();
     }
 
@@ -34,6 +34,11 @@ public class GameController{
         return instance;
     }
 
+
+    /**
+     * Main controller function. Generates, destroys objects.
+     * @param delta
+     */
     public void update(float delta){
 
         if(System.currentTimeMillis() - lastTimeRegisteredCoins >= 9000){
@@ -59,6 +64,10 @@ public class GameController{
 
     }
 
+    /**
+     * Generates new coins and obstacles
+     * @param delta
+     */
     private void updateObjects(float delta){
 
         ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
@@ -75,6 +84,9 @@ public class GameController{
     }
 
 
+    /**
+     * Removes objects no longer in the game area
+     */
     private void disposeObjects(){
 
         ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
@@ -103,7 +115,11 @@ public class GameController{
     }
 
 
-    private int updateSpeed(float delta){
+    /**
+     * Updates game speed.
+     * @param delta
+     */
+    private void updateSpeed(float delta){
         if (GameModel.getInstance().speed < GameModel.getInstance().goalSpeed) {
             GameModel.getInstance().speed += GameModel.getInstance().GOAL_REACH_ACCELERATION * delta;
             if (GameModel.getInstance().speed > GameModel.getInstance().goalSpeed)
@@ -116,10 +132,12 @@ public class GameController{
 
         if (!GameModel.getInstance().speedFixed)
             GameModel.getInstance().speed += GameModel.getInstance().ACCELERATION * delta;
-
-        return GameModel.getInstance().speed;
     }
 
+
+    /**
+     * Generates new obstacle.
+     */
     private void generateObstacle() {
         ObstacleModel temp = null;
 
@@ -144,6 +162,11 @@ public class GameController{
         GameModel.getInstance().getObstacles().add(temp);
     }
 
+
+    /**
+     * Generates new coin.
+     * @return generated coin
+     */
     private CoinModel generateCoin() {
 
         CoinModel coin = null;
@@ -164,6 +187,9 @@ public class GameController{
         return coin;
     }
 
+    /**
+     * Generates multiple coins in a row.
+     */
     private void generateCoins() {
 
         ArrayList<CoinModel> coinsToAdd = new ArrayList<CoinModel>();
@@ -183,6 +209,10 @@ public class GameController{
         }
     }
 
+    /**
+     * Generates an obstacle colour.
+     * @return generated colour
+     */
     private ObstacleModel.Colour generateColour(){
         switch (rand.nextInt(3)){
             case 0:
@@ -197,17 +227,29 @@ public class GameController{
     }
 
 
-    public void checkColission(){
+    /**
+     * Checks if hatch colides with obstacles
+     * @return true if colided, false if elese
+     */
+    private boolean checkColission(){
 
 
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
            if(checkOverlap(o, GameModel.getInstance().getHatch()))
                System.exit(1);
+           return true;
         }
+        return false;
     }
 
 
-    public boolean checkOverlap(EntityModel entity1, EntityModel entity2){
+    /**
+     * Checks if two entities colide
+     * @param entity1
+     * @param entity2
+     * @return true if colided, false if else
+     */
+    private boolean checkOverlap(EntityModel entity1, EntityModel entity2){
         float y0;
         float x0;
         float x1;
@@ -225,6 +267,10 @@ public class GameController{
         return false;
     }
 
+    /**
+     * Moves hatch to a specific lane
+     * @param side true if moving right, false if moving left
+     */
     public void moveHatch(boolean side){
         if(side) {
             switch (GameModel.getInstance().getHatch().getLane()) {
@@ -266,7 +312,12 @@ public class GameController{
 
     }
 
-    public boolean canMove(float x){
+    /**
+     * Checks if hatch can move to a certain position
+     * @param x position
+     * @return true if can move, false if else
+     */
+    private boolean canMove(float x){
 
         float y0;
         float x0;
@@ -290,7 +341,10 @@ public class GameController{
     }
 
 
-    public void catchCoins(){
+    /**
+     * Removes catched coins
+     */
+    private void catchCoins(){
         CoinModel tempCoin;
 
         ArrayList<CoinModel> coinsToRemove= new ArrayList<CoinModel>();

@@ -5,9 +5,6 @@ package com.hatchrun.game.model.entities;
  */
 public class CoinModel extends EntityModel {
 
-    private static int width = 200;
-    private static int heigth = 200;
-
 
     /**
      * Constructs a coin in the given position
@@ -20,13 +17,4 @@ public class CoinModel extends EntityModel {
         super(lane, x, y);
     }
 
-/*
-    public static int getWidth() {
-        return width;
-    }
-
-    public static int getHeight() {
-        return heigth;
-    }
-*/
 }

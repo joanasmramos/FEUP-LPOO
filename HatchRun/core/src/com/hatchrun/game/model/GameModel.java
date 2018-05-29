@@ -44,57 +44,88 @@ public class GameModel {
     }
 
 
+    /**
+     * Returns instance of game model
+     * @return model
+     */
     public static GameModel getInstance() {
         return instance;
     }
 
+    /**
+     * Returns hatch object
+     * @return hatch
+     */
     public HatchModel getHatch() {
         return hatch;
     }
 
-    public void setHatch(HatchModel hatch) {
-        this.hatch = hatch;
-    }
-
-
+    /**
+     * Adds obstacle to game obstacles
+     * @param o obstacle
+     */
     public void addObstacle(ObstacleModel o) {
         obstacles.add(o);
     }
 
+    /**
+     * Adds coin to game coins
+     * @param coin coin
+     */
     public void addCoin(CoinModel coin) {
         coins.add(coin);
     }
 
-
+    /**
+     * Returns game obstacles
+     * @return ArrayList of obstacles
+     */
     public ArrayList<ObstacleModel> getObstacles() {
         return obstacles;
     }
 
+    /**
+     * Returns game coins
+     * @return ArrayList of coins
+     */
     public ArrayList<CoinModel> getCoins() {
         return coins;
     }
+
 
     public void setSpeedFixed (boolean speedFixed) {
         this.speedFixed = speedFixed;
     }
 
-    public int getCoinsCatched() {
-        return coinsCatched;
-    }
 
+    /**
+     * Increment score and coinsCatched
+     */
     public void addCoinCatched() {
          coinsCatched++;
          score++;
     }
 
+    /**
+     * Returns game score
+     * @return score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets game score
+     * @param score game score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Returns sound effect for catching coin
+     * @return sound effect for catching coin
+     */
     public Sound getCatchCoin() {
         return catchCoin;
     }
