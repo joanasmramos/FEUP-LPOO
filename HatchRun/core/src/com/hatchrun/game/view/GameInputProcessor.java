@@ -1,10 +1,13 @@
 package com.hatchrun.game.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.hatchrun.game.controller.GameController;
 
 public class GameInputProcessor implements GestureDetector.GestureListener {
+
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;

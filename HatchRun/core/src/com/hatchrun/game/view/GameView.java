@@ -1,4 +1,5 @@
 package com.hatchrun.game.view;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input.Peripheral;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
@@ -29,6 +31,7 @@ public class GameView extends ScreenAdapter
     private final HatchView hatchView;
     private static final float VIEWPORT_WIDTH = 1080;
     private static final float VIEWPORT_HEIGHT = 1812;
+    private int gyroscopeCtr = 0;
 
     public GameView(HatchRun game) {
         this.game = game;
@@ -56,6 +59,27 @@ public class GameView extends ScreenAdapter
 
     @Override
     public void render(float delta) {
+
+        //having trouble in getting the gyroscope right
+
+        if(gyroscopeCtr == 15) {
+            float gyroY = Gdx.input.getGyroscopeY();
+
+            if(gyroY >= 4) {
+                GameController.getInstance().moveHatch(true);
+                gyroscopeCtr = 0;
+            }
+
+            if(gyroY <= -4) {
+                GameController.getInstance().moveHatch(false);
+                gyroscopeCtr = 0;
+            }
+        }
+        else {
+            gyroscopeCtr++;
+        }
+
+
         GameController.getInstance().update(delta);
         camera.update();
         Gdx.gl.glClearColor(1, 1, 1, 1);
