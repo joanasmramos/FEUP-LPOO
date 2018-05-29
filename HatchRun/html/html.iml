@@ -35,6 +35,7 @@
     <orderEntry type="library" exported="" name="gdx-box2d-1.9.8-sources" level="project" />
     <orderEntry type="library" exported="" name="gdx-box2d-1.9.8" level="project" />
     <orderEntry type="library" exported="" name="gdx-box2d-gwt-1.9.8-sources" level="project" />
+    <orderEntry type="library" exported="" name="gdx-freetype-1.9.8" level="project" />
     <orderEntry type="library" exported="" name="gwt-user-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="jsinterop-annotations-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="jsinterop-annotations-1.0.1-sources" level="project" />

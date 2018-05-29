@@ -28,7 +28,7 @@ public class GameModel {
     public int speed = 0;
     public final int GOAL_REACH_ACCELERATION = 200;
 
-    Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("catchcoin.mp3"));
+    Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
 
 
     public GameModel(int hatchX, int hatchY){

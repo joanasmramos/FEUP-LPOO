@@ -24,7 +24,7 @@ public class HatchRun extends Game {
 
     private void startGame() {
 
-		setScreen(new GameView(this));
+		setScreen(new MainMenuView(this));
     }
 
 
