@@ -74,4 +74,21 @@ public class GameModel {
     public void setSpeedFixed (boolean speedFixed) {
         this.speedFixed = speedFixed;
     }
+
+    public int getCoinsCatched() {
+        return coinsCatched;
+    }
+
+    public void addCoinCatched() {
+         coinsCatched++;
+         score++;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

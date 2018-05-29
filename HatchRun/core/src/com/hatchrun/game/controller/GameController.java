@@ -28,6 +28,7 @@ public class GameController{
     public static final int startY =  (int) (0.03*Gdx.graphics.getHeight());
     private long lastTimeRegisteredObstacles = 0;
     private long lastTimeRegisteredCoins = 0;
+    private long lastSecondRegistered = 0;
     Random rand;
 
     public GameController(){
@@ -53,11 +54,18 @@ public class GameController{
             lastTimeRegisteredObstacles = System.currentTimeMillis();
         }
 
+        if(System.currentTimeMillis() - lastSecondRegistered >= 1000){
+            GameModel.getInstance().setScore(GameModel.getInstance().getScore()+1);
+            System.out.println(GameModel.getInstance().getScore());
+            lastSecondRegistered = System.currentTimeMillis();
+        }
+
         updateObjects(delta);
         updateSpeed(delta);
         disposeObjects();
         checkColission();
         catchCoins();
+
     }
 
     private void updateObjects(float delta){
@@ -305,6 +313,8 @@ public class GameController{
 
         for(CoinModel coin : coinsToRemove){
                 GameModel.getInstance().getCoins().remove(coin);
+            GameModel.getInstance().addCoinCatched();
+
         }
     }
 

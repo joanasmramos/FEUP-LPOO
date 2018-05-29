@@ -43,8 +43,8 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="95" column="126" lean-forward="false" selection-start-line="95" selection-start-column="126" selection-end-line="95" selection-end-column="126" />
+            <state relative-caret-position="283">
+              <caret line="93" column="9" lean-forward="false" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -82,12 +82,21 @@
       <file leaf-file-name="GameModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/GameModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="388">
+              <caret line="92" column="5" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
               <folding>
                 <element signature="e#1316#1317#0" expanded="true" />
                 <element signature="e#1347#1348#0" expanded="true" />
+                <element signature="e#1383#1384#0" expanded="true" />
                 <element signature="e#1411#1412#0" expanded="true" />
+                <element signature="e#1615#1616#0" expanded="true" />
+                <element signature="e#1646#1647#0" expanded="true" />
+                <element signature="e#1941#1942#0" expanded="true" />
+                <element signature="e#1976#1977#0" expanded="true" />
+                <element signature="e#2090#2091#0" expanded="true" />
+                <element signature="e#2118#2119#0" expanded="true" />
+                <element signature="e#2157#2158#0" expanded="true" />
+                <element signature="e#2191#2192#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,14 +115,14 @@
       <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="285" column="167" lean-forward="false" selection-start-line="285" selection-start-column="167" selection-end-line="285" selection-end-column="167" />
+            <state relative-caret-position="184">
+              <caret line="60" column="9" lean-forward="true" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2775#2790#0" expanded="true" />
-                <element signature="e#2925#2936#0" expanded="true" />
-                <element signature="e#5893#5904#0" expanded="true" />
-                <element signature="e#9954#9965#0" expanded="true" />
+                <element signature="e#3116#3131#0" expanded="true" />
+                <element signature="e#3266#3277#0" expanded="true" />
+                <element signature="e#6234#6245#0" expanded="true" />
+                <element signature="e#10295#10306#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,7 +131,7 @@
       <file leaf-file-name="HatchModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/HatchModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="-27">
               <caret line="15" column="66" lean-forward="false" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
               <folding />
             </state>
@@ -183,7 +192,6 @@
       <find>checkColission</find>
       <find>checkO</find>
       <find>checkC</find>
-      <find>get</find>
       <find>GENE</find>
       <find>catch</find>
       <find>60</find>
@@ -193,6 +201,7 @@
       <find>generateObstacle</find>
       <find>check</find>
       <find>canM</find>
+      <find>get</find>
     </findStrings>
     <replaceStrings>
       <replace>checkColission</replace>
@@ -3767,7 +3776,6 @@
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/HatchView.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/EntityView.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/ObstacleView.java" />
-        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/GameModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/CoinView.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/PowerUpModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/Util.java" />
@@ -3776,6 +3784,7 @@
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/CoinModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/HatchModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/GameView.java" />
+        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/GameModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java" />
       </list>
     </option>
@@ -4162,10 +4171,10 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23247497" sideWeight="0.12792793" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -4191,7 +4200,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="43" />
+      <option name="time" value="46" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -4258,10 +4267,10 @@
           <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2775#2790#0" expanded="true" />
-            <element signature="e#2925#2936#0" expanded="true" />
-            <element signature="e#5893#5904#0" expanded="true" />
-            <element signature="e#9954#9965#0" expanded="true" />
+            <element signature="e#3116#3131#0" expanded="true" />
+            <element signature="e#3266#3277#0" expanded="true" />
+            <element signature="e#6234#6245#0" expanded="true" />
+            <element signature="e#10295#10306#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4273,7 +4282,7 @@
           <folding>
             <element signature="imports" expanded="false" />
             <element signature="e#1347#1348#0" expanded="true" />
-            <element signature="e#1383#1384#0" expanded="false" />
+            <element signature="e#1383#1384#0" expanded="true" />
             <element signature="e#1411#1412#0" expanded="true" />
             <element signature="e#1779#1780#0" expanded="false" />
             <element signature="e#1807#1808#0" expanded="false" />
@@ -4329,10 +4338,10 @@
           <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2775#2790#0" expanded="true" />
-            <element signature="e#2925#2936#0" expanded="true" />
-            <element signature="e#5893#5904#0" expanded="true" />
-            <element signature="e#9954#9965#0" expanded="true" />
+            <element signature="e#3116#3131#0" expanded="true" />
+            <element signature="e#3266#3277#0" expanded="true" />
+            <element signature="e#6234#6245#0" expanded="true" />
+            <element signature="e#10295#10306#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4553,22 +4562,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/PowerUpModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="93" column="9" lean-forward="false" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/HatchModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="-27">
           <caret line="15" column="66" lean-forward="false" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/CoinModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="2" lean-forward="false" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+          <folding>
+            <element signature="e#441#442#0" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/GameModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="388">
+          <caret line="92" column="5" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
           <folding>
             <element signature="e#1316#1317#0" expanded="true" />
             <element signature="e#1347#1348#0" expanded="true" />
+            <element signature="e#1383#1384#0" expanded="true" />
             <element signature="e#1411#1412#0" expanded="true" />
+            <element signature="e#1615#1616#0" expanded="true" />
+            <element signature="e#1646#1647#0" expanded="true" />
+            <element signature="e#1941#1942#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
+            <element signature="e#2090#2091#0" expanded="true" />
+            <element signature="e#2118#2119#0" expanded="true" />
+            <element signature="e#2157#2158#0" expanded="true" />
+            <element signature="e#2191#2192#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4590,51 +4643,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/PowerUpModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/GameView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="95" column="126" lean-forward="false" selection-start-line="95" selection-start-column="126" selection-end-line="95" selection-end-column="126" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/CoinModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="2" lean-forward="false" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
-          <folding>
-            <element signature="e#441#442#0" expanded="true" />
-            <element signature="e#474#475#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="285" column="167" lean-forward="false" selection-start-line="285" selection-start-column="167" selection-end-line="285" selection-end-column="167" />
+        <state relative-caret-position="184">
+          <caret line="60" column="9" lean-forward="true" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2775#2790#0" expanded="true" />
-            <element signature="e#2925#2936#0" expanded="true" />
-            <element signature="e#5893#5904#0" expanded="true" />
-            <element signature="e#9954#9965#0" expanded="true" />
+            <element signature="e#3116#3131#0" expanded="true" />
+            <element signature="e#3266#3277#0" expanded="true" />
+            <element signature="e#6234#6245#0" expanded="true" />
+            <element signature="e#10295#10306#0" expanded="true" />
           </folding>
         </state>
       </provider>
