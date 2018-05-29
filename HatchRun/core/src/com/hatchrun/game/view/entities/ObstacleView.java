@@ -7,7 +7,7 @@ import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.entities.ObstacleModel;
 
 public class ObstacleView extends EntityView{
-    ObstacleModel model= null;
+    ObstacleModel model;
 
     public ObstacleView(HatchRun game, ObstacleModel model){
 

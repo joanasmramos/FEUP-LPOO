@@ -8,13 +8,9 @@ public class HatchModel extends EntityModel {
 
     private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
     public enum HatchState {RUNNING, STILL};
-    private int coins;
-    private int coinValue;
-    private int score;
     private boolean shielded;
     private HatchType currentHatch;
     private HatchState currentState;
-
 
     /**
      * Constructs a hatch (default = purple) in the given position
@@ -24,28 +20,12 @@ public class HatchModel extends EntityModel {
      * @param y Y coordinate
      */
     public HatchModel(ElementLane lane, float x, float y) {
-        super(lane, x, y);
-        coins = 0;
-        score = 0;
+        super(lane, x, y, 200, 305);
         shielded = false;
         currentHatch = HatchType.BLUE;
-            currentState = HatchState.STILL;
-    }
-
-    /**
-     * Constructs (in the given position) the default hatch:
-     * purple, with no coins, zero score, not shielded
-     * @param x X coordinate
-     * @param y Y coordinate
-     */
-    HatchModel(float x, float y) {
-        super(ElementLane.MIDDLE, x, y);
-        coins = 0;
-        score = 0;
-        shielded = false;
-        currentHatch = HatchType.PURPLE;
         currentState = HatchState.STILL;
     }
+
 
 
     public HatchState getCurrentState() {
@@ -56,38 +36,6 @@ public class HatchModel extends EntityModel {
         this.currentState = currentstate;
     }
 
-
-    /**
-     * Returns hatch's coins
-     * @return Hatch's coins
-     */
-    public int getCoins() {
-        return coins;
-    }
-
-    /**
-     * Sets hatch's coins
-     * @param coins Hatch's coins
-     */
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    /**
-     * Returns hatch's score
-     * @return Score
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Sets hatch's score
-     * @param score Score
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     /**
      * Returns true if the hatch is shielded, false otherwise

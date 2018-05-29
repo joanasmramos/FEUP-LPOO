@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
+import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
+import com.hatchrun.game.view.entities.CoinView;
 import com.hatchrun.game.view.entities.EntityView;
 import com.hatchrun.game.view.entities.HatchView;
 import com.hatchrun.game.view.entities.ObstacleView;
@@ -66,6 +68,7 @@ public class GameView extends ScreenAdapter
 
     private void loadAssets() {
         this.game.getAssetManager().load("floor.png", Texture.class);
+        this.game.getAssetManager().load("coin.png", Texture.class);
         this.game.getAssetManager().load("pinkbush.png", Texture.class);
         this.game.getAssetManager().load("bluebush.png", Texture.class);
         this.game.getAssetManager().load("yellowbush.png", Texture.class);
@@ -74,7 +77,6 @@ public class GameView extends ScreenAdapter
 
 
     private void drawEntities() {
-        hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
 
        ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
 
@@ -82,6 +84,17 @@ public class GameView extends ScreenAdapter
             EntityView entity = new ObstacleView(game, obstacles.get(i));
             entity.draw(game.getBatch(), obstacles.get(i).getX(), obstacles.get(i).getY());
         }
+
+        ArrayList<CoinModel> coins = GameModel.getInstance().getCoins();
+
+
+        for (int i = 0; i < coins.size(); i++){
+            EntityView entity = new CoinView(game, coins.get(i));
+            entity.draw(game.getBatch(), coins.get(i).getX(), coins.get(i).getY());
+        }
+
+        hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
+
     }
 
 

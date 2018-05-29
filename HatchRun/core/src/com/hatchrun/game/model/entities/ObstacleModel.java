@@ -6,7 +6,10 @@ package com.hatchrun.game.model.entities;
  */
 public class ObstacleModel extends EntityModel {
 
+   /* private static int width = 292;
+    private static int heigth = 266;
 
+*/
 
     public enum Colour {PINK, BLUE, YELLOW}
     private Colour colour;
@@ -23,6 +26,7 @@ public class ObstacleModel extends EntityModel {
         this.colour = c;
 
     }
+
 
     public Colour getColour() {
         return colour;

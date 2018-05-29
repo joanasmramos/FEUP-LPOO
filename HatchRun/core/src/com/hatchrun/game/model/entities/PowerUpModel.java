@@ -8,16 +8,7 @@ public class PowerUpModel extends EntityModel {
 
     private PowerUpType type;
 
-    /**
-     * Constructs a power-up object in the given position
-     *
-     * @param lane The current lane of the power up
-     * @param x X coordinate
-     * @param y Y coordinate
-     */
-    PowerUpModel(ElementLane lane, float x, float y) {
-        super(lane, x, y);
-    }
+
 
     /**
      * Constructs a power-up object from a certain type in the given position
@@ -27,7 +18,7 @@ public class PowerUpModel extends EntityModel {
      * @param y Y coordinate
      * @param type Power-up's type
      */
-    PowerUpModel(ElementLane lane, float x, float y, PowerUpType type) {
+    PowerUpModel(ElementLane lane, float x, float y, PowerUpType type, int width, int height) {
         super(lane, x, y);
         this.type = type;
     }

@@ -7,12 +7,16 @@ import java.util.ArrayList;
 /**
  * A model representing a game element which has a certain lane
  */
-public class EntityModel {
+public  class EntityModel {
+
+    private  int width = 200;
+    private  int heigth = 200;
+
     public enum ElementLane {LEFT, MIDDLE, RIGHT};
 
-    protected ElementLane lane;
-    protected float x;
-    protected float y;
+    private ElementLane lane;
+    private float x;
+    private float y;
 
     /**
      * Constructs a game element in the given position
@@ -24,6 +28,15 @@ public class EntityModel {
         this.lane = lane;
         this.x = x;
         this.y = y;
+    }
+
+
+    EntityModel(ElementLane lane, float x, float y, int width, int heigth) {
+        this.lane = lane;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.heigth = heigth;
     }
 
     /**
@@ -72,5 +85,15 @@ public class EntityModel {
     public void setY(float y) {
         this.y = y;
     }
+
+
+    public  int getWidth() {
+        return width;
+    }
+
+    public  int getHeight() {
+        return heigth;
+    }
+
 
 }
