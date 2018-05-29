@@ -49,7 +49,7 @@ public class MainMenuView extends ScreenAdapter {
         game.getBatch().begin();
 
         Texture t = game.getAssetManager().get("mainmenu.png", Texture.class);
-        game.getBatch().draw(t, 0, 0);
+        game.getBatch().draw(t, 0, 0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.getBatch().end();
         this.stage.act();
         this.stage.draw();

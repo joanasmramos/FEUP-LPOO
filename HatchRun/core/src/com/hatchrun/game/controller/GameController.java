@@ -138,9 +138,8 @@ public class GameController{
      */
     private void generateObstacle() {
         ObstacleModel tempObs = null;
-        int y;
-        int height;
         ObstacleModel temp2;
+
 
         switch (rand.nextInt(3)){
             case 0:
@@ -156,19 +155,16 @@ public class GameController{
                 break;
         }
 
-        temp2 = tempObs;
-        y = (int) (tempObs.getY() - tempObs.getHeight()*0.25);
-        height = (int) (tempObs.getHeight() +tempObs.getHeight()*0.5);
-        temp2.setHeigth(height);
 
         for(CoinModel coin: GameModel.getInstance().getCoins()){
             if(checkOverlap(tempObs,coin)) return;
         }
 
-        for(ObstacleModel o: GameModel.getInstance().getObstacles()){
-            if(checkOverlap(temp2,o)) return;
+        if(GameModel.getInstance().getObstacles().size()!=0) {
+            temp2 = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size() - 1);
+            temp2.setHeigth(GameModel.getInstance().getHatch().getHeight() + GameModel.getInstance().getHatch().getHeight() );
+            if (checkOverlap(temp2, tempObs)) return;
         }
-
         GameModel.getInstance().getObstacles().add(tempObs);
     }
 
@@ -202,6 +198,9 @@ public class GameController{
      */
     private void generateCoins() {
 
+        ObstacleModel tempO =null;
+        if (GameModel.getInstance().getObstacles().size() > 0) tempO = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size()-1);
+
         boolean over = false;
 
         ArrayList<CoinModel> coinsToAdd = new ArrayList<CoinModel>();
@@ -210,22 +209,29 @@ public class GameController{
         int i = rand.nextInt(5);
         int x, y;
 
-        while(j<i){
-            coinsToAdd.add(new CoinModel(temp.getLane(),temp.getX(), temp.getY()));
-            temp.setY(temp.getY()+3*temp.getHeight()/2);
+        while (j < i) {
+            coinsToAdd.add(new CoinModel(temp.getLane(), temp.getX(), temp.getY()));
+            temp.setY(temp.getY() + 3 * temp.getHeight() / 2);
             j++;
         }
 
-        for(CoinModel c: coinsToAdd){
-            for(ObstacleModel o : GameModel.getInstance().getObstacles()){
-                if(checkOverlap(o,new CoinModel(c.getLane(),c.getX(),c.getY()-c.getHeight()/2))) {
-                    over = true;
-                    break;
+        for (CoinModel c : coinsToAdd) {
+
+
+                if(tempO!=null) {
+                    if (checkOverlap(tempO, new CoinModel(c.getLane(), c.getX(), c.getY() + c.getHeight() / 2))
+                            || checkOverlap(tempO, new CoinModel(c.getLane(), c.getX(), c.getY() - c.getHeight() / 2))
+                            ||  checkOverlap(tempO, new CoinModel(c.getLane(), c.getX(), c.getY()))) {
+                        over = true;
+                    }
                 }
-            }
-            if(!over) GameModel.getInstance().getCoins().add(c);
+
+
+            if (!over) GameModel.getInstance().getCoins().add(c);
+
         }
     }
+
 
     /**
      * Generates an obstacle colour.
@@ -251,9 +257,12 @@ public class GameController{
      */
     private boolean checkColission(){
 
+        ObstacleModel obs = null;
 
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
-           if(checkOverlap(o, GameModel.getInstance().getHatch()))
+            obs = o;
+            obs.setHeigth((int)(o.getHeight()-0.1*o.getHeight()));
+           if(checkOverlap(obs, GameModel.getInstance().getHatch()))
                System.exit(1);
            return true;
         }
@@ -273,8 +282,8 @@ public class GameController{
         float x1;
         float y1;
 
-        y0 =(float)( entity1.getY()-entity1.getY()*0.05);
-        y1 = (float) (y0 + entity1.getHeight() + entity1.getY()*0.1);
+        y0 = entity1.getY();
+        y1 = y0 + entity1.getHeight();
         x0 = entity1.getX();
         x1 = x0 + entity1.getWidth();
 
@@ -294,16 +303,16 @@ public class GameController{
         if(side) {
             switch (GameModel.getInstance().getHatch().getLane()) {
                 case LEFT:
-                  //  if(canMove(centerX)) {
+                    if(canMove(centerX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.MIDDLE);
                         GameModel.getInstance().getHatch().setX(centerX);
-                   // }
+                    }
                     break;
                 case MIDDLE:
-                    //if(canMove(rightX)) {
+                    if(canMove(rightX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.RIGHT);
                         GameModel.getInstance().getHatch().setX(rightX);
-                   // }
+                    }
                     break;
                  default:
                      break;
@@ -311,17 +320,17 @@ public class GameController{
         }else{
             switch (GameModel.getInstance().getHatch().getLane()) {
                 case RIGHT:
-                   // if(canMove(centerX)) {
+                    if(canMove(centerX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.MIDDLE);
                         GameModel.getInstance().getHatch().setX(centerX);
-                 //   }
+                    }
 
                     break;
                 case MIDDLE:
-                //    if(canMove(leftX)) {
+                   if(canMove(leftX)) {
                         GameModel.getInstance().getHatch().setLane(EntityModel.ElementLane.LEFT);
                         GameModel.getInstance().getHatch().setX(leftX);
-                 //   }
+                    }
 
                     break;
                 default:
@@ -347,7 +356,7 @@ public class GameController{
 
         for(ObstacleModel o : obstacles){
             y0 = o.getY();
-            y1 = (float) (y0 + o.getHeight()*0.9);
+            y1 = (float) (y0 + o.getHeight());
             x0 = o.getX();
             x1 = x0 + o.getWidth();
 
