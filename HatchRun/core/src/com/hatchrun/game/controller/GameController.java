@@ -392,6 +392,15 @@ public class GameController{
         }
     }
 
+    public void treatGyroInput(float gyroInput) {
+        if(gyroInput > 4) {
+            moveHatch(true);
+        }
+        else if(gyroInput <= -3) {
+            moveHatch(false);
+        }
+    }
+
 
 
 }

@@ -10,6 +10,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Input.Peripheral;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
@@ -31,18 +35,21 @@ public class GameView extends ScreenAdapter
     private final HatchView hatchView;
     private static final float VIEWPORT_WIDTH = 1080;
     private static final float VIEWPORT_HEIGHT = 1812;
-    private int gyroscopeCtr = 0;
+    private int gyroscopeCtr;
+    private Stage gameStage;
 
     public GameView(HatchRun game) {
         this.game = game;
-        camera = createCamara();
+        camera = createCamera();
         loadAssets();
         new GameModel(GameController.centerX,GameController.startY );
         hatchView = new HatchView(game,GameModel.getInstance().getHatch());
         Gdx.input.setInputProcessor(new GestureDetector(new GameInputProcessor()));
+        gyroscopeCtr = 0;
+        gameStage = new Stage(new ScreenViewport());
     }
 
-    public OrthographicCamera createCamara() {
+    public OrthographicCamera createCamera() {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
@@ -59,26 +66,15 @@ public class GameView extends ScreenAdapter
 
     @Override
     public void render(float delta) {
-
         //having trouble in getting the gyroscope right
 
         if(gyroscopeCtr == 15) {
-            float gyroY = Gdx.input.getGyroscopeY();
-
-            if(gyroY >= 4) {
-                GameController.getInstance().moveHatch(true);
-                gyroscopeCtr = 0;
-            }
-
-            if(gyroY <= -4) {
-                GameController.getInstance().moveHatch(false);
-                gyroscopeCtr = 0;
-            }
+            GameController.getInstance().treatGyroInput(Gdx.input.getGyroscopeY());
+            gyroscopeCtr = 0;
         }
         else {
             gyroscopeCtr++;
         }
-
 
         GameController.getInstance().update(delta);
         camera.update();
