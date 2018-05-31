@@ -1,0 +1,19 @@
+purplehatch.png
+size: 560, 305
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+purplelefthatch
+  rotate: false
+  xy: 1, 1
+  size: 278, 303
+  orig: 278, 303
+  offset: 0, 0
+  index: -1
+purplerighthatch
+  rotate: false
+  xy: 281, 1
+  size: 278, 303
+  orig: 278, 303
+  offset: 0, 0
+  index: -1

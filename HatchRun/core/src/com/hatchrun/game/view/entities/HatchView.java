@@ -26,15 +26,29 @@ public class HatchView extends EntityView {
 
     public HatchView(HatchRun game, HatchModel model, boolean still) {
         super(game);
-        hatchAtlas = new TextureAtlas(Gdx.files.internal("bluehatch.atlas"));
+        createAtlas();
         animation = new Animation<TextureRegion>(1/3f, hatchAtlas.getRegions());
         this.still  = still;
+    }
+
+    private void createAtlas(){
+        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())){
+            case BLUE:
+                hatchAtlas = new TextureAtlas(Gdx.files.internal("bluehatch.atlas"));
+                break;
+            case PURPLE:
+                hatchAtlas = new TextureAtlas(Gdx.files.internal("purplehatch.atlas"));
+                break;
+            case YELLOW:
+                hatchAtlas = new TextureAtlas(Gdx.files.internal("yellowhatch.atlas"));
+                break;
+        }
     }
 
     @Override
     public Sprite createSprite(HatchRun game) {
 
-        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getHatchOrderIndex())){
+        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())){
             case BLUE:
                 texture = new Texture("blue.png");
                 break;

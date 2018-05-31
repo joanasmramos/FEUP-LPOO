@@ -103,16 +103,16 @@ public class ChooseHatchView extends ScreenAdapter {
 
                 if (velocityX > 0) {
 
-                    if (GameModel.getHatchOrderIndex() > 0)
-                        GameModel.setHatchOrderIndex(GameModel.getHatchOrderIndex() - 1);
-                    else GameModel.setHatchOrderIndex(GameModel.getHatchOrder().size()-1);
+                    if (GameModel.getInstance().getHatchOrderIndex() > 0)
+                        GameModel.getInstance().setHatchOrderIndex(GameModel.getInstance().getHatchOrderIndex() - 1);
+                    else GameModel.getInstance().setHatchOrderIndex(GameModel.getInstance().getHatchOrder().size()-1);
 
 
                 } else if (velocityX < 0){
 
-                    if (GameModel.getHatchOrderIndex() < GameModel.getHatchOrder().size()-1)
-                        GameModel.setHatchOrderIndex(GameModel.getHatchOrderIndex() +1);
-                    else GameModel.setHatchOrderIndex(0);
+                    if (GameModel.getInstance().getHatchOrderIndex() < GameModel.getInstance().getHatchOrder().size()-1)
+                        GameModel.getInstance().setHatchOrderIndex(GameModel.getInstance().getHatchOrderIndex() +1);
+                    else GameModel.getInstance().setHatchOrderIndex(0);
                 }
                 return true;
             }

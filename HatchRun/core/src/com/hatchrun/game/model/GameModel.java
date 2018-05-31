@@ -148,19 +148,19 @@ public class GameModel {
         powerUps.add(p);
     }
 
-    public static ArrayList<HatchModel.HatchType> getHatchOrder() {
+    public  ArrayList<HatchModel.HatchType> getHatchOrder() {
         return hatchOrder;
     }
 
-    public static int getHatchOrderIndex() {
+    public int getHatchOrderIndex() {
         return hatchOrderIndex;
     }
 
-    public static void setHatchOrderIndex(int index) {
+    public void setHatchOrderIndex(int index) {
         hatchOrderIndex = index;
     }
 
-    public static void initHatchOrder(){
+    private void initHatchOrder(){
         hatchOrder.add(HatchModel.HatchType.BLUE);
         hatchOrder.add(HatchModel.HatchType.PURPLE);
         hatchOrder.add(HatchModel.HatchType.YELLOW);

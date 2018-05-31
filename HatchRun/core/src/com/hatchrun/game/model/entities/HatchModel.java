@@ -1,5 +1,7 @@
 package com.hatchrun.game.model.entities;
 
+import com.hatchrun.game.model.GameModel;
+
 /**
  * A model representing a hatch (the only game element user-controlled)
  */
@@ -22,7 +24,9 @@ public class HatchModel extends EntityModel {
     public HatchModel(ElementLane lane, float x, float y) {
         super(lane, x, y, 200, 305);
         shielded = false;
-        currentHatch = HatchType.BLUE;
+        if(GameModel.getInstance().getHatchOrder().size()>0)
+            currentHatch = GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex());
+        else currentHatch = HatchType.BLUE;
         currentState = HatchState.STILL;
     }
 
