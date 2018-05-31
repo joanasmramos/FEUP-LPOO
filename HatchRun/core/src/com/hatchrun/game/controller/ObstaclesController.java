@@ -1,6 +1,8 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
@@ -64,9 +66,9 @@ public class ObstaclesController {
 
 
         for(CoinModel coin: GameModel.getInstance().getCoins()){
-            if (GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
-                    || GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
-                    || GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
+            if (GameController.isOverlapped(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.isOverlapped(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
+                    || GameController.isOverlapped(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
                 return true;
             }
         }
@@ -74,9 +76,9 @@ public class ObstaclesController {
         if(GameModel.getInstance().getObstacles().size()!=0) {
             temp2 = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size() - 1);
 
-            if (GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight()))
-                    || GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight()))
-                    || GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY()))) {
+            if (GameController.isOverlapped(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight()))
+                    || GameController.isOverlapped(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight()))
+                    || GameController.isOverlapped(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY()))) {
                 return true;
             }
         }

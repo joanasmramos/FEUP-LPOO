@@ -76,18 +76,18 @@ public class CoinsController {
     private boolean checkCollisionOtherObjetcs(CoinModel coin){
 
         for (ObstacleModel o : GameModel.getInstance().getObstacles()) {
-            if (GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
-                    || GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
-                    || GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
+            if (GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
+                    || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
                 return true;
             }
         }
 
 
         for (CoinModel c : GameModel.getInstance().getCoins()) {
-            if (GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 4))
-                    || GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 4))
-                    || GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY()))) {
+            if (GameController.isOverlapped(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 4))
+                    || GameController.isOverlapped(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 4))
+                    || GameController.isOverlapped(c, new CoinModel(c.getLane(), coin.getX(), coin.getY()))) {
                 return true;
             }
         }
@@ -106,7 +106,7 @@ public class CoinsController {
 
         for(CoinModel coin : GameModel.getInstance().getCoins()){
             tempCoin = new CoinModel(coin.getLane(), coin.getX(), coin.getY()+coin.getHeight()/4);
-            if(GameController.checkOverlap(GameModel.getInstance().getHatch(), tempCoin))
+            if(GameController.isOverlapped(GameModel.getInstance().getHatch(), tempCoin))
                 coinsToRemove.add(coin);
         }
 
@@ -115,7 +115,6 @@ public class CoinsController {
             GameModel.getInstance().getCatchCoin().play();
             GameModel.getInstance().getCoins().remove(coin);
             GameModel.getInstance().addCoinCatched();
-
         }
     }
 

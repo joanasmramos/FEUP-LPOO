@@ -17,6 +17,7 @@ public class GameModel {
 
     private ArrayList<CoinModel> coins;
     private int coinsCatched;
+
     private int coinValue;
     private int score;
 
@@ -32,7 +33,7 @@ public class GameModel {
     private static ArrayList<HatchModel.HatchType> hatchOrder = new ArrayList<HatchModel.HatchType>();
     private static int hatchOrderIndex = 1;
 
-    Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
+    private Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
 
 
     public GameModel(){
@@ -112,7 +113,7 @@ public class GameModel {
      * Increment score and coinsCatched
      */
     public void addCoinCatched() {
-         coinsCatched++;
+         coinsCatched += coinValue;
          score++;
     }
 
@@ -166,5 +167,17 @@ public class GameModel {
         hatchOrder.add(HatchModel.HatchType.YELLOW);
 
 
+    }
+
+    public void setCoinValue(int coinValue) {
+        this.coinValue = coinValue;
+    }
+
+    public int getCoinValue() {
+        return coinValue;
+    }
+
+    public int getCoinsCatched() {
+        return coinsCatched;
     }
 }

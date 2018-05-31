@@ -59,7 +59,8 @@ public class GameController{
 
         updateObjects(delta);
         disposeObjects();
-        checkColission();
+        if(!GameModel.getInstance().getHatch().isShielded())
+            checkColission();
 
     }
 
@@ -149,7 +150,7 @@ public class GameController{
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
             obs = o;
             //obs.setHeigth((int)(o.getHeight()-0.02*o.getHeight()));
-           if(checkOverlap( GameModel.getInstance().getHatch(),obs))
+           if(isOverlapped( GameModel.getInstance().getHatch(),obs))
                System.exit(1);
            return true;
         }
@@ -163,21 +164,20 @@ public class GameController{
      * @param entity2
      * @return true if colided, false if else
      */
-    public static boolean checkOverlap(EntityModel entity1, EntityModel entity2){
-        float y0;
-        float x0;
-        float x1;
-        float y1;
+    public static boolean isOverlapped(EntityModel entity1, EntityModel entity2){
 
-        y0 = entity1.getY();
-        y1 = y0 + entity1.getHeight();
-        x0 = entity1.getX();
-        x1 = x0 + entity1.getWidth();
 
-        if( y0 >= entity2.getY() && y0 <=  entity2.getY()+entity2.getHeight()
-                || y1>= entity2.getY() && y1 <= entity2.getY()+entity2.getHeight())
-            return(entity2.getX() >= x0 && entity2.getX() <= x1);
-        return false;
+        double cx1 = entity1.getX() + entity1.getWidth()/2;
+        double cx2 = entity2.getX() + entity2.getWidth()/2;
+        double dx = cx2-cx1;
+
+        double cy1 = entity1.getY() + entity1.getHeight()/2;
+        double cy2 = entity2.getY() + entity2.getHeight()/2;
+        double dy = cy2-cy1;
+
+        double h = Math.sqrt(dx*dx + dy*dy);
+
+        return(h - 30 < (entity1.getWidth()/2 + entity2.getWidth()/2));
     }
 
 
@@ -216,10 +216,12 @@ public class GameController{
 
         Pair<EntityModel.ElementLane,Integer> p = getDirection(side);
 
-        if(canMove(p.getSecond())) {
-            GameModel.getInstance().getHatch().setLane(p.getFirst());
-            GameModel.getInstance().getHatch().setX(p.getSecond());
-        } else Gdx.input.vibrate(500);
+        if (p != null) {
+            if(canMove(p.getSecond())) {
+                GameModel.getInstance().getHatch().setLane(p.getFirst());
+                GameModel.getInstance().getHatch().setX(p.getSecond());
+            } else Gdx.input.vibrate(500);
+        }
     }
 
 
@@ -229,14 +231,12 @@ public class GameController{
      * @return true if can move, false if else
      */
     private boolean canMove(float x){
+        ObstacleModel o;
 
+        if(GameModel.getInstance().getObstacles().size()>0) {
+            o = GameModel.getInstance().getObstacles().get(0);
 
-        ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
-
-        for(ObstacleModel o : obstacles){
-
-            return !(checkOverlap(o,new HatchModel(GameModel.getInstance().getHatch().getLane(),x,GameModel.getInstance().getHatch().getY())));
-
+            return !(isOverlapped( new HatchModel(GameModel.getInstance().getHatch().getLane(), x, GameModel.getInstance().getHatch().getY()),o));
         }
         return true;
     }

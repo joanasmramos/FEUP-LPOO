@@ -8,11 +8,9 @@ import com.hatchrun.game.model.GameModel;
 
 public class HatchModel extends EntityModel {
 
-    public enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
-    public enum HatchState {RUNNING, STILL};
+    public enum HatchType {BLUE, PURPLE, YELLOW};
     private boolean shielded;
     private HatchType currentHatch;
-    private HatchState currentState;
 
     /**
      * Constructs a hatch (default = purple) in the given position
@@ -27,7 +25,6 @@ public class HatchModel extends EntityModel {
         if(GameModel.getInstance().getHatchOrder().size()>0)
             currentHatch = GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex());
         else currentHatch = HatchType.BLUE;
-        currentState = HatchState.STILL;
     }
 
 

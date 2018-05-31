@@ -66,13 +66,6 @@ public class GameView extends ScreenAdapter
 
     private void drawEntities() {
 
-       ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
-
-        for (int i = 0; i < obstacles.size(); i++){
-            EntityView entity = new ObstacleView(game, obstacles.get(i));
-            entity.draw(game.getBatch(), obstacles.get(i).getX(), obstacles.get(i).getY());
-        }
-
         ArrayList<CoinModel> coins = GameModel.getInstance().getCoins();
 
 
@@ -89,8 +82,19 @@ public class GameView extends ScreenAdapter
         }
 
 
-        hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
+        if(!GameModel.getInstance().getHatch().isShielded())
+            hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
 
+
+        ArrayList<ObstacleModel> obstacles = GameModel.getInstance().getObstacles();
+
+        for (int i = 0; i < obstacles.size(); i++){
+            EntityView entity = new ObstacleView(game, obstacles.get(i));
+            entity.draw(game.getBatch(), obstacles.get(i).getX(), obstacles.get(i).getY());
+        }
+
+        if(GameModel.getInstance().getHatch().isShielded())
+            hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
     }
 
 

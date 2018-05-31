@@ -9,8 +9,6 @@ public class PowerUpModel extends EntityModel {
     private PowerUpType type;
 
 
-
-
     /**
      * Constructs a power-up object from a certain type in the given position
      *

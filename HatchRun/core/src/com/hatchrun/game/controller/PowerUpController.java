@@ -13,11 +13,29 @@ import java.util.ArrayList;
 public class PowerUpController {
 
     private long lastTimeRegistered = 0;
+    private long doubleCoinsPickedUpTime = 0;
+    private long shieldPickedUpTime = 0;
+
 
     public void update() {
         if (System.currentTimeMillis() - lastTimeRegistered >= GameModel.getInstance().POWER_TIME) {
             generatePowerUp();
             lastTimeRegistered = System.currentTimeMillis();
+        }
+
+
+        if(GameModel.getInstance().getCoinValue()!=1) {
+            if (System.currentTimeMillis() - doubleCoinsPickedUpTime >= 10000) {
+                GameModel.getInstance().setCoinValue(1);
+                doubleCoinsPickedUpTime = System.currentTimeMillis();
+            }
+        }
+
+        if(GameModel.getInstance().getHatch().isShielded()) {
+            if (System.currentTimeMillis() - shieldPickedUpTime >= 10000) {
+                GameModel.getInstance().getHatch().setShielded(false);
+                shieldPickedUpTime = System.currentTimeMillis();
+            }
         }
 
         catchPowerUp();
@@ -75,9 +93,9 @@ public class PowerUpController {
         ObstacleModel temp2;
 
         for(CoinModel coin: GameModel.getInstance().getCoins()){
-            if (GameController.checkOverlap(tempP, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
-                    || GameController.checkOverlap(new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2),tempP)
-                    || GameController.checkOverlap( new CoinModel(coin.getLane(), coin.getX(), coin.getY()),tempP)) {
+            if (GameController.isOverlapped(tempP, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.isOverlapped(new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2),tempP)
+                    || GameController.isOverlapped( new CoinModel(coin.getLane(), coin.getX(), coin.getY()),tempP)) {
                 return true;
             }
         }
@@ -85,9 +103,9 @@ public class PowerUpController {
         if(GameModel.getInstance().getObstacles().size()!=0) {
             temp2 = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size() - 1);
 
-            if (GameController.checkOverlap(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight(),temp2.getColour()),tempP)
-                    || GameController.checkOverlap(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight(),temp2.getColour()),tempP)
-                    || GameController.checkOverlap(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY(),temp2.getColour()),tempP)) {
+            if (GameController.isOverlapped(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight(),temp2.getColour()),tempP)
+                    || GameController.isOverlapped(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight(),temp2.getColour()),tempP)
+                    || GameController.isOverlapped(new ObstacleModel(temp2.getLane(), temp2.getX(), temp2.getY(),temp2.getColour()),tempP)) {
                 return true;
             }
         }
@@ -102,7 +120,7 @@ public class PowerUpController {
 
         for(PowerUpModel p : GameModel.getInstance().getPowerUps()){
             temp = new PowerUpModel(p.getLane(), p.getX(), p.getY()+p.getHeight()/4,  p.getType());
-            if(GameController.checkOverlap(GameModel.getInstance().getHatch(), temp))
+            if(GameController.isOverlapped(GameModel.getInstance().getHatch(), temp))
                 pToRemove.add(p);
         }
 
@@ -110,6 +128,18 @@ public class PowerUpController {
         for(PowerUpModel p : pToRemove){
             GameModel.getInstance().getPowerUps().remove(p);
 
+            if(p.getType()== PowerUpModel.PowerUpType.DOUBLECOINS) {
+                doubleCoinsPickedUpTime = System.currentTimeMillis();
+                GameModel.getInstance().setCoinValue(2);
+            }
+
+            else if(p.getType()== PowerUpModel.PowerUpType.SHIELD) {
+                shieldPickedUpTime = System.currentTimeMillis();
+                GameModel.getInstance().getHatch().setShielded(true);
+            }
+
         }
-    }
+
+        }
+
 }
