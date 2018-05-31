@@ -3,44 +3,38 @@ package com.hatchrun.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
 
 
 public class MainMenuView extends ScreenAdapter {
-    HatchRun game;
-    ButtonFactory buttonFactory = new ButtonFactory();
-    TextButton playButton;
-    TextButton exitButton;
-
+    private HatchRun game;
+    private TextButton playButton;
     private Stage stage;
+    private FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave-outline.ttf"));
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+    private BitmapFont buttonFont;
+
 
 
     public MainMenuView(HatchRun game){
         this.game = game;
-        loadAssets();
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        playButton = buttonFactory.getButton("Play",150, this.stage.getWidth()/2, this.stage.getHeight()/4);
-        exitButton = buttonFactory.getButton("Exit",150, this.stage.getWidth()/2, this.stage.getHeight()/4 - playButton.getHeight() );
-
-        addButtonsListeners();
-        this.stage.addActor(playButton);
-        this.stage.addActor(exitButton);
+        initButtons();
     }
 
-    private void loadAssets() {
-
-        this.game.getAssetManager().load("mainmenu.png", Texture.class);
-        this.game.getAssetManager().finishLoading();
-    }
 
     @Override
     public void dispose(){
-        buttonFactory.dispose();
+        stage.dispose();
     }
 
     @Override
@@ -56,20 +50,27 @@ public class MainMenuView extends ScreenAdapter {
     }
 
 
-    public void addButtonsListeners(){
+    private void addButtonsListeners(){
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameView(game));
+                game.setScreen(new ChooseHatchView(game));
             }
         });
 
-        exitButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.exit(1);
-            }
-        });
+    }
+
+    private void initButtons(){
+        parameter.size = 100;
+        buttonFont = generator.generateFont(parameter);
+        style.font = buttonFont;
+
+        playButton = new TextButton("Play",style);
+        playButton.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/4, Align.center);
+
+        stage.addActor(playButton);
+
+        addButtonsListeners();
     }
 
 }

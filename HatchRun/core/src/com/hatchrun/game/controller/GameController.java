@@ -1,11 +1,13 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.hatchrun.game.Utilities.Pair;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
+import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,6 +16,7 @@ public class GameController{
     private static GameController instance;
     private static  CoinsController coinsController = new CoinsController();
     private static  ObstaclesController obstaclesController = new ObstaclesController();
+    private static  PowerUpController powerUpController = new PowerUpController();
     private static final int playableWidth = (Gdx.graphics.getWidth()-(int)(2*Gdx.graphics.getWidth()*0.09));
     private static final int startX =(int)( Gdx.graphics.getWidth()*0.09);
     public static final int leftX = startX;
@@ -44,6 +47,7 @@ public class GameController{
 
         coinsController.update();
         obstaclesController.update();
+        powerUpController.update();
 
         updateSpeed(delta);
 
@@ -73,8 +77,15 @@ public class GameController{
 
         ArrayList<CoinModel> coins = GameModel.getInstance().getCoins();
 
+
         for(CoinModel c :  coins){
             c.setY(c.getY()-GameModel.getInstance().speed*delta);
+        }
+
+        ArrayList<PowerUpModel> powerUps = GameModel.getInstance().getPowerUps();
+
+        for(PowerUpModel p :  powerUps){
+            p.setY(p.getY()-GameModel.getInstance().speed*delta);
         }
     }
 
@@ -137,7 +148,7 @@ public class GameController{
 
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
             obs = o;
-            obs.setHeigth((int)(o.getHeight()-0.02*o.getHeight()));
+            //obs.setHeigth((int)(o.getHeight()-0.02*o.getHeight()));
            if(checkOverlap( GameModel.getInstance().getHatch(),obs))
                System.exit(1);
            return true;
@@ -229,8 +240,6 @@ public class GameController{
         }
         return true;
     }
-
-
 
 
     public void treatGyroInput(float gyroInput) {

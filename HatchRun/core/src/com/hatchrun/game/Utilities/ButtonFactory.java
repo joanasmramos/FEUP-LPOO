@@ -1,4 +1,4 @@
-package com.hatchrun.game.view;
+package com.hatchrun.game.Utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Align;
 
 public class ButtonFactory {
 
-    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave.ttf"));
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont buttonFont;
-    TextButton button;
+    private FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave-outline.ttf"));
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private BitmapFont buttonFont;
+    private TextButton button;
 
     public ButtonFactory(){
 

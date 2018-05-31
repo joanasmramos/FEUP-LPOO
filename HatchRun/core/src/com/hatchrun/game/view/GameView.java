@@ -1,28 +1,26 @@
 package com.hatchrun.game.view;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.hatchrun.game.controller.GameController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
-import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
+import com.hatchrun.game.model.entities.PowerUpModel;
+import com.hatchrun.game.view.entities.BackgroundView;
 import com.hatchrun.game.view.entities.CoinView;
 import com.hatchrun.game.view.entities.EntityView;
 import com.hatchrun.game.view.entities.HatchView;
 import com.hatchrun.game.view.entities.ObstacleView;
+import com.hatchrun.game.view.entities.PowerUpView;
 
 import java.util.ArrayList;
 
@@ -30,39 +28,18 @@ public class GameView extends ScreenAdapter
 
 {
     private final HatchRun game;
-    private final OrthographicCamera camera;
     private final BackgroundView background = new BackgroundView();
     private final HatchView hatchView;
-    private static final float VIEWPORT_WIDTH = 1080;
-    private static final float VIEWPORT_HEIGHT = 1812;
     private int gyroscopeCtr;
-    private Stage gameStage;
 
     public GameView(HatchRun game) {
         this.game = game;
-        camera = createCamera();
-        loadAssets();
-        new GameModel(GameController.centerX,GameController.startY );
-        hatchView = new HatchView(game,GameModel.getInstance().getHatch());
-        Gdx.input.setInputProcessor(new GestureDetector(new GameInputProcessor()));
+        new GameModel();
+        hatchView = new HatchView(game,GameModel.getInstance().getHatch(),false);
+        setInputProcessor();
         gyroscopeCtr = 0;
-        gameStage = new Stage(new ScreenViewport());
     }
 
-    public OrthographicCamera createCamera() {
-        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
-
-
-        return camera;
-    }
-
-    @Override
-    public void dispose(){
-
-    }
 
     @Override
     public void render(float delta) {
@@ -77,7 +54,6 @@ public class GameView extends ScreenAdapter
         }
 
         GameController.getInstance().update(delta);
-        camera.update();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getBatch().begin();
@@ -86,14 +62,6 @@ public class GameView extends ScreenAdapter
         game.getBatch().end();
     }
 
-    private void loadAssets() {
-        this.game.getAssetManager().load("floor.png", Texture.class);
-        this.game.getAssetManager().load("coin.png", Texture.class);
-        this.game.getAssetManager().load("pinkbush.png", Texture.class);
-        this.game.getAssetManager().load("bluebush.png", Texture.class);
-        this.game.getAssetManager().load("yellowbush.png", Texture.class);
-        this.game.getAssetManager().finishLoading();
-    }
 
 
     private void drawEntities() {
@@ -113,9 +81,36 @@ public class GameView extends ScreenAdapter
             entity.draw(game.getBatch(), coins.get(i).getX(), coins.get(i).getY());
         }
 
+
+        ArrayList<PowerUpModel> powerUpModels = GameModel.getInstance().getPowerUps();
+        for (int i = 0; i < powerUpModels.size(); i++){
+            EntityView entity = new PowerUpView(game, powerUpModels.get(i));
+            entity.draw(game.getBatch(), powerUpModels.get(i).getX(), powerUpModels.get(i).getY());
+        }
+
+
         hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
 
     }
+
+
+    public void setInputProcessor(){
+
+
+        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
+            @Override
+            public boolean fling(float velocityX, float velocityY, int button) {
+                if (velocityX > 0) {
+                    GameController.getInstance().moveHatch(true);
+
+                } else if (velocityX < 0)
+                    GameController.getInstance().moveHatch(false);
+                return true;
+            }
+
+        }));
+    }
+
 
 
 }

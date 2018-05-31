@@ -52,13 +52,11 @@ public class CoinsController {
      */
     private void generateCoins() {
 
-        boolean over = false;
 
         ArrayList<CoinModel> coinsToAdd = new ArrayList<CoinModel>();
         CoinModel temp = generateCoin();
         int j = 0;
         int i = GameController.rand.nextInt(5);
-        int x, y;
 
         while (j < i) {
             coinsToAdd.add(new CoinModel(temp.getLane(), temp.getX(), temp.getY()));
@@ -67,18 +65,34 @@ public class CoinsController {
         }
 
         for (CoinModel c : coinsToAdd) {
-            for (ObstacleModel o : GameModel.getInstance().getObstacles()) {
-                if (GameController.checkOverlap(o, new CoinModel(c.getLane(), c.getX(), c.getY() + c.getHeight() / 2))
-                        || GameController.checkOverlap(o, new CoinModel(c.getLane(), c.getX(), c.getY() - c.getHeight() / 2))
-                        || GameController.checkOverlap(o, new CoinModel(c.getLane(), c.getX(), c.getY()))) {
-                    over = true;
-                    break;
-                }
-            }
-            if (!over) GameModel.getInstance().getCoins().add(c);
-            over = false;
+
+            if(!checkCollisionOtherObjetcs(c))
+                GameModel.getInstance().addCoin(c);
         }
 
+    }
+
+
+    private boolean checkCollisionOtherObjetcs(CoinModel coin){
+
+        for (ObstacleModel o : GameModel.getInstance().getObstacles()) {
+            if (GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
+                    || GameController.checkOverlap(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
+                return true;
+            }
+        }
+
+
+        for (CoinModel c : GameModel.getInstance().getCoins()) {
+            if (GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 4))
+                    || GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 4))
+                    || GameController.checkOverlap(c, new CoinModel(c.getLane(), coin.getX(), coin.getY()))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

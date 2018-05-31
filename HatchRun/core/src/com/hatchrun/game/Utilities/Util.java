@@ -1,5 +1,6 @@
-package com.hatchrun.game.controller;
+package com.hatchrun.game.Utilities;
 
+import com.hatchrun.game.controller.GameController;
 import com.hatchrun.game.model.entities.EntityModel;
 
 public class Util {

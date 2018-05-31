@@ -21,9 +21,8 @@ public class ObstaclesController {
     /**
      * Generates new obstacle.
      */
-    private void generateObstacle() {
+    private ObstacleModel generateObstacleAux() {
         ObstacleModel tempObs = null;
-        ObstacleModel temp2;
 
 
         switch (GameController.rand.nextInt(3)){
@@ -39,19 +38,51 @@ public class ObstaclesController {
             default:
                 break;
         }
+        return tempObs;
+    }
+
+
+
+    /**
+     * Generates new obstacle.
+     */
+    private void generateObstacle() {
+        ObstacleModel temp = generateObstacleAux();
+
+
+       /* while(checkCollisionOtherObjetcs(temp)){
+            temp = generateObstacleAux();
+        }*/
+
+       if(!checkCollisionOtherObjetcs(temp))
+        GameModel.getInstance().getObstacles().add(temp);
+    }
+
+
+    private boolean checkCollisionOtherObjetcs(ObstacleModel tempObs){
+        ObstacleModel temp2;
 
 
         for(CoinModel coin: GameModel.getInstance().getCoins()){
-            if(GameController.checkOverlap(tempObs,coin)) return;
+            if (GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
+                    || GameController.checkOverlap(tempObs, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
+                return true;
+            }
         }
 
         if(GameModel.getInstance().getObstacles().size()!=0) {
             temp2 = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size() - 1);
-            temp2.setHeigth(GameModel.getInstance().getHatch().getHeight() + GameModel.getInstance().getHatch().getHeight() );
-            if (GameController.checkOverlap(temp2, tempObs)) return;
+
+            if (GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight()))
+                    || GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight()))
+                    || GameController.checkOverlap(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY()))) {
+                return true;
+            }
         }
-        GameModel.getInstance().getObstacles().add(tempObs);
+        return false;
     }
+
 
 
     /**

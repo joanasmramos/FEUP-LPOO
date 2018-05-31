@@ -1,4 +1,4 @@
-package com.hatchrun.game.controller;
+package com.hatchrun.game.Utilities;
 
 public class Pair<F, S>  {
 

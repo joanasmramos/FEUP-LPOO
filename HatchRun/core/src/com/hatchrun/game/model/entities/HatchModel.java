@@ -6,7 +6,7 @@ package com.hatchrun.game.model.entities;
 
 public class HatchModel extends EntityModel {
 
-    private enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
+    public enum HatchType {BLUE, GREEN, PURPLE, YELLOW};
     public enum HatchState {RUNNING, STILL};
     private boolean shielded;
     private HatchType currentHatch;

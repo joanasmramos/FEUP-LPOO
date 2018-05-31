@@ -21,7 +21,7 @@ public class ObstacleModel extends EntityModel {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    public ObstacleModel(ElementLane lane, int x, int y, Colour c) {
+    public ObstacleModel(ElementLane lane, float x, float y, Colour c) {
         super(lane, x, y);
         this.colour = c;
         super.setHeigth(239);

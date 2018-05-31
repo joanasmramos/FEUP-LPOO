@@ -4,9 +4,10 @@ package com.hatchrun.game.model.entities;
  * A model representing a power-up object
  */
 public class PowerUpModel extends EntityModel {
-    private enum PowerUpType {DOUBLECOINS, SHIELD, CHANGECOLOR};
+    public enum PowerUpType {DOUBLECOINS, SHIELD};
 
     private PowerUpType type;
+
 
 
 
@@ -18,8 +19,8 @@ public class PowerUpModel extends EntityModel {
      * @param y Y coordinate
      * @param type Power-up's type
      */
-    PowerUpModel(ElementLane lane, float x, float y, PowerUpType type, int width, int height) {
-        super(lane, x, y);
+    public PowerUpModel(ElementLane lane, float x, float y, PowerUpType type) {
+        super(lane, x, y,180,180);
         this.type = type;
     }
 

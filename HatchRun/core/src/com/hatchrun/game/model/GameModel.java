@@ -1,6 +1,7 @@
 package com.hatchrun.game.model;
 
 import com.badlogic.gdx.audio.Sound;
+import com.hatchrun.game.controller.GameController;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
@@ -22,18 +23,21 @@ public class GameModel {
     private ArrayList<PowerUpModel> powerUps;
     private static GameModel instance;
     public int OBSTACLE_TIME = 2000;
-    public int COIN_TIME = 5000;
-    public final double ACCELERATION = 1.01;
+    public int COIN_TIME = 2500;
+    public int POWER_TIME = 7000;
+    public final double ACCELERATION = 1.005;
     public boolean speedFixed;
-    public int speed = 280;
-            ;
+    public int speed = 300;
+
+    private static ArrayList<HatchModel.HatchType> hatchOrder = new ArrayList<HatchModel.HatchType>();
+    private static int hatchOrderIndex = 1;
 
     Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
 
 
-    public GameModel(int hatchX, int hatchY){
+    public GameModel(){
         instance = this;
-        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE,hatchX,hatchY);
+        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, GameController.centerX,GameController.startY);
         obstacles = new ArrayList<ObstacleModel>();
         coins = new ArrayList<CoinModel>();
         powerUps = new ArrayList<PowerUpModel>();
@@ -41,7 +45,10 @@ public class GameModel {
         coinsCatched = 0;
         coinValue = 1;
         score = 0;
+        initHatchOrder();
     }
+
+
 
 
     /**
@@ -49,8 +56,11 @@ public class GameModel {
      * @return model
      */
     public static GameModel getInstance() {
+        if (instance == null)
+            new GameModel();
         return instance;
     }
+
 
     /**
      * Returns hatch object
@@ -128,5 +138,33 @@ public class GameModel {
      */
     public Sound getCatchCoin() {
         return catchCoin;
+    }
+
+    public ArrayList<PowerUpModel> getPowerUps() {
+        return powerUps;
+    }
+
+    public void addPowerUp(PowerUpModel p) {
+        powerUps.add(p);
+    }
+
+    public static ArrayList<HatchModel.HatchType> getHatchOrder() {
+        return hatchOrder;
+    }
+
+    public static int getHatchOrderIndex() {
+        return hatchOrderIndex;
+    }
+
+    public static void setHatchOrderIndex(int index) {
+        hatchOrderIndex = index;
+    }
+
+    public static void initHatchOrder(){
+        hatchOrder.add(HatchModel.HatchType.BLUE);
+        hatchOrder.add(HatchModel.HatchType.PURPLE);
+        hatchOrder.add(HatchModel.HatchType.YELLOW);
+
+
     }
 }
