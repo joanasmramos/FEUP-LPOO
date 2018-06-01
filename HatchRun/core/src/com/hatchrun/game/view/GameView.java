@@ -25,9 +25,11 @@ import com.hatchrun.game.view.entities.HatchView;
 import com.hatchrun.game.view.entities.ObstacleView;
 import com.hatchrun.game.view.entities.PowerUpView;
 import com.hatchrun.game.view.HUDview;
-
 import java.util.ArrayList;
 
+/**
+ * A class representing the game view, a screen adapter
+ */
 public class GameView extends ScreenAdapter
 
 {
@@ -40,6 +42,10 @@ public class GameView extends ScreenAdapter
     private InputProcessor inputProcessor2;
     private InputMultiplexer inputMultiplexer;
 
+    /**
+     * Constructs the game view
+     * @param game
+     */
     public GameView(HatchRun game) {
         this.game = game;
         new GameModel();
@@ -58,10 +64,12 @@ public class GameView extends ScreenAdapter
 
     @Override
     public void render(float delta) {
-        //having trouble in getting the gyroscope right
-
         if(hud.isPaused()){
             delta = 0;
+            hatchView.setStill(true);
+        }
+        else {
+            hatchView.setStill(false);
         }
 
         if(!hud.isPaused()) {

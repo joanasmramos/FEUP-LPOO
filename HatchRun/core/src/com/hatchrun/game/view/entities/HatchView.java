@@ -86,4 +86,8 @@ public class HatchView extends EntityView {
 
     }
 
+    public void setStill(boolean still){
+        this.still = still;
+    }
+
 }
