@@ -18,30 +18,39 @@ import java.text.DecimalFormat;
 public class HUDview extends Stage {
     private int score;
     private Label scoreLabel;
-    private Table table;
+    private Table rightTable;
     private ScreenViewport viewport;
-    BitmapFont bmap;
+    private BitmapFont bmap;
+    private boolean shielded;
+    private boolean doubleCoins;
+    private boolean pause;
 
     HUDview(SpriteBatch sb){
         super(new ScreenViewport(), sb);
 
+        viewport = new ScreenViewport(new OrthographicCamera());
+
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 5;
+        parameter.size = 80;
         bmap = generator.generateFont(parameter);
 
+        setUpScore();
+
+    }
+
+    public void setUpScore(){
         score = GameModel.getInstance().getScore();
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(bmap, Color.WHITE));
-        scoreLabel.setFontScale(10f);
-        scoreLabel.setAlignment(Align.right);
 
-        table = new Table();
-        table.top();
-        table.setFillParent(true);
-        table.add(scoreLabel).align(Align.top);
+        rightTable = new Table();
+        rightTable.top();
+        rightTable.setFillParent(true);
+        rightTable.add(scoreLabel);
+        rightTable.align(Align.topRight);
+        rightTable.padRight(30);
 
-        addActor(table);
-
+        addActor(rightTable);
     }
 
     @Override
