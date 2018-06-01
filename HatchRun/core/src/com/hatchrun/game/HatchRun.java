@@ -41,6 +41,8 @@ public class HatchRun extends Game {
         assetManager.load("yellow.png", Texture.class);
         assetManager.load("choosemenu.png", Texture.class);
         assetManager.load("shieldeffect.png", Texture.class);
+        assetManager.load("whitedialog.png", Texture.class);
+
 
         assetManager.finishLoading();
 	}

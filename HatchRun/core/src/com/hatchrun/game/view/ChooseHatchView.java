@@ -58,7 +58,7 @@ public class ChooseHatchView extends ScreenAdapter {
         t = game.getAssetManager().get("choosemenu.png", Texture.class);
         game.getBatch().draw(t,0,0);
 
-        (new HatchView(game,new HatchModel(EntityModel.ElementLane.MIDDLE,0,0),true)).draw(
+        (new HatchView(game,GameModel.getInstance().getHatch())).draw(
                 game.getBatch(), Gdx.graphics.getWidth()/2-290/2,Gdx.graphics.getHeight()/3);
 
 

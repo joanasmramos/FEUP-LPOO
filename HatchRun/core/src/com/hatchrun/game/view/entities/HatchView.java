@@ -20,16 +20,14 @@ public class HatchView extends EntityView {
     private Sprite s;
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
-    private boolean still;
     private long lastTimeChecked = 0;
 
-    public HatchView(HatchRun game, HatchModel model, boolean still) {
+    public HatchView(HatchRun game, HatchModel model) {
         super(game);
         this.model = model;
         createAtlas();
         animation = new Animation<TextureRegion>(1 / 3f, hatchAtlas.getRegions());
         textureShield = game.getAssetManager().get("shieldeffect.png", Texture.class);
-        this.still = still;
     }
 
     private void createAtlas() {
@@ -71,7 +69,8 @@ public class HatchView extends EntityView {
         stateTime += Gdx.graphics.getDeltaTime();
         s.setX(x);
         s.setY(y);
-        if (still) s.draw(batch);
+        if (model.getCurrentState() == HatchModel.HatchState.STILL) s.draw(batch);
+
         else batch.draw(animation.getKeyFrame(stateTime, true), x, y);
 
 
@@ -87,7 +86,8 @@ public class HatchView extends EntityView {
     }
 
     public void setStill(boolean still){
-        this.still = still;
+        if(still) GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.STILL);
+        else GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);
     }
 
 }

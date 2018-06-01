@@ -3,6 +3,10 @@ package com.hatchrun.game.view;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.hatchrun.game.controller.GameController;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +20,7 @@ import com.badlogic.gdx.Input.Peripheral;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
+import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
 import com.hatchrun.game.view.entities.BackgroundView;
@@ -41,6 +46,9 @@ public class GameView extends ScreenAdapter
     private InputProcessor inputProcessor1;
     private InputProcessor inputProcessor2;
     private InputMultiplexer inputMultiplexer;
+    private TextureAtlas hatchAtlas;
+    private Animation<TextureRegion> animation;
+    private float stateTime  = 0;
 
     /**
      * Constructs the game view
@@ -49,7 +57,8 @@ public class GameView extends ScreenAdapter
     public GameView(HatchRun game) {
         this.game = game;
         new GameModel();
-        hatchView = new HatchView(game,GameModel.getInstance().getHatch(),false);
+        GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);
+        hatchView = new HatchView(game,GameModel.getInstance().getHatch());
         setInputProcessor();
         gyroscopeCtr = 0;
         hud = new HUDview(game.getBatch());
@@ -59,11 +68,17 @@ public class GameView extends ScreenAdapter
         inputMultiplexer.addProcessor(inputProcessor1);
         inputMultiplexer.addProcessor(inputProcessor2);
         Gdx.input.setInputProcessor(inputMultiplexer);
+        hatchAtlas = new TextureAtlas(Gdx.files.internal("hatchgif.atlas"));
+        animation = new Animation<TextureRegion>(1 /5f, hatchAtlas.getRegions());
     }
 
 
     @Override
     public void render(float delta) {
+
+        game.getBatch().begin();
+
+
         if(hud.isPaused()){
             delta = 0;
             hatchView.setStill(true);
@@ -73,6 +88,8 @@ public class GameView extends ScreenAdapter
         }
 
         if(!hud.isPaused()) {
+            GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);
+
             if (gyroscopeCtr == 15) {
                 GameController.getInstance().treatGyroInput(Gdx.input.getGyroscopeY());
                 gyroscopeCtr = 0;
@@ -86,9 +103,16 @@ public class GameView extends ScreenAdapter
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         hud.act(delta);
 
-        game.getBatch().begin();
         background.updateAndRender(delta, game.getBatch());
         drawEntities();
+
+  if(hud.isPaused()) {
+        stateTime += Gdx.graphics.getDeltaTime();
+            game.getBatch().draw(game.getAssetManager().get("whitedialog.png", Texture.class),
+                    Gdx.graphics.getWidth() / 2 - 325, Gdx.graphics.getHeight() / 2 - 400);
+            game.getBatch().draw(animation.getKeyFrame(stateTime, true), (int)(0.32*Gdx.graphics.getWidth()), (int)(Gdx.graphics.getHeight() *0.45));
+        }
+
         game.getBatch().end();
 
         hud.draw();

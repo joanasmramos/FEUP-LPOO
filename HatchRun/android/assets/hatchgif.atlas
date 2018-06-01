@@ -1,0 +1,68 @@
+hatchgif.png
+size: 2010, 604
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frame_00_delay-0.1s
+  rotate: false
+  xy: 1, 1
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_01_delay-0.1s
+  rotate: false
+  xy: 403, 1
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_12_delay-0.1s
+  rotate: false
+  xy: 805, 1
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_13_delay-0.1s
+  rotate: false
+  xy: 1207, 1
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_14_delay-0.1s
+  rotate: false
+  xy: 1609, 1
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_15_delay-0.1s
+  rotate: false
+  xy: 1, 303
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_16_delay-0.1s
+  rotate: false
+  xy: 403, 303
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_17_delay-0.1s
+  rotate: false
+  xy: 805, 303
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+frame_35_delay-0.1s
+  rotate: false
+  xy: 1207, 303
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
