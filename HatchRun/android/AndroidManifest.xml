@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hatchrun.game" >
 
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="25" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="25"
+        tools:ignore="GradleOverrides" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +22,15 @@
 
             </intent-filter>
         </activity>
+
+
     </application>
 
 
+
+
     <uses-permission android:name="android.permission.VIBRATE"/>
+
+
 
 </manifest>

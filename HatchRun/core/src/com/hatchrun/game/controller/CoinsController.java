@@ -5,6 +5,7 @@ import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
+import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
 
@@ -76,6 +77,14 @@ public class CoinsController {
     private boolean checkCollisionOtherObjetcs(CoinModel coin){
 
         for (ObstacleModel o : GameModel.getInstance().getObstacles()) {
+            if (GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
+                    || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
+                    || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {
+                return true;
+            }
+        }
+
+        for (PowerUpModel o : GameModel.getInstance().getPowerUps()) {
             if (GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() + coin.getHeight() / 2))
                     || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY() - coin.getHeight() / 2))
                     || GameController.isOverlapped(o, new CoinModel(coin.getLane(), coin.getX(), coin.getY()))) {

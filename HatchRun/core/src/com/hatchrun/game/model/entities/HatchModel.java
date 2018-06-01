@@ -10,6 +10,7 @@ public class HatchModel extends EntityModel {
 
     public enum HatchType {BLUE, PURPLE, YELLOW};
     private boolean shielded;
+    private boolean shieldEnding;
     private HatchType currentHatch;
 
     /**
@@ -20,8 +21,9 @@ public class HatchModel extends EntityModel {
      * @param y Y coordinate
      */
     public HatchModel(ElementLane lane, float x, float y) {
-        super(lane, x, y, 200, 305);
+        super(lane, x, y, 200, 301);
         shielded = false;
+        shieldEnding = false;
         if(GameModel.getInstance().getHatchOrder().size()>0)
             currentHatch = GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex());
         else currentHatch = HatchType.BLUE;
@@ -46,6 +48,15 @@ public class HatchModel extends EntityModel {
     public void setShielded(boolean shielded) {
         this.shielded = shielded;
     }
+
+    public boolean isShieldEnding(){
+        return shieldEnding;
+    }
+
+    public void setDrawShield(boolean s){
+        this.shieldEnding = s;
+    }
+
 
     /**
      * Returns the hatch's colour

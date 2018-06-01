@@ -11,9 +11,11 @@ import com.hatchrun.game.view.GameView;
 public abstract class EntityView {
 
     protected Sprite sprite;
+    protected HatchRun game;
 
     public EntityView(HatchRun game){
         sprite = createSprite(game);
+        this.game = game;
     }
 
     public EntityView(){

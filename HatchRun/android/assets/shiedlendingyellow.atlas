@@ -1,0 +1,33 @@
+shiedlendingyellow.png
+size: 1260, 348
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+l
+  rotate: false
+  xy: 709, 1
+  size: 274, 303
+  orig: 274, 351
+  offset: 0, 24
+  index: -1
+leftpurple
+  rotate: false
+  xy: 1, 1
+  size: 352, 346
+  orig: 360, 351
+  offset: 3, 1
+  index: -1
+r
+  rotate: false
+  xy: 985, 1
+  size: 274, 301
+  orig: 274, 301
+  offset: 0, 0
+  index: -1
+rightpurple
+  rotate: false
+  xy: 355, 1
+  size: 352, 346
+  orig: 360, 351
+  offset: 3, 1
+  index: -1

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hatchrun.game.view.MainMenuView;
 
+
 public class HatchRun extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
@@ -39,6 +40,8 @@ public class HatchRun extends Game {
         assetManager.load("purple.png", Texture.class);
         assetManager.load("yellow.png", Texture.class);
         assetManager.load("choosemenu.png", Texture.class);
+        assetManager.load("shieldeffect.png", Texture.class);
+
         assetManager.finishLoading();
 	}
 

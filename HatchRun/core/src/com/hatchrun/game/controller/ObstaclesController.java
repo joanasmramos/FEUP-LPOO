@@ -7,6 +7,7 @@ import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.ObstacleModel;
+import com.hatchrun.game.model.entities.PowerUpModel;
 
 public class ObstaclesController {
 
@@ -62,7 +63,6 @@ public class ObstaclesController {
 
 
     private boolean checkCollisionOtherObjetcs(ObstacleModel tempObs){
-        ObstacleModel temp2;
 
 
         for(CoinModel coin: GameModel.getInstance().getCoins()){
@@ -73,8 +73,16 @@ public class ObstaclesController {
             }
         }
 
-        if(GameModel.getInstance().getObstacles().size()!=0) {
-            temp2 = GameModel.getInstance().getObstacles().get(GameModel.getInstance().getObstacles().size() - 1);
+
+        for(PowerUpModel p: GameModel.getInstance().getPowerUps()){
+            if (GameController.isOverlapped(tempObs, new CoinModel(p.getLane(), p.getX(), p.getY() + p.getHeight() / 2))
+                    || GameController.isOverlapped(tempObs, new CoinModel(p.getLane(), p.getX(), p.getY() - p.getHeight() / 2))
+                    || GameController.isOverlapped(tempObs, new CoinModel(p.getLane(), p.getX(), p.getY()))) {
+                return true;
+            }
+        }
+
+        for (ObstacleModel temp2 : GameModel.getInstance().getObstacles()) {
 
             if (GameController.isOverlapped(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() + 2*temp2.getHeight()))
                     || GameController.isOverlapped(tempObs, new CoinModel(temp2.getLane(), temp2.getX(), temp2.getY() - 2*temp2.getHeight()))

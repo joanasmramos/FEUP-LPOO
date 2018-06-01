@@ -1,7 +1,6 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.hatchrun.game.Utilities.Util;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;
@@ -31,8 +30,10 @@ public class PowerUpController {
             }
         }
 
+
         if(GameModel.getInstance().getHatch().isShielded()) {
-            if (System.currentTimeMillis() - shieldPickedUpTime >= 10000) {
+
+            if(System.currentTimeMillis() - shieldPickedUpTime >= 10000) {
                 GameModel.getInstance().getHatch().setShielded(false);
                 shieldPickedUpTime = System.currentTimeMillis();
             }

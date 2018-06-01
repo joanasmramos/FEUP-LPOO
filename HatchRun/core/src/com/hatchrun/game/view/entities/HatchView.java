@@ -7,32 +7,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
-import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
 
 public class HatchView extends EntityView {
 
     private HatchModel model;
     private Texture texture;
+    private Texture textureShield;
     private TextureAtlas hatchAtlas;
-    Sprite s;
+    private Sprite s;
     private Animation<TextureRegion> animation;
-    float stateTime = 0;
-    boolean still;
-
+    private float stateTime = 0;
+    private boolean still;
+    private long lastTimeChecked = 0;
 
     public HatchView(HatchRun game, HatchModel model, boolean still) {
         super(game);
+        this.model = model;
         createAtlas();
-        animation = new Animation<TextureRegion>(1/3f, hatchAtlas.getRegions());
-        this.still  = still;
+        animation = new Animation<TextureRegion>(1 / 3f, hatchAtlas.getRegions());
+        textureShield = game.getAssetManager().get("shieldeffect.png", Texture.class);
+        this.still = still;
     }
 
-    private void createAtlas(){
-        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())){
+    private void createAtlas() {
+        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())) {
             case BLUE:
                 hatchAtlas = new TextureAtlas(Gdx.files.internal("bluehatch.atlas"));
                 break;
@@ -48,7 +49,7 @@ public class HatchView extends EntityView {
     @Override
     public Sprite createSprite(HatchRun game) {
 
-        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())){
+        switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())) {
             case BLUE:
                 texture = new Texture("blue.png");
                 break;
@@ -60,7 +61,7 @@ public class HatchView extends EntityView {
         }
 
         s = new Sprite(texture);
-        s.setCenter(Gdx.graphics.getWidth()/2,texture.getHeight()/2+100);
+        s.setCenter(Gdx.graphics.getWidth() / 2, texture.getHeight() / 2 + 100);
 
         return s;
     }
@@ -70,9 +71,19 @@ public class HatchView extends EntityView {
         stateTime += Gdx.graphics.getDeltaTime();
         s.setX(x);
         s.setY(y);
-        if(still) s.draw(batch);
+        if (still) s.draw(batch);
         else batch.draw(animation.getKeyFrame(stateTime, true), x, y);
-    }
 
+
+        if (GameModel.getInstance().getHatch().isShielded()) {
+
+            Sprite s = new Sprite(textureShield);
+            s.setY(y - 25);
+            s.setX(x - 35);
+            s.draw(batch);
+
+        }
+
+    }
 
 }
