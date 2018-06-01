@@ -3,12 +3,21 @@ package com.hatchrun.game.Utilities;
 import com.hatchrun.game.controller.GameController;
 import com.hatchrun.game.model.entities.EntityModel;
 
+/**
+ * An utility class for the lanes
+ */
 public class Util {
 
     public  Util(){
 
     }
 
+    /**
+     * Computes the starting x coordinate for the given lane
+     * @param width Width of each lane
+     * @param lane Pretended lane
+     * @return Lane's starting x coordinate
+     */
     public static int getStartingX(int width, EntityModel.ElementLane lane){
 
         switch (lane){

@@ -21,6 +21,9 @@ import com.hatchrun.game.model.GameModel;
 
 import java.text.DecimalFormat;
 
+/**
+ * A stage representing the HUD
+ */
 public class HUDview extends Stage {
     private Label scoreLabel;
     private Table rightTable;
@@ -36,6 +39,10 @@ public class HUDview extends Stage {
     private boolean pause;
     private int score;
 
+    /**
+     * Constructs a new HUD, with the given sprite batch, initializes all components
+     * @param sb Sprite Batch
+     */
     HUDview(SpriteBatch sb){
         super(new ScreenViewport(), sb);
 
@@ -52,6 +59,9 @@ public class HUDview extends Stage {
         setUpLeftTable();
     }
 
+    /**
+     * Sets up the right table, which has the score
+     */
     public void setUpRightTable(){
         score = GameModel.getInstance().getScore();
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(bmap, Color.WHITE));
@@ -66,6 +76,9 @@ public class HUDview extends Stage {
         addActor(rightTable);
     }
 
+    /**
+     * Sets up the left table, which has pause and sound buttons
+     */
     public void setUpLeftTable(){
         pauseButton = btnFactory.getButton(Gdx.files.internal("pause_button.png"));
         soundButton = btnFactory.getButton(Gdx.files.internal("sound_button.png"));
@@ -82,6 +95,10 @@ public class HUDview extends Stage {
         addActor(leftTable);
     }
 
+    /**
+     * Updates
+     * @param delta
+     */
     @Override
     public void act(float delta) {
         super.act(delta);

@@ -8,9 +8,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2907815e-9c9c-40bd-81a9-78f84ad5ab8c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/android/assets/pause_button.png" afterPath="$PROJECT_DIR$/android/assets/pause_button.png" />
-      <change beforePath="$PROJECT_DIR$/android/assets/play_button.png" afterPath="$PROJECT_DIR$/android/assets/play_button.png" />
-      <change beforePath="$PROJECT_DIR$/android/assets/sound_button.png" afterPath="$PROJECT_DIR$/android/assets/sound_button.png" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java" afterPath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ImageButtonFactory.java" afterPath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ImageButtonFactory.java" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java" afterPath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java" afterPath="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java" />
       <change beforePath="$PROJECT_DIR$/core/src/com/hatchrun/game/view/HUDview.java" afterPath="$PROJECT_DIR$/core/src/com/hatchrun/game/view/HUDview.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HUDview.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HUDview.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/HUDview.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="79" column="47" lean-forward="false" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -47,8 +48,8 @@
       <file leaf-file-name="ImageButtonFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ImageButtonFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+            <state relative-caret-position="294">
+              <caret line="24" column="15" lean-forward="false" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,41 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ButtonFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HatchModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/HatchModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/GameModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="114" column="25" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="25" />
+              <caret line="135" column="0" lean-forward="true" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -3802,13 +3773,10 @@
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/ButtonFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/CoinModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/Pair.java" />
-        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java" />
-        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/CoinView.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/PowerUpView.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/ObstacleModel.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/BackgroundView.java" />
-        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/ChooseHatchController.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/ChooseHatchController.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/chooseHatchMenu/ChooseHatchView.java" />
@@ -3831,8 +3799,11 @@
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/CoinsController.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/ObstaclesController.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/controller/PowerUpController.java" />
+        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ImageButtonFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/view/HUDview.java" />
+        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java" />
+        <option value="$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java" />
       </list>
     </option>
   </component>
@@ -4207,6 +4178,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4223,7 +4195,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12532134" sideWeight="0.8222656" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30904183" sideWeight="0.4974293" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30904183" sideWeight="0.4974293" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -4280,14 +4252,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/CoinView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/EntityModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
@@ -4308,14 +4272,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-27/android/opengl/GLSurfaceView.java" />
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/BackgroundView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.8/bac17f395be5010619b31280fe84e9f53118d0b9/gdx-1.9.8-sources.jar!/com/badlogic/gdx/scenes/scene2d/ui/TextButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -4334,22 +4290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -4389,14 +4329,6 @@
             <element signature="e#3121#4041#0" expanded="false" />
             <element signature="e#4040#4041#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/ObstacleModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="57" lean-forward="false" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4555,11 +4487,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/PowerUpModel.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/MainMenuView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="249">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#1709#1904#0" expanded="false" />
+            <element signature="e#1903#1904#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4571,22 +4506,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/ObstacleModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+        <state relative-caret-position="345">
+          <caret line="23" column="57" lean-forward="false" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/MainMenuView.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/model/entities/PowerUpModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding>
-            <element signature="e#1709#1904#0" expanded="false" />
-            <element signature="e#1903#1904#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4600,26 +4532,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ButtonFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="102">
+          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+          <folding>
+            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="e#1392#1393#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/ImageButtonFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        <state relative-caret-position="294">
+          <caret line="24" column="15" lean-forward="false" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#806#807#0" expanded="true" />
+            <element signature="e#905#906#0" expanded="true" />
+            <element signature="e#941#942#0" expanded="true" />
+            <element signature="e#1043#1044#0" expanded="true" />
+            <element signature="e#1080#1081#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/Utilities/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/HUDview.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="79" column="47" lean-forward="false" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/BackgroundView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/view/entities/CoinView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/hatchrun/game/controller/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="135" column="0" lean-forward="true" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding />
         </state>
       </provider>
