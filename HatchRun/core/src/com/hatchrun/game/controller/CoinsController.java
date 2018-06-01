@@ -122,7 +122,7 @@ public class CoinsController {
 
 
         for(CoinModel coin : coinsToRemove){
-            GameModel.getInstance().getCatchCoin().play();
+            GameModel.getInstance().playCoinSound();
             GameModel.getInstance().getCoins().remove(coin);
             GameModel.getInstance().addCoinCatched();
         }

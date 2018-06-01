@@ -34,6 +34,7 @@ public class GameModel {
     private static int hatchOrderIndex = 1;
 
     private Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
+    private boolean muted = false;
 
 
     public GameModel(){
@@ -141,26 +142,49 @@ public class GameModel {
         return catchCoin;
     }
 
+    /**
+     * Returns array list of game power ups
+     * @return array list of game power ups
+     */
     public ArrayList<PowerUpModel> getPowerUps() {
         return powerUps;
     }
 
+    /**
+     * Adds a power up to the game
+     * @param p power up
+     */
     public void addPowerUp(PowerUpModel p) {
         powerUps.add(p);
     }
 
+    /**
+     * Returns hatch order for the menu
+     * @return hatch order
+     */
     public  ArrayList<HatchModel.HatchType> getHatchOrder() {
         return hatchOrder;
     }
 
+    /**
+     * Returns hatch order index
+     * @return hatch order index
+     */
     public int getHatchOrderIndex() {
         return hatchOrderIndex;
     }
 
+    /**
+     * Sets hatch order index
+     * @param index hatch order index
+     */
     public void setHatchOrderIndex(int index) {
         hatchOrderIndex = index;
     }
 
+    /**
+     * Initialises Hatch order for the menu
+     */
     private void initHatchOrder(){
         hatchOrder.add(HatchModel.HatchType.BLUE);
         hatchOrder.add(HatchModel.HatchType.PURPLE);
@@ -169,15 +193,50 @@ public class GameModel {
 
     }
 
+    /**
+     * Sets the coin value
+     * @param coinValue coin value
+     */
     public void setCoinValue(int coinValue) {
         this.coinValue = coinValue;
     }
 
+    /**
+     * Returns the coin value
+     * @return coin value
+     */
     public int getCoinValue() {
         return coinValue;
     }
 
+    /**
+     * Returns number of catched coins
+     * @return catched coins
+     */
     public int getCoinsCatched() {
         return coinsCatched;
+    }
+
+    /**
+     * Plays catch coin sound if the game is not muted
+     */
+    public void playCoinSound() {
+        if(!muted)
+            this.catchCoin.play();
+    }
+
+    /**
+     * @return true if game is muted, false otherwise
+     */
+    public boolean isMuted(){
+        return muted;
+    }
+
+    /**
+     * Mutes/unmutes the game
+     * @param mute true to mute, false to unmute
+     */
+    public void setMuted(boolean mute) {
+        muted = mute;
     }
 }

@@ -53,7 +53,9 @@ public class GameController{
 
 
         if(System.currentTimeMillis() - lastSecondRegistered >= 1000){
-            GameModel.getInstance().setScore(GameModel.getInstance().getScore()+1);
+            if(delta != 0) {
+                GameModel.getInstance().setScore(GameModel.getInstance().getScore() + 1);
+            }
             lastSecondRegistered = System.currentTimeMillis();
         }
 

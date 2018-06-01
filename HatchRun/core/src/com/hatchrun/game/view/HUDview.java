@@ -3,19 +3,15 @@ package com.hatchrun.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.hatchrun.game.Utilities.ImageButtonFactory;
@@ -34,12 +30,15 @@ public class HUDview extends Stage {
     private ScreenViewport viewport;
     private BitmapFont bmap;
     private ImageButton pauseButton;
-    private ImageButton playButton;
     private ImageButton muteButton;
-    private ImageButton soundButton;
+    private ImageButton.ImageButtonStyle pauseStyle;
+    private ImageButton.ImageButtonStyle playStyle;
+    private ImageButton.ImageButtonStyle muteStyle;
+    private ImageButton.ImageButtonStyle unmuteStyle;
     private boolean shielded;
     private boolean doubleCoins;
     private boolean pause;
+    private boolean muted;
     private int score;
 
     /**
@@ -58,37 +57,62 @@ public class HUDview extends Stage {
 
         btnFactory = new ImageButtonFactory();
         setUpPauseButtons();
+        setUpSoundButtons();
 
         setUpRightTable();
         setUpLeftTable();
     }
 
     /**
-     * Sets up the pause/unpause buttons creates them and adds listeners
+     * Sets up the mute/unmute buttons: creates them and adds listener
+     */
+    private void setUpSoundButtons() {
+        muted = false;
+
+        muteButton = btnFactory.getButton(Gdx.files.internal("mute_button.png"));
+        muteStyle = muteButton.getStyle();
+        ImageButton unmuteButton = btnFactory.getButton(Gdx.files.internal("sound_button.png"));
+        unmuteStyle = unmuteButton.getStyle();
+
+        muteButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(muted) {
+                    muted = false;
+                    muteButton.setStyle(muteStyle);
+                    GameModel.getInstance().setMuted(false);
+                }
+                else {
+                    muted = true;
+                    muteButton.setStyle(unmuteStyle);
+                    GameModel.getInstance().setMuted(true);
+                }
+            }
+        });
+    }
+
+    /**
+     * Sets up the pause/unpause buttons: creates them and adds listener
      */
     public void setUpPauseButtons() {
         pause = false;
 
         pauseButton = btnFactory.getButton(Gdx.files.internal("pause_button.png"));
-        playButton = btnFactory.getButton(Gdx.files.internal("play_button.png"));
-
-        playButton.setVisible(false);
+        pauseStyle = pauseButton.getStyle();
+        ImageButton playButton = btnFactory.getButton(Gdx.files.internal("play_button.png"));
+        playStyle = playButton.getStyle();
 
         pauseButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                pause = true;
-                pauseButton.setVisible(false);
-                playButton.setVisible(true);
-            }
-        });
-
-        playButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                pause = false;
-                playButton.setVisible(false);
-                pauseButton.setVisible(true);
+                if(pause) {
+                    pause = false;
+                    pauseButton.setStyle(pauseStyle);
+                }
+                else  {
+                    pause = true;
+                    pauseButton.setStyle(playStyle);
+                }
             }
         });
     }
@@ -114,8 +138,6 @@ public class HUDview extends Stage {
      * Sets up the left table, which has pause and sound buttons
      */
     public void setUpLeftTable() {
-        muteButton = btnFactory.getButton(Gdx.files.internal("mute_button.png"));
-
         leftTable = new Table();
         leftTable.top();
         leftTable.setFillParent(true);
@@ -123,7 +145,6 @@ public class HUDview extends Stage {
         leftTable.padTop(20);
         leftTable.padLeft(40);
         leftTable.add(pauseButton);
-        leftTable.add(playButton);
         leftTable.add(muteButton).padLeft(10);
 
         addActor(leftTable);
