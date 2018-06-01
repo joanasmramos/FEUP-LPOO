@@ -137,8 +137,6 @@ public class GameController{
     }
 
 
-
-
     /**
      * Checks if hatch colides with obstacles
      * @return true if colided, false if elese

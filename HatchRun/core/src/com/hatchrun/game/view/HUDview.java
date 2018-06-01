@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -33,6 +35,7 @@ public class HUDview extends Stage {
     private BitmapFont bmap;
     private ImageButton pauseButton;
     private ImageButton playButton;
+    private ImageButton muteButton;
     private ImageButton soundButton;
     private boolean shielded;
     private boolean doubleCoins;
@@ -54,9 +57,40 @@ public class HUDview extends Stage {
         bmap = generator.generateFont(parameter);
 
         btnFactory = new ImageButtonFactory();
+        setUpPauseButtons();
 
         setUpRightTable();
         setUpLeftTable();
+    }
+
+    /**
+     * Sets up the pause/unpause buttons creates them and adds listeners
+     */
+    public void setUpPauseButtons() {
+        pause = false;
+
+        pauseButton = btnFactory.getButton(Gdx.files.internal("pause_button.png"));
+        playButton = btnFactory.getButton(Gdx.files.internal("play_button.png"));
+
+        playButton.setVisible(false);
+
+        pauseButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pause = true;
+                pauseButton.setVisible(false);
+                playButton.setVisible(true);
+            }
+        });
+
+        playButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pause = false;
+                playButton.setVisible(false);
+                pauseButton.setVisible(true);
+            }
+        });
     }
 
     /**
@@ -79,9 +113,8 @@ public class HUDview extends Stage {
     /**
      * Sets up the left table, which has pause and sound buttons
      */
-    public void setUpLeftTable(){
-        pauseButton = btnFactory.getButton(Gdx.files.internal("pause_button.png"));
-        soundButton = btnFactory.getButton(Gdx.files.internal("sound_button.png"));
+    public void setUpLeftTable() {
+        muteButton = btnFactory.getButton(Gdx.files.internal("mute_button.png"));
 
         leftTable = new Table();
         leftTable.top();
@@ -90,7 +123,8 @@ public class HUDview extends Stage {
         leftTable.padTop(20);
         leftTable.padLeft(40);
         leftTable.add(pauseButton);
-        leftTable.add(soundButton).padLeft(10);
+        leftTable.add(playButton);
+        leftTable.add(muteButton).padLeft(10);
 
         addActor(leftTable);
     }
@@ -105,5 +139,9 @@ public class HUDview extends Stage {
         score = GameModel.getInstance().getScore();
         DecimalFormat ft = new DecimalFormat("000000");
         scoreLabel.setText(""+ft.format(score));
+    }
+
+    public boolean isPaused() {
+        return pause;
     }
 }

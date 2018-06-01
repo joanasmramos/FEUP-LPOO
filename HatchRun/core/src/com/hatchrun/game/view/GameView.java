@@ -1,5 +1,7 @@
 package com.hatchrun.game.view;
 
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
 import com.hatchrun.game.controller.GameController;
@@ -34,6 +36,9 @@ public class GameView extends ScreenAdapter
     private final HatchView hatchView;
     private int gyroscopeCtr;
     private HUDview hud;
+    private InputProcessor inputProcessor1;
+    private InputProcessor inputProcessor2;
+    private InputMultiplexer inputMultiplexer;
 
     public GameView(HatchRun game) {
         this.game = game;
@@ -42,6 +47,12 @@ public class GameView extends ScreenAdapter
         setInputProcessor();
         gyroscopeCtr = 0;
         hud = new HUDview(game.getBatch());
+
+        inputProcessor2 = hud;
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(inputProcessor1);
+        inputMultiplexer.addProcessor(inputProcessor2);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
 
@@ -49,12 +60,17 @@ public class GameView extends ScreenAdapter
     public void render(float delta) {
         //having trouble in getting the gyroscope right
 
-        if(gyroscopeCtr == 15) {
-            GameController.getInstance().treatGyroInput(Gdx.input.getGyroscopeY());
-            gyroscopeCtr = 0;
+        if(hud.isPaused()){
+            delta = 0;
         }
-        else {
-            gyroscopeCtr++;
+
+        if(!hud.isPaused()) {
+            if (gyroscopeCtr == 15) {
+                GameController.getInstance().treatGyroInput(Gdx.input.getGyroscopeY());
+                gyroscopeCtr = 0;
+            } else {
+                gyroscopeCtr++;
+            }
         }
 
         GameController.getInstance().update(delta);
@@ -108,19 +124,23 @@ public class GameView extends ScreenAdapter
 
     public void setInputProcessor(){
 
-
-        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
+        inputProcessor1 = new GestureDetector(new GestureDetector.GestureAdapter() {
             @Override
             public boolean fling(float velocityX, float velocityY, int button) {
+
+                if(!hud.isPaused()) {
                 if (velocityX > 0) {
                     GameController.getInstance().moveHatch(true);
 
                 } else if (velocityX < 0)
                     GameController.getInstance().moveHatch(false);
                 return true;
+
+            }
+            return false;
             }
 
-        }));
+        });
     }
 
 

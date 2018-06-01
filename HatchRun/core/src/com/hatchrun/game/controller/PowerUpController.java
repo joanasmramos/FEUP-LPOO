@@ -14,6 +14,7 @@ public class PowerUpController {
     private long lastTimeRegistered = 0;
     private long doubleCoinsPickedUpTime = 0;
     private long shieldPickedUpTime = 0;
+    private final int COIN_VALUE = 10;
 
 
     public void update() {
@@ -25,7 +26,7 @@ public class PowerUpController {
 
         if(GameModel.getInstance().getCoinValue()!=1) {
             if (System.currentTimeMillis() - doubleCoinsPickedUpTime >= 10000) {
-                GameModel.getInstance().setCoinValue(1);
+                GameModel.getInstance().setCoinValue(COIN_VALUE);
                 doubleCoinsPickedUpTime = System.currentTimeMillis();
             }
         }
@@ -131,7 +132,7 @@ public class PowerUpController {
 
             if(p.getType()== PowerUpModel.PowerUpType.DOUBLECOINS) {
                 doubleCoinsPickedUpTime = System.currentTimeMillis();
-                GameModel.getInstance().setCoinValue(2);
+                GameModel.getInstance().setCoinValue(COIN_VALUE*2);
             }
 
             else if(p.getType()== PowerUpModel.PowerUpType.SHIELD) {
