@@ -44,7 +44,7 @@ public class GameModel {
         powerUps = new ArrayList<PowerUpModel>();
         speedFixed = false;
         coinsCatched = 0;
-        coinValue = 1;
+        coinValue = 10;
         score = 0;
         initHatchOrder();
     }
@@ -113,8 +113,8 @@ public class GameModel {
      * Increment score and coinsCatched
      */
     public void addCoinCatched() {
-         coinsCatched += coinValue;
-         score++;
+         coinsCatched++;
+         score += coinValue;
     }
 
     /**

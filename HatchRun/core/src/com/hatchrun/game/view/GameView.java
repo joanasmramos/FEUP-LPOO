@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.Input.Peripheral;
 
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
@@ -21,6 +22,7 @@ import com.hatchrun.game.view.entities.EntityView;
 import com.hatchrun.game.view.entities.HatchView;
 import com.hatchrun.game.view.entities.ObstacleView;
 import com.hatchrun.game.view.entities.PowerUpView;
+import com.hatchrun.game.view.HUDview;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ public class GameView extends ScreenAdapter
     private final BackgroundView background = new BackgroundView();
     private final HatchView hatchView;
     private int gyroscopeCtr;
+    private HUDview hud;
 
     public GameView(HatchRun game) {
         this.game = game;
@@ -38,6 +41,7 @@ public class GameView extends ScreenAdapter
         hatchView = new HatchView(game,GameModel.getInstance().getHatch(),false);
         setInputProcessor();
         gyroscopeCtr = 0;
+        hud = new HUDview(game.getBatch());
     }
 
 
@@ -56,10 +60,14 @@ public class GameView extends ScreenAdapter
         GameController.getInstance().update(delta);
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        hud.act(delta);
+
         game.getBatch().begin();
         background.updateAndRender(delta, game.getBatch());
         drawEntities();
         game.getBatch().end();
+
+        hud.draw();
     }
 
 

@@ -115,8 +115,9 @@ public class CoinsController {
 
         for(CoinModel coin : GameModel.getInstance().getCoins()){
             tempCoin = new CoinModel(coin.getLane(), coin.getX(), coin.getY()+coin.getHeight()/4);
-            if(GameController.isOverlapped(GameModel.getInstance().getHatch(), tempCoin))
+            if(GameController.isOverlapped(GameModel.getInstance().getHatch(), tempCoin)) {
                 coinsToRemove.add(coin);
+            }
         }
 
 
