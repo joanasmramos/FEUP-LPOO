@@ -1,6 +1,7 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.Utilities.Pair;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
@@ -26,8 +27,10 @@ public class GameController{
     public static final int startY =  (int) (0.03*Gdx.graphics.getHeight());
     private long lastSecondRegistered = 0;
     public static Random rand;
+    private static boolean over;
 
     private GameController(){
+        over =  false;
         rand = new Random();
     }
 
@@ -154,8 +157,9 @@ public class GameController{
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
             obs = o;
             //obs.setHeigth((int)(o.getHeight()-0.02*o.getHeight()));
-           if(isOverlapped( GameModel.getInstance().getHatch(),obs))
-               System.exit(1);
+           if(isOverlapped( GameModel.getInstance().getHatch(),obs)) {
+               over = true;
+           }
            return true;
         }
         return false;
@@ -245,8 +249,10 @@ public class GameController{
         return true;
     }
 
-
-
+    /**
+     * Moves the hatch according to the gyroscope movements
+     * @param gyroInput Gyroscope angular speed
+     */
     public void treatGyroInput(float gyroInput) {
         if(gyroInput > 4) {
             moveHatch(true);
@@ -254,6 +260,13 @@ public class GameController{
         else if(gyroInput <= -3) {
             moveHatch(false);
         }
+    }
+
+    /**
+     * @return True if game is over, false otherwise
+     */
+    public boolean isOver(){
+        return over;
     }
 
 
