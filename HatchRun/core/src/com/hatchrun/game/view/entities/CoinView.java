@@ -8,10 +8,8 @@ import com.hatchrun.game.model.entities.CoinModel;
 
 public class CoinView extends  EntityView{
 
-    private CoinModel model;
 
-    public CoinView(HatchRun game, CoinModel model){
-        this.model = model;
+    public CoinView(HatchRun game){
         super.sprite = createSprite(game);
     }
 

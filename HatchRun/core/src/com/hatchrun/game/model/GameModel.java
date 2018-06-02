@@ -16,7 +16,6 @@ public class GameModel {
     private ArrayList<ObstacleModel> obstacles;
 
     private ArrayList<CoinModel> coins;
-    private int coinsCatched;
 
     private int coinValue;
     private int score;
@@ -44,7 +43,6 @@ public class GameModel {
         coins = new ArrayList<CoinModel>();
         powerUps = new ArrayList<PowerUpModel>();
         speedFixed = false;
-        coinsCatched = 0;
         coinValue = 10;
         score = 0;
         initHatchOrder();
@@ -72,13 +70,6 @@ public class GameModel {
         return hatch;
     }
 
-    /**
-     * Adds obstacle to game obstacles
-     * @param o obstacle
-     */
-    public void addObstacle(ObstacleModel o) {
-        obstacles.add(o);
-    }
 
     /**
      * Adds coin to game coins
@@ -105,16 +96,12 @@ public class GameModel {
     }
 
 
-    public void setSpeedFixed (boolean speedFixed) {
-        this.speedFixed = speedFixed;
-    }
 
 
     /**
      * Increment score and coinsCatched
      */
     public void addCoinCatched() {
-         coinsCatched++;
          score += coinValue;
     }
 
@@ -134,13 +121,6 @@ public class GameModel {
         this.score = score;
     }
 
-    /**
-     * Returns sound effect for catching coin
-     * @return sound effect for catching coin
-     */
-    public Sound getCatchCoin() {
-        return catchCoin;
-    }
 
     /**
      * Returns array list of game power ups
@@ -209,13 +189,6 @@ public class GameModel {
         return coinValue;
     }
 
-    /**
-     * Returns number of catched coins
-     * @return catched coins
-     */
-    public int getCoinsCatched() {
-        return coinsCatched;
-    }
 
     /**
      * Plays catch coin sound if the game is not muted
@@ -225,12 +198,6 @@ public class GameModel {
             this.catchCoin.play();
     }
 
-    /**
-     * @return true if game is muted, false otherwise
-     */
-    public boolean isMuted(){
-        return muted;
-    }
 
     /**
      * Mutes/unmutes the game

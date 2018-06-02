@@ -16,11 +16,10 @@ public class HatchView extends EntityView {
     private HatchModel model;
     private Texture texture;
     private Texture textureShield;
-    private TextureAtlas hatchAtlas;
     private Sprite s;
+    private TextureAtlas hatchAtlas;
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
-    private long lastTimeChecked = 0;
 
     public HatchView(HatchRun game, HatchModel model) {
         super(game);

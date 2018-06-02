@@ -44,9 +44,6 @@ public class GameView extends ScreenAdapter
     private int gyroscopeCtr;
     private HUDview hud;
     private InputProcessor inputProcessor1;
-    private InputProcessor inputProcessor2;
-    private InputMultiplexer inputMultiplexer;
-    private TextureAtlas hatchAtlas;
     private Animation<TextureRegion> animation;
     private float stateTime  = 0;
 
@@ -54,7 +51,7 @@ public class GameView extends ScreenAdapter
      * Constructs the game view
      * @param game
      */
-    public GameView(HatchRun game) {
+     GameView(HatchRun game) {
         this.game = game;
         new GameModel();
         GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);
@@ -63,12 +60,12 @@ public class GameView extends ScreenAdapter
         gyroscopeCtr = 0;
         hud = new HUDview(game.getBatch());
 
-        inputProcessor2 = hud;
-        inputMultiplexer = new InputMultiplexer();
+        InputProcessor inputProcessor2 = hud;
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(inputProcessor1);
         inputMultiplexer.addProcessor(inputProcessor2);
         Gdx.input.setInputProcessor(inputMultiplexer);
-        hatchAtlas = new TextureAtlas(Gdx.files.internal("hatchgif.atlas"));
+        TextureAtlas hatchAtlas = new TextureAtlas(Gdx.files.internal("hatchgif.atlas"));
         animation = new Animation<TextureRegion>(1 /5f, hatchAtlas.getRegions());
     }
 
@@ -126,7 +123,7 @@ public class GameView extends ScreenAdapter
 
 
         for (int i = 0; i < coins.size(); i++){
-            EntityView entity = new CoinView(game, coins.get(i));
+            EntityView entity = new CoinView(game);
             entity.draw(game.getBatch(), coins.get(i).getX(), coins.get(i).getY());
         }
 
@@ -154,7 +151,7 @@ public class GameView extends ScreenAdapter
     }
 
 
-    public void setInputProcessor(){
+    private void setInputProcessor(){
 
         inputProcessor1 = new GestureDetector(new GestureDetector.GestureAdapter() {
             @Override

@@ -8,9 +8,9 @@ import com.hatchrun.game.model.GameModel;
 
 public class BackgroundView {
 
-    Texture image;
-    float y1, y2, y3;
-    float imageScale;
+    private Texture image;
+    private float y1, y2, y3;
+    private float imageScale;
 
     public BackgroundView () {
         image = new Texture("floor.png");

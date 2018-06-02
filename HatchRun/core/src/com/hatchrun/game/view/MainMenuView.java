@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
+import com.hatchrun.game.Utilities.Facebook;
 
 
 public class MainMenuView extends ScreenAdapter {
@@ -23,8 +24,9 @@ public class MainMenuView extends ScreenAdapter {
     private BitmapFont buttonFont;
 
 
-
     public MainMenuView(HatchRun game){
+        Facebook f = new Facebook();
+        f.login();
         this.game = game;
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);

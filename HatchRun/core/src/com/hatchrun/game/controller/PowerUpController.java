@@ -63,7 +63,7 @@ public class PowerUpController {
         return temp;
     }
 
-    public void generatePowerUp() {
+    private void generatePowerUp() {
 
 
         PowerUpModel temp = generatePowerUpAux();

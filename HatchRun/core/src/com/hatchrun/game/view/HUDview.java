@@ -35,8 +35,6 @@ public class HUDview extends Stage {
     private ImageButton.ImageButtonStyle playStyle;
     private ImageButton.ImageButtonStyle muteStyle;
     private ImageButton.ImageButtonStyle unmuteStyle;
-    private boolean shielded;
-    private boolean doubleCoins;
     private boolean pause;
     private boolean muted;
     private int score;
@@ -94,7 +92,7 @@ public class HUDview extends Stage {
     /**
      * Sets up the pause/unpause buttons: creates them and adds listener
      */
-    public void setUpPauseButtons() {
+    private void setUpPauseButtons() {
         pause = false;
 
         pauseButton = btnFactory.getButton(Gdx.files.internal("pause_button.png"));
@@ -120,7 +118,7 @@ public class HUDview extends Stage {
     /**
      * Sets up the right table, which has the score
      */
-    public void setUpRightTable(){
+    private void setUpRightTable(){
         score = GameModel.getInstance().getScore();
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(bmap, Color.WHITE));
 
@@ -137,7 +135,7 @@ public class HUDview extends Stage {
     /**
      * Sets up the left table, which has pause and sound buttons
      */
-    public void setUpLeftTable() {
+    private void setUpLeftTable() {
         leftTable = new Table();
         leftTable.top();
         leftTable.setFillParent(true);
