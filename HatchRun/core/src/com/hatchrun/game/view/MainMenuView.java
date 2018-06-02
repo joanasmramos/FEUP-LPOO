@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.Utilities.Facebook;
+import com.restfb.types.User;
 
 
 public class MainMenuView extends ScreenAdapter {
