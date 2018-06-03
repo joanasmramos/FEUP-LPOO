@@ -12,6 +12,8 @@ public class ObstacleModel extends EntityModel {
 */
 
     public enum Colour {PINK, BLUE, YELLOW}
+
+
     private Colour colour;
 
     /**
@@ -36,5 +38,6 @@ public class ObstacleModel extends EntityModel {
     public Colour getColour() {
         return colour;
     }
+
 
 }

@@ -1,8 +1,6 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.EntityModel;

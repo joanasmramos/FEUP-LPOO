@@ -10,7 +10,6 @@ import com.hatchrun.game.model.entities.ObstacleModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 public class GameController{
@@ -23,15 +22,13 @@ public class GameController{
     public static final int leftX = startX;
     public static final int centerX =(int)( startX+(9+playableWidth/3));
     public static final int rightX =(int)( startX+2*(9+playableWidth/3));
-    public static final int widthLane = centerX - leftX;
     public static final int startY =  (int) (0.03*Gdx.graphics.getHeight());
     private long lastSecondRegistered = 0;
     public static Random rand;
     private float currDelta= 0;
 
 
-
-    public GameController(){
+    private GameController(){
         rand = new Random();
     }
 
@@ -257,7 +254,10 @@ public class GameController{
     }
 
 
-
+    /**
+     * Deals with input from gyroscope
+     * @param gyroInput float
+     */
     public void treatGyroInput(float gyroInput) {
         if(gyroInput > 4) {
             moveHatch(true);
@@ -268,17 +268,5 @@ public class GameController{
     }
 
 
-    public static CoinsController getCoinsController() {
-        return coinsController;
-    }
-
-
-    public static ObstaclesController getObstaclesController() {
-        return obstaclesController;
-    }
-
-    public static PowerUpController getPowerUpController() {
-        return powerUpController;
-    }
 
 }

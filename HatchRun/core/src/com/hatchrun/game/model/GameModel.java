@@ -23,7 +23,7 @@ public class GameModel {
     private ArrayList<PowerUpModel> powerUps;
     private static GameModel instance;
     public int OBSTACLE_TIME = 2000;
-    public int COIN_TIME = 3000;
+    public int COIN_TIME = 4000;
     public int POWER_TIME = 7000;
     public final double ACCELERATION = 1.005;
     public int speed = 300;
@@ -59,6 +59,9 @@ public class GameModel {
     }
 
 
+    /**
+     * Alternative constuctor for Game Model
+     */
     public GameModel(float x, float y){
         instance = this;
         hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, x,y);
@@ -82,10 +85,18 @@ public class GameModel {
         return instance;
     }
 
+    /**
+     * Tells if current play game is over
+     * @return boolean
+     */
     public  boolean isOver() {
         return over;
     }
 
+    /**
+     * Sets game state
+     * @param over boolean
+     */
     public  void setOver(boolean over) {
         this.over = over;
     }
@@ -236,6 +247,9 @@ public class GameModel {
         muted = mute;
     }
 
+    /**
+     * Resets the whole Game Model
+     */
     public void resetModel(){
         hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, GameController.centerX,GameController.startY);
         obstacles.clear();

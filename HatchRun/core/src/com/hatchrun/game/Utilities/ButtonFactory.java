@@ -17,9 +17,6 @@ public class ButtonFactory {
     private BitmapFont buttonFont;
     private TextButton button;
 
-    public ButtonFactory(){
-
-    }
 
     /**
      * Constructs a TextButton

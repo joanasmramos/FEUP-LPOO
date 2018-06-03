@@ -14,11 +14,6 @@ public class ImageButtonFactory {
     private TextureRegion btnTexReg;
     private TextureRegionDrawable drawable;
 
-    /**
-     * Constructor for class
-     */
-    public ImageButtonFactory() {
-    }
 
     /**
      * Constructs an ImageButton with the given image

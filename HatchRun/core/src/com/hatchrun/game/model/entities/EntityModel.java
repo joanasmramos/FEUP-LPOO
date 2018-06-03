@@ -14,8 +14,6 @@ public  class EntityModel {
 
     public enum ElementLane {LEFT, MIDDLE, RIGHT}
 
-    ;
-
     private ElementLane lane;
     private float x;
     private float y;
@@ -23,9 +21,9 @@ public  class EntityModel {
     /**
      * Constructs a game element in the given position
      *
-     * @param lane The current lane of the element
-     * @param x    X coordinate
-     * @param y    Y coordinate
+     * @param lane enum, The current lane of the element
+     * @param x    float, X coordinate
+     * @param y    float, Y coordinate
      */
     EntityModel(ElementLane lane, float x, float y) {
         this.lane = lane;
@@ -33,7 +31,14 @@ public  class EntityModel {
         this.y = y;
     }
 
-
+    /**
+     * Alternative constructor for Entity Model
+     * @param lane enum, The current lane of the element
+     * @param x    float, X coordinate
+     * @param y    float, Y coordinate
+     * @param width int
+     * @param heigth int
+     */
     EntityModel(ElementLane lane, float x, float y, int width, int heigth) {
         this.lane = lane;
         this.x = x;
@@ -97,18 +102,34 @@ public  class EntityModel {
     }
 
 
+    /**
+     * Returns width
+     * @return int
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Returns height
+     * @return int
+     */
     public int getHeight() {
         return heigth;
     }
 
+    /**
+     * Sets height to a certain value
+     * @param heigth int
+     */
     public void setHeigth(int heigth) {
         this.heigth = heigth;
     }
 
+    /**
+     * Sets width to a certain value
+     * @param width int
+     */
     public void setWidth(int width) {
         this.width = width;
     }

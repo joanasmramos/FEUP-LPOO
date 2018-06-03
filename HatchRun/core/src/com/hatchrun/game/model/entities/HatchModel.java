@@ -61,12 +61,18 @@ public class HatchModel extends EntityModel {
     }
 
 
-
-
+    /**
+     * Returns hatch current state
+     * @return enum HatchState
+     */
     public HatchState getCurrentState() {
         return currentState;
     }
 
+    /**
+     * Sets hatch current state
+     * @param currentState num HatchState
+     */
     public void setCurrentState(HatchState currentState) {
         this.currentState = currentState;
     }
