@@ -7,14 +7,27 @@ import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.entities.CoinModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
 
+/**
+ * Power Up View
+ */
 public class PowerUpView extends  EntityView{
     private PowerUpModel model;
 
+    /**
+     * Constructs power up view
+     * @param game Game
+     * @param model Obstacle's model
+     */
     public PowerUpView(HatchRun game, PowerUpModel model){
         this.model = model;
         super.sprite = createSprite(game);
     }
 
+    /**
+     * Creates sprite
+     * @param game Game
+     * @return Sprite created
+     */
     @Override
     public Sprite createSprite(HatchRun game) {
         Texture texture = null;
@@ -33,6 +46,12 @@ public class PowerUpView extends  EntityView{
         return new Sprite(texture);
     }
 
+    /**
+     * Draws obstacle
+     * @param batch Batch
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     @Override
     public void draw(SpriteBatch batch, float x, float y) {
         sprite.setX(x);

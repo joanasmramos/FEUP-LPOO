@@ -35,7 +35,9 @@ public class GameModel {
     private boolean muted = false;
     private boolean over;
 
-
+    /**
+     * Constructs a Game Model
+     */
     public GameModel(){
         instance = this;
         hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, GameController.centerX,GameController.startY);

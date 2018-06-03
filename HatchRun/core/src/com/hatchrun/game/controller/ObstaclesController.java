@@ -65,6 +65,11 @@ public class ObstaclesController {
     }
 
 
+    /**
+     * Checks collision between the given obstacle and other objects
+     * @param tempObs Obstacle
+     * @return True if collision, false otherwise
+     */
     private boolean checkCollisionOtherObjetcs(ObstacleModel tempObs){
 
 

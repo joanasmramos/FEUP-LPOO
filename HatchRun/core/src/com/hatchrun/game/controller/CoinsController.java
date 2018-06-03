@@ -9,6 +9,9 @@ import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
 
+/**
+ * Coins controller
+ */
 public class CoinsController {
 
     private long lastTimeRegisteredCoins = 0;
@@ -76,7 +79,11 @@ public class CoinsController {
 
     }
 
-
+    /**
+     * Checks collisions between the given coin and other objects
+     * @param coin Coin
+     * @return True if collision, false otherwise
+     */
     private boolean checkCollisionOtherObjetcs(CoinModel coin){
 
         for (ObstacleModel o : GameModel.getInstance().getObstacles()) {

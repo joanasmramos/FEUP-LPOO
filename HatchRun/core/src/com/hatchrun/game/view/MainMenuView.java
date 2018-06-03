@@ -38,12 +38,18 @@ public class MainMenuView extends ScreenAdapter {
         initButtons();
     }
 
-
+    /**
+     * Disposes the stage
+     */
     @Override
     public void dispose(){
         stage.dispose();
     }
 
+    /**
+     * Updates according to time
+     * @param delta Time since last update
+     */
     @Override
     public void render(float delta) {
 
@@ -56,7 +62,9 @@ public class MainMenuView extends ScreenAdapter {
         this.stage.draw();
     }
 
-
+    /**
+     * Adds the main menu's buttons listeners
+     */
     private void addButtonsListeners(){
         playButton.addListener(new ClickListener(){
             @Override
@@ -76,6 +84,9 @@ public class MainMenuView extends ScreenAdapter {
 
     }
 
+    /**
+     * Initialises buttons
+     */
     private void initButtons(){
         parameter.size = 100;
         buttonFont = generator.generateFont(parameter);

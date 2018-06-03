@@ -11,6 +11,9 @@ import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.HatchModel;
 
+/**
+ * Hatch view
+ */
 public class HatchView extends EntityView {
 
     private HatchModel model;
@@ -21,6 +24,11 @@ public class HatchView extends EntityView {
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
 
+    /**
+     * Constructs a hatch view
+     * @param game Game
+     * @param model Hatch's model
+     */
     public HatchView(HatchRun game, HatchModel model) {
         super(game);
         this.model = model;
@@ -29,6 +37,9 @@ public class HatchView extends EntityView {
         textureShield = game.getAssetManager().get("shieldeffect.png", Texture.class);
     }
 
+    /**
+     * Creates an atlas
+     */
     private void createAtlas() {
         switch (GameModel.getInstance().getHatchOrder().get(GameModel.getInstance().getHatchOrderIndex())) {
             case BLUE:
@@ -43,6 +54,11 @@ public class HatchView extends EntityView {
         }
     }
 
+    /**
+     * Creates sprite
+     * @param game Game
+     * @return Sprite created
+     */
     @Override
     public Sprite createSprite(HatchRun game) {
 
@@ -63,6 +79,12 @@ public class HatchView extends EntityView {
         return s;
     }
 
+    /**
+     * Draws hatch
+     * @param batch Batch
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     @Override
     public void draw(SpriteBatch batch, float x, float y) {
         stateTime += Gdx.graphics.getDeltaTime();
@@ -84,6 +106,10 @@ public class HatchView extends EntityView {
 
     }
 
+    /**
+     * Sets the boolean still
+     * @param still True if hatch is still, false otherwise
+     */
     public void setStill(boolean still){
         if(still) GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.STILL);
         else GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);

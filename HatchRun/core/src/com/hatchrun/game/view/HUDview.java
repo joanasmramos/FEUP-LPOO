@@ -150,7 +150,7 @@ public class HUDview extends Stage {
 
     /**
      * Updates
-     * @param delta
+     * @param delta Time since last update
      */
     @Override
     public void act(float delta) {
@@ -161,8 +161,8 @@ public class HUDview extends Stage {
     }
 
     /**
-     * Tells if the HUD is currently paused
-     * @return boolean
+     * Tells if the user paused the game
+     * @return boolean True if paused, false otherwise
      */
     public boolean isPaused() {
         return pause;

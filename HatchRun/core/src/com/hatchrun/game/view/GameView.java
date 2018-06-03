@@ -70,6 +70,10 @@ public class GameView extends ScreenAdapter
     }
 
 
+    /**
+     * Updates view and model according to time and user inputs
+     * @param delta Time since last update
+     */
     @Override
     public void render(float delta) {
 
@@ -118,8 +122,9 @@ public class GameView extends ScreenAdapter
         hud.draw();
     }
 
-
-
+    /**
+     * Draws entities
+     */
     private void drawEntities() {
 
         ArrayList<CoinModel> coins = GameModel.getInstance().getCoins();
@@ -153,7 +158,9 @@ public class GameView extends ScreenAdapter
             hatchView.draw(game.getBatch(), GameModel.getInstance().getHatch().getX(), GameModel.getInstance().getHatch().getY());
     }
 
-
+    /**
+     * Sets up input processor for the fling gesture (switch lane)
+     */
     private void setInputProcessor(){
 
         inputProcessor1 = new GestureDetector(new GestureDetector.GestureAdapter() {

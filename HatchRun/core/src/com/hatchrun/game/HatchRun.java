@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hatchrun.game.view.MainMenuView;
 
 /**
+ *
  * Main Game class
  */
 public class HatchRun extends Game {

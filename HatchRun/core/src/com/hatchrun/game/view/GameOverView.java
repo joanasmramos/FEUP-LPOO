@@ -19,32 +19,43 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.model.GameModel;
 
+/**
+ * Game over view
+ */
 public class GameOverView extends ScreenAdapter {
 
     private TextButton exitButton;
+    private TextButton playAgain;
     private Label scoreLabel;
     private Label youLost;
     private Label yourScore;
     private Stage stage;
     private HatchRun game;
     private Table table;
-    private Table table2;
     private ScreenViewport viewport;
-    private Image background;
 
-
+    /**
+     * Constructs a new game over view
+     * @param game Game
+     */
      GameOverView(HatchRun game) {
         this.game = game;
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
 
         setUpExitButton();
+        setUpPlayButton();
         setUpLabels();
         setUpTable();
         Gdx.input.setInputProcessor(stage);
     }
 
-
+    /**
+     * Creates a BitmapFont given a ttf and a size
+     * @param size Size
+     * @param file .ttf file
+     * @return BitmapFont created
+     */
     private BitmapFont createBmapFont(int size, String file) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(file));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -53,6 +64,11 @@ public class GameOverView extends ScreenAdapter {
         return bmap;
     }
 
+    /**
+     * Creates TextButtonStyle given a BitmapFont
+     * @param bmap BitmapFont
+     * @return TextButtonStyle created
+     */
     private TextButton.TextButtonStyle createStyle(BitmapFont bmap) {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = bmap;
@@ -60,6 +76,9 @@ public class GameOverView extends ScreenAdapter {
         return style;
     }
 
+    /**
+     * Sets up table with the labels and buttons for this view
+     */
     private void setUpTable() {
         table = new Table();
 
@@ -70,6 +89,8 @@ public class GameOverView extends ScreenAdapter {
         table.row();
         table.add(scoreLabel);
         table.row();
+        table.add(playAgain);
+        table.row();
         table.add(exitButton);
         table.padBottom(40);
 
@@ -77,18 +98,38 @@ public class GameOverView extends ScreenAdapter {
 
     }
 
+    /**
+     * Sets up labels for this view
+     */
     private void setUpLabels() {
         youLost = new Label("YOU LOST!", new Label.LabelStyle(createBmapFont(200, "fonts/knewave.ttf"), Color.BLACK));
         yourScore = new Label("Your score:", new Label.LabelStyle(createBmapFont(100, "fonts/knewave.ttf"), Color.BLACK));
         scoreLabel = new Label(String.format("%06d", GameModel.getInstance().getScore()), new Label.LabelStyle(createBmapFont(150, "fonts/knewave.ttf"), Color.BLACK));
     }
 
+    /**
+     * Sets up an Exit button and its listener
+     */
     private void setUpExitButton() {
-        exitButton = new TextButton("Play Again", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
-        exitButton.setColor(Color.BLACK);
+        exitButton = new TextButton("Exit", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
         exitButton.align(Align.center);
 
         exitButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.exit(0);
+            }
+        });
+    }
+
+    /**
+     * Sets up a Play Again button and its listener
+     */
+    private void setUpPlayButton(){
+        playAgain = new TextButton("Play Again", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
+        playAgain.align(Align.center);
+
+        playAgain.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameModel.getInstance().resetModel();
@@ -97,6 +138,10 @@ public class GameOverView extends ScreenAdapter {
         });
     }
 
+    /**
+     * Updates view according to time
+     * @param delta Time since last update
+     */
     @Override
     public void render(float delta) {
         game.getBatch().begin();
@@ -107,9 +152,13 @@ public class GameOverView extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Disposes
+     */
     @Override
     public void dispose() {
         super.dispose();
+        stage.dispose();
     }
 
 

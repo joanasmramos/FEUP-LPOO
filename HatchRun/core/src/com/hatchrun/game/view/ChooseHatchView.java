@@ -37,7 +37,10 @@ public class ChooseHatchView extends ScreenAdapter {
     private TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
     private InputMultiplexer multiplexer = new InputMultiplexer();
 
-
+    /**
+     * Constructs a new choose menu
+     * @param game
+     */
     ChooseHatchView(HatchRun game){
         this.game = game;
         this.stage = new Stage();
@@ -47,13 +50,19 @@ public class ChooseHatchView extends ScreenAdapter {
     }
 
 
-
+    /**
+     * Disposes stage
+     */
     @Override
     public void dispose(){
         stage.dispose();
     }
 
 
+    /**
+     * Updates menu according to time
+     * @param delta
+     */
     @Override
     public void render(float delta) {
 
@@ -73,6 +82,9 @@ public class ChooseHatchView extends ScreenAdapter {
     }
 
 
+    /**
+     * Adds buton listeners
+     */
     private void addButtonsListeners(){
         playButton.addListener(new ClickListener(){
             @Override
@@ -82,6 +94,9 @@ public class ChooseHatchView extends ScreenAdapter {
         });
     }
 
+    /**
+     * Initializes buttons
+     */
     private void initButtons(){
         parameter.size = 150;
         parameter.color = Color.WHITE;
@@ -97,7 +112,9 @@ public class ChooseHatchView extends ScreenAdapter {
     }
 
 
-
+    /**
+     * Initializes multiplexer, overrides fling (expected input)
+     */
     private void initMultiplexer() {
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {

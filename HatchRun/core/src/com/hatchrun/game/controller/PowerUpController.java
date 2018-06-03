@@ -16,7 +16,9 @@ public class PowerUpController {
     private long shieldPickedUpTime = 0;
     private final int COIN_VALUE = 10;
 
-
+    /**
+     * Updates power-ups according to time
+     */
     public void update() {
         if (System.currentTimeMillis() - lastTimeRegistered >= GameModel.getInstance().POWER_TIME) {
             generatePowerUp();
@@ -43,6 +45,10 @@ public class PowerUpController {
         catchPowerUp();
     }
 
+    /**
+     * Generates a power up in a random lane
+     * @return Generated power up
+     */
     private PowerUpModel generatePowerUpAux() {
         PowerUpModel temp = null;
 
@@ -63,6 +69,9 @@ public class PowerUpController {
         return temp;
     }
 
+    /**
+     * Generates a power up, checking if its coordinates are valid (doesn't colide with other objects)
+     */
     private void generatePowerUp() {
 
 
@@ -75,9 +84,8 @@ public class PowerUpController {
 
 
     /**
-     * Generates an obstacle colour.
-     *
-     * @return generated colour
+     * Generates a power up type
+     * @return Generated power up type
      */
     private PowerUpModel.PowerUpType generateType() {
         switch (GameController.rand.nextInt(2)) {
@@ -90,7 +98,11 @@ public class PowerUpController {
         }
     }
 
-
+    /**
+     * Checks collisions between the given power up and other objects
+     * @param tempP
+     * @return True if collisions, false otherwise
+     */
     private boolean checkCollisionOtherObjetcs(PowerUpModel tempP) {
         ObstacleModel temp2;
 
@@ -115,6 +127,9 @@ public class PowerUpController {
 
     }
 
+    /**
+     * Removes the catched power ups, updates score/hatch if needed
+     */
     private void catchPowerUp(){
         PowerUpModel temp;
 

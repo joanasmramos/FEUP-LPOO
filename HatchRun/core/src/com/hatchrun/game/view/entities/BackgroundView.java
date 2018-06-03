@@ -6,12 +6,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hatchrun.game.model.GameModel;
 
+/**
+ * Background view
+ */
 public class BackgroundView {
 
     private Texture image;
     private float y1, y2, y3;
     private float imageScale;
 
+    /**
+     * Constructs a background view
+     */
     public BackgroundView () {
         image = new Texture("floor.png");
 
@@ -21,6 +27,11 @@ public class BackgroundView {
         imageScale = Gdx.graphics.getHeight() / image.getHeight();
     }
 
+    /**
+     * Updates the view according to the time
+     * @param deltaTime Time since last update
+     * @param batch Sprite Batch
+     */
     public void updateAndRender (float deltaTime, SpriteBatch batch) {
 
         y1 -= GameModel.getInstance().speed * deltaTime;
