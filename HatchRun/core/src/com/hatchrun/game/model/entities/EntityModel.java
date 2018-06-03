@@ -9,10 +9,12 @@ import java.util.ArrayList;
  */
 public  class EntityModel {
 
-    private  int width = 200;
-    private  int heigth = 200;
+    private int width = 200;
+    private int heigth = 200;
 
-    public enum ElementLane {LEFT, MIDDLE, RIGHT};
+    public enum ElementLane {LEFT, MIDDLE, RIGHT}
+
+    ;
 
     private ElementLane lane;
     private float x;
@@ -20,9 +22,10 @@ public  class EntityModel {
 
     /**
      * Constructs a game element in the given position
+     *
      * @param lane The current lane of the element
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param x    X coordinate
+     * @param y    Y coordinate
      */
     EntityModel(ElementLane lane, float x, float y) {
         this.lane = lane;
@@ -41,13 +44,16 @@ public  class EntityModel {
 
     /**
      * Returns the element's lane
+     *
      * @return Element's lane
      */
     public ElementLane getLane() {
         return lane;
     }
+
     /**
      * Sets the element's lane to the given lane
+     *
      * @param lane Given lane
      */
     public void setLane(ElementLane lane) {
@@ -56,6 +62,7 @@ public  class EntityModel {
 
     /**
      * Returns the game element's x coordinate in meters
+     *
      * @return X coordinate
      */
     public float getX() {
@@ -64,6 +71,7 @@ public  class EntityModel {
 
     /**
      * Sets the game element's x coordinate
+     *
      * @param x X coordinate in meters
      */
     public void setX(float x) {
@@ -72,6 +80,7 @@ public  class EntityModel {
 
     /**
      * Returns the game element's y coordinate in meters
+     *
      * @return Y coordinate
      */
     public float getY() {
@@ -80,6 +89,7 @@ public  class EntityModel {
 
     /**
      * Sets the game element's y coordinate
+     *
      * @param y Y coordinate in meters
      */
     public void setY(float y) {
@@ -87,15 +97,20 @@ public  class EntityModel {
     }
 
 
-    public  int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public  int getHeight() {
+    public int getHeight() {
         return heigth;
     }
 
     public void setHeigth(int heigth) {
         this.heigth = heigth;
     }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 }
+
