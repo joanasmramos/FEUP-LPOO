@@ -54,6 +54,7 @@ public class GameView extends ScreenAdapter
      GameView(HatchRun game) {
         this.game = game;
         new GameModel();
+        GameModel.getInstance().setCatchCoin(Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3")));
         GameModel.getInstance().getHatch().setCurrentState(HatchModel.HatchState.RUNNING);
         hatchView = new HatchView(game,GameModel.getInstance().getHatch());
         setInputProcessor();

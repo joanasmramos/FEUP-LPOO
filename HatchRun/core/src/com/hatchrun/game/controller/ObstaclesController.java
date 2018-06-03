@@ -52,7 +52,7 @@ public class ObstaclesController {
     /**
      * Generates new obstacle.
      */
-    private void generateObstacle() {
+    public void generateObstacle() {
         ObstacleModel temp = generateObstacleAux();
 
 

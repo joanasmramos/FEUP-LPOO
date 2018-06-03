@@ -31,7 +31,16 @@ public class HatchModel extends EntityModel {
         currentState = HatchState.STILL;
     }
 
-
+    /**
+     * Constructs a hatch (default = purple) in the default (0,0) position
+     * with no coins, zero score, not shielded
+     */
+    public HatchModel() {
+        super(ElementLane.MIDDLE, 0, 0, 200, 301);
+        shielded = false;
+       currentHatch = HatchType.BLUE;
+       currentState = HatchState.STILL;
+    }
 
 
 

@@ -92,7 +92,7 @@
     <orderEntry type="library" exported="" name="Gradle: com.badlogicgames.gdx:gdx-box2d:1.9.8@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.badlogicgames.gdx:gdx-freetype:1.9.8@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.badlogicgames.gdx:gdx:1.9.8@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: __local_jars__:C.\Users\Joana\Desktop\Faculdade\2ano\2s\LPOO\LPOO1718_T4G8\HatchRun\libs\restfb-2.5.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/beamendes/Google Drive/MIEIC/2º ano/LPOO/LPOO1718_T4G8/HatchRun/libs/restfb-2.5.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.badlogicgames.gdx:gdx-backend-android:1.9.8@jar" level="project" />
     <orderEntry type="module" module-name="core" exported="" />
   </component>

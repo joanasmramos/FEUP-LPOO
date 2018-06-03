@@ -31,7 +31,7 @@ public class GameController{
 
 
 
-    private GameController(){
+    public GameController(){
         rand = new Random();
     }
 
@@ -268,5 +268,17 @@ public class GameController{
     }
 
 
+    public static CoinsController getCoinsController() {
+        return coinsController;
+    }
+
+
+    public static ObstaclesController getObstaclesController() {
+        return obstaclesController;
+    }
+
+    public static PowerUpController getPowerUpController() {
+        return powerUpController;
+    }
 
 }

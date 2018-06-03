@@ -57,7 +57,7 @@ public class CoinsController {
     /**
      * Generates multiple coins in a row.
      */
-    private void generateCoins() {
+    public void generateCoins() {
 
 
         ArrayList<CoinModel> coinsToAdd = new ArrayList<CoinModel>();

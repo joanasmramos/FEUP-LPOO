@@ -31,7 +31,15 @@ public class GameModel {
     private static ArrayList<HatchModel.HatchType> hatchOrder = new ArrayList<HatchModel.HatchType>();
     private static int hatchOrderIndex = 1;
 
-    private Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
+    public Sound getCatchCoin() {
+        return catchCoin;
+    }
+
+    public void setCatchCoin(Sound catchCoin) {
+        this.catchCoin = catchCoin;
+    }
+
+    private Sound catchCoin;
     private boolean muted = false;
     private boolean over;
 
@@ -51,6 +59,17 @@ public class GameModel {
     }
 
 
+    public GameModel(float x, float y){
+        instance = this;
+        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, x,y);
+        obstacles = new ArrayList<ObstacleModel>();
+        coins = new ArrayList<CoinModel>();
+        powerUps = new ArrayList<PowerUpModel>();
+        coinValue = 10;
+        score = 0;
+        over =  false;
+        initHatchOrder();
+    }
 
 
     /**
