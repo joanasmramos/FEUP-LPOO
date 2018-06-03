@@ -35,8 +35,7 @@ public class ChooseHatchView extends ScreenAdapter {
     private FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave-outline.ttf"));
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     private TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-    private BitmapFont buttonFont;
-    InputMultiplexer multiplexer = new InputMultiplexer();
+    private InputMultiplexer multiplexer = new InputMultiplexer();
 
 
     ChooseHatchView(HatchRun game){
@@ -86,7 +85,7 @@ public class ChooseHatchView extends ScreenAdapter {
     private void initButtons(){
         parameter.size = 150;
         parameter.color = Color.WHITE;
-        buttonFont = generator.generateFont(parameter);
+        BitmapFont buttonFont = generator.generateFont(parameter);
         style.font = buttonFont;
 
         playButton = new TextButton("Play",style);

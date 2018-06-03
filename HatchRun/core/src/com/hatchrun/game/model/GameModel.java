@@ -23,10 +23,9 @@ public class GameModel {
     private ArrayList<PowerUpModel> powerUps;
     private static GameModel instance;
     public int OBSTACLE_TIME = 2000;
-    public int COIN_TIME = 2500;
+    public int COIN_TIME = 3000;
     public int POWER_TIME = 7000;
     public final double ACCELERATION = 1.005;
-    public boolean speedFixed;
     public int speed = 300;
 
     private static ArrayList<HatchModel.HatchType> hatchOrder = new ArrayList<HatchModel.HatchType>();
@@ -34,6 +33,7 @@ public class GameModel {
 
     private Sound catchCoin = Gdx.audio.newSound(Gdx.files.internal("soundEffects/catchcoin.mp3"));
     private boolean muted = false;
+    private boolean over;
 
 
     public GameModel(){
@@ -42,9 +42,9 @@ public class GameModel {
         obstacles = new ArrayList<ObstacleModel>();
         coins = new ArrayList<CoinModel>();
         powerUps = new ArrayList<PowerUpModel>();
-        speedFixed = false;
         coinValue = 10;
         score = 0;
+        over =  false;
         initHatchOrder();
     }
 
@@ -59,6 +59,14 @@ public class GameModel {
         if (instance == null)
             new GameModel();
         return instance;
+    }
+
+    public  boolean isOver() {
+        return over;
+    }
+
+    public  void setOver(boolean over) {
+        this.over = over;
     }
 
 
@@ -206,4 +214,15 @@ public class GameModel {
     public void setMuted(boolean mute) {
         muted = mute;
     }
+
+    public void resetModel(){
+        hatch = new HatchModel(EntityModel.ElementLane.MIDDLE, GameController.centerX,GameController.startY);
+        obstacles.clear();
+        coins.clear();
+        powerUps.clear();
+        coinValue = 10;
+        score = 0;
+        over =  false;
+    }
+
 }

@@ -33,7 +33,7 @@ public class GameOverView extends ScreenAdapter {
     private Image background;
 
 
-    public GameOverView(HatchRun game) {
+     GameOverView(HatchRun game) {
         this.game = game;
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
@@ -80,18 +80,19 @@ public class GameOverView extends ScreenAdapter {
     private void setUpLabels() {
         youLost = new Label("YOU LOST!", new Label.LabelStyle(createBmapFont(200, "fonts/knewave.ttf"), Color.BLACK));
         yourScore = new Label("Your score:", new Label.LabelStyle(createBmapFont(100, "fonts/knewave.ttf"), Color.BLACK));
-        scoreLabel = new Label(String.format("%06d", GameModel.getInstance().getScore()), new Label.LabelStyle(createBmapFont(150, "fonts/knewave-outline.ttf"), Color.BLACK));
+        scoreLabel = new Label(String.format("%06d", GameModel.getInstance().getScore()), new Label.LabelStyle(createBmapFont(150, "fonts/knewave.ttf"), Color.BLACK));
     }
 
-    public void setUpExitButton() {
-        exitButton = new TextButton("EXIT", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
+    private void setUpExitButton() {
+        exitButton = new TextButton("Play Again", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
         exitButton.setColor(Color.BLACK);
         exitButton.align(Align.center);
 
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.exit(0);
+                GameModel.getInstance().resetModel();
+                game.setScreen(new ChooseHatchView(game));
             }
         });
     }

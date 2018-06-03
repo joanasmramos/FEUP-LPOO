@@ -1,7 +1,6 @@
 package com.hatchrun.game.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.Utilities.Pair;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.CoinModel;
@@ -11,6 +10,7 @@ import com.hatchrun.game.model.entities.ObstacleModel;
 import com.hatchrun.game.model.entities.PowerUpModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 public class GameController{
@@ -27,10 +27,11 @@ public class GameController{
     public static final int startY =  (int) (0.03*Gdx.graphics.getHeight());
     private long lastSecondRegistered = 0;
     public static Random rand;
-    private static boolean over;
+    private float currDelta= 0;
+
+
 
     private GameController(){
-        over =  false;
         rand = new Random();
     }
 
@@ -51,6 +52,8 @@ public class GameController{
      * @param delta
      */
     public void update(float delta){
+
+        currDelta = delta;
 
         coinsController.update();
         obstaclesController.update();
@@ -156,9 +159,9 @@ public class GameController{
 
         for(ObstacleModel o : GameModel.getInstance().getObstacles()) {
             obs = o;
-            //obs.setHeigth((int)(o.getHeight()-0.02*o.getHeight()));
+
            if(isOverlapped( GameModel.getInstance().getHatch(),obs)) {
-               over = true;
+               GameModel.getInstance().setOver(true);
            }
            return true;
         }
@@ -222,14 +225,18 @@ public class GameController{
      */
     public void moveHatch(boolean side){
 
+
         Pair<EntityModel.ElementLane,Integer> p = getDirection(side);
 
+        float y = GameModel.getInstance().getHatch().getY()-GameModel.getInstance().speed*currDelta;
+
         if (p != null) {
-            if(canMove(p.getSecond())) {
+            if(canMove(p.getSecond(),y)) {
                 GameModel.getInstance().getHatch().setLane(p.getFirst());
                 GameModel.getInstance().getHatch().setX(p.getSecond());
             } else Gdx.input.vibrate(500);
         }
+
     }
 
 
@@ -238,21 +245,19 @@ public class GameController{
      * @param x position
      * @return true if can move, false if else
      */
-    private boolean canMove(float x){
+    private boolean canMove(float x, float y){
         ObstacleModel o;
 
         if(GameModel.getInstance().getObstacles().size()>0) {
             o = GameModel.getInstance().getObstacles().get(0);
 
-            return !(isOverlapped( new HatchModel(GameModel.getInstance().getHatch().getLane(), x, GameModel.getInstance().getHatch().getY()),o));
+            return !(isOverlapped( new HatchModel(GameModel.getInstance().getHatch().getLane(), x, y),o));
         }
         return true;
     }
 
-    /**
-     * Moves the hatch according to the gyroscope movements
-     * @param gyroInput Gyroscope angular speed
-     */
+
+
     public void treatGyroInput(float gyroInput) {
         if(gyroInput > 4) {
             moveHatch(true);
@@ -260,13 +265,6 @@ public class GameController{
         else if(gyroInput <= -3) {
             moveHatch(false);
         }
-    }
-
-    /**
-     * @return True if game is over, false otherwise
-     */
-    public boolean isOver(){
-        return over;
     }
 
 

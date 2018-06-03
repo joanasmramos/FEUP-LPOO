@@ -75,7 +75,7 @@ public class GameView extends ScreenAdapter
 
         game.getBatch().begin();
 
-        if(GameController.getInstance().isOver()){
+        if(GameModel.getInstance().isOver()){
             game.setScreen(new GameOverView(game));
         }
 
