@@ -18,4 +18,6 @@ Authors:
 
 [Final Project Intermediate Check-Point](https://github.com/joanasmramos/LPOO1718_T4G8/blob/Intemidiate_Check_Final_Project/HatchRun/Intermediate%20Check-Point/Intermediate%20Check-Point.pdf)
 
-[Final Project Delivery](https://github.com/joanasmramos/LPOO1718_T4G8/blob/master/HatchRun/README.md)
+[Final Project Delivery](https://github.com/joanasmramos/LPOO1718_T4G8/blob/master/HatchRun/report/hatchrunsubmission.pdf)
+
+[Documentation](https://joanasmramos.github.io/LPOO1718_T4G8/)
