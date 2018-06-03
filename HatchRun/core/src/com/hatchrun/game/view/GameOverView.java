@@ -24,6 +24,7 @@ public class GameOverView extends ScreenAdapter {
     private TextButton exitButton;
     private Label scoreLabel;
     private Label youLost;
+    private Label yourScore;
     private Stage stage;
     private HatchRun game;
     private Table table;
@@ -40,19 +41,9 @@ public class GameOverView extends ScreenAdapter {
         setUpExitButton();
         setUpLabels();
         setUpTable();
-        //setUpTable2();
         Gdx.input.setInputProcessor(stage);
     }
 
-    private void setUpTable2() {
-        Texture t = game.getAssetManager().get("gameovermenu.jpg", Texture.class);
-        background = new Image(t);
-
-        table2 = new Table();
-        table2.add(background);
-        stage.addActor(table2);
-        table2.setFillParent(true);
-    }
 
     private BitmapFont createBmapFont(int size, String file) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(file));
@@ -72,9 +63,10 @@ public class GameOverView extends ScreenAdapter {
     private void setUpTable() {
         table = new Table();
 
-        table.bottom();
         table.setFillParent(true);
         table.add(youLost);
+        table.row();
+        table.add(yourScore);
         table.row();
         table.add(scoreLabel);
         table.row();
@@ -86,12 +78,15 @@ public class GameOverView extends ScreenAdapter {
     }
 
     private void setUpLabels() {
-        youLost = new Label("You lost! Your score: ", new Label.LabelStyle(createBmapFont(70, "fonts/knewave-outline.ttf"), Color.PINK));
-        scoreLabel = new Label(String.format("%06d", GameModel.getInstance().getScore()), new Label.LabelStyle(createBmapFont(100, "fonts/knewave.ttf"), Color.PINK));
+        youLost = new Label("YOU LOST!", new Label.LabelStyle(createBmapFont(200, "fonts/knewave.ttf"), Color.BLACK));
+        yourScore = new Label("Your score:", new Label.LabelStyle(createBmapFont(100, "fonts/knewave.ttf"), Color.BLACK));
+        scoreLabel = new Label(String.format("%06d", GameModel.getInstance().getScore()), new Label.LabelStyle(createBmapFont(150, "fonts/knewave-outline.ttf"), Color.BLACK));
     }
 
     public void setUpExitButton() {
-        exitButton = new TextButton("Exit", createStyle(createBmapFont(150, "fonts/knewave-outline.ttf")));
+        exitButton = new TextButton("EXIT", createStyle(createBmapFont(150, "fonts/knewave.ttf")));
+        exitButton.setColor(Color.BLACK);
+        exitButton.align(Align.center);
 
         exitButton.addListener(new ClickListener(){
             @Override
@@ -104,7 +99,7 @@ public class GameOverView extends ScreenAdapter {
     @Override
     public void render(float delta) {
         game.getBatch().begin();
-        Texture t = game.getAssetManager().get("mainmenu.png", Texture.class);
+        Texture t = game.getAssetManager().get("gameovermenu.jpg", Texture.class);
         game.getBatch().draw(t, 0, 0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.getBatch().end();
         stage.act();
