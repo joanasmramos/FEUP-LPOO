@@ -7,3 +7,9 @@ Authors:
 * Joana Ramos
 
 
+### Instalação da Aplicação
+-----
+
+
+### Padrões de Desenho
+-----
