@@ -15,12 +15,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
+import com.hatchrun.game.Utilities.Facebook;
 import com.hatchrun.game.model.GameModel;
 import com.hatchrun.game.model.entities.EntityModel;
 import com.hatchrun.game.model.entities.HatchModel;
 import com.hatchrun.game.view.GameView;
 import com.hatchrun.game.view.entities.HatchView;
 
+
+/**
+ * A class representing the choose menu view, a screen adapter
+ */
 public class ChooseHatchView extends ScreenAdapter {
 
     private HatchRun game;
@@ -34,7 +39,7 @@ public class ChooseHatchView extends ScreenAdapter {
     InputMultiplexer multiplexer = new InputMultiplexer();
 
 
-    public ChooseHatchView(HatchRun game){
+    ChooseHatchView(HatchRun game){
         this.game = game;
         this.stage = new Stage();
         initButtons();

@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hatchrun.game.view.MainMenuView;
 
-
+/**
+ * Main Game class
+ */
 public class HatchRun extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
@@ -23,7 +25,7 @@ public class HatchRun extends Game {
 
     private void startGame() {
 
-		setScreen(new MainMenuView(this));
+        setScreen(new MainMenuView(this));
     }
 
 	private void loadAssets() {
@@ -48,10 +50,18 @@ public class HatchRun extends Game {
 	}
 
 
+    /**
+     * Gets game's Sprite Batch
+     * @return SpriteBatch
+     */
     public SpriteBatch getBatch() {
         return batch;
     }
 
+    /**
+     * Gets game's Asset Manager
+     * @return AssetManager
+     */
     public AssetManager getAssetManager() {
         return assetManager;
     }

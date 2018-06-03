@@ -12,12 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.hatchrun.game.HatchRun;
 import com.hatchrun.game.Utilities.Facebook;
-import com.restfb.types.User;
 
-
+/**
+ * A class representing the main menu view, a screen adapter
+ */
 public class MainMenuView extends ScreenAdapter {
     private HatchRun game;
     private TextButton playButton;
+    private TextButton fbButton;
     private Stage stage;
     private FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/knewave-outline.ttf"));
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -25,9 +27,11 @@ public class MainMenuView extends ScreenAdapter {
     private BitmapFont buttonFont;
 
 
+    /**
+     * Main Menu View contructor
+     * @param game
+     */
     public MainMenuView(HatchRun game){
-        Facebook f = new Facebook();
-        f.login();
         this.game = game;
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -61,6 +65,15 @@ public class MainMenuView extends ScreenAdapter {
             }
         });
 
+
+        fbButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Facebook fb = new Facebook();
+                fb.login();
+            }
+        });
+
     }
 
     private void initButtons(){
@@ -72,6 +85,14 @@ public class MainMenuView extends ScreenAdapter {
         playButton.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/4, Align.center);
 
         stage.addActor(playButton);
+
+        parameter.size = 80;
+        buttonFont = generator.generateFont(parameter);
+        style.font = buttonFont;
+        fbButton = new TextButton("Connect to facebook",style);
+        fbButton.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/7, Align.center);
+
+        this.stage.addActor(fbButton);
 
         addButtonsListeners();
     }

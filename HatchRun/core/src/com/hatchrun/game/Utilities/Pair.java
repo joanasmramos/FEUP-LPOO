@@ -20,21 +20,6 @@ public class Pair<F, S>  {
             this.second = second;
         }
 
-    /**
-     * Sets first member
-     * @param first First member
-     */
-    public void setFirst(F first) {
-            this.first = first;
-        }
-
-    /**
-     * Sets second member
-     * @param second Second member
-     */
-    public void setSecond(S second) {
-            this.second = second;
-        }
 
     /**
      * Returns first member

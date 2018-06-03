@@ -8,9 +8,6 @@ import com.hatchrun.game.model.entities.EntityModel;
  */
 public class Util {
 
-    public  Util(){
-
-    }
 
     /**
      * Computes the starting x coordinate for the given lane
@@ -18,7 +15,7 @@ public class Util {
      * @param lane Pretended lane
      * @return Lane's starting x coordinate
      */
-    public static int getStartingX(int width, EntityModel.ElementLane lane){
+    private static int getStartingX(int width, EntityModel.ElementLane lane){
 
         switch (lane){
             case LEFT:

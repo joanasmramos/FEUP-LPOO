@@ -32,6 +32,10 @@ public class GameController{
     }
 
 
+    /**
+     * Singleton
+     * @return intance
+     */
     public static GameController getInstance() {
         if(instance == null) instance = new GameController();
 
@@ -159,10 +163,10 @@ public class GameController{
 
 
     /**
-     * Checks if two entities colide
+     * Checks if two entities overlad
      * @param entity1
      * @param entity2
-     * @return true if colided, false if else
+     * @return true if overlad, false if else
      */
     public static boolean isOverlapped(EntityModel entity1, EntityModel entity2){
 
@@ -240,6 +244,7 @@ public class GameController{
         }
         return true;
     }
+
 
 
     public void treatGyroInput(float gyroInput) {

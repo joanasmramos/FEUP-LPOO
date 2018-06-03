@@ -13,6 +13,9 @@ public class ObstaclesController {
 
     private long lastTimeRegisteredObstacles = 0;
 
+    /**
+     * Deals with obstacles:
+     */
     public void update(){
         if(System.currentTimeMillis() - lastTimeRegisteredObstacles >= GameModel.getInstance().OBSTACLE_TIME){
             generateObstacle();

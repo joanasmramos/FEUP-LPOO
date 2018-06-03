@@ -13,6 +13,9 @@ public class CoinsController {
 
     private long lastTimeRegisteredCoins = 0;
 
+    /**
+     * Deals with coins: generates and removes them
+     */
     public void update(){
         if(System.currentTimeMillis() - lastTimeRegisteredCoins >= GameModel.getInstance().COIN_TIME){
             generateCoins();

@@ -160,6 +160,10 @@ public class HUDview extends Stage {
         scoreLabel.setText(""+ft.format(score));
     }
 
+    /**
+     * Tells if the HUD is currently paused
+     * @return boolean
+     */
     public boolean isPaused() {
         return pause;
     }
