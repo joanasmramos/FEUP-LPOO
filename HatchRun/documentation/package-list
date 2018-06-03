@@ -1,0 +1,8 @@
+com.hatchrun.game
+com.hatchrun.game.Utilities
+com.hatchrun.game.controller
+com.hatchrun.game.model
+com.hatchrun.game.model.entities
+com.hatchrun.game.test
+com.hatchrun.game.view
+com.hatchrun.game.view.entities
